@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
+		149D31DE1C75480900866522 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DD1C75480900866522 /* ViewController.swift */; };
+		149D31E11C75480A00866522 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31DF1C75480A00866522 /* Main.storyboard */; };
+		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
+		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
+		149D31F11C75480D00866522 /* picdiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31F01C75480D00866522 /* picdiveTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		149D31ED1C75480D00866522 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 149D31D01C75480700866522 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 149D31D71C75480800866522;
+			remoteInfo = picdive;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		149D31DB1C75480900866522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		149D31DD1C75480900866522 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		149D31E01C75480A00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		149D31E21C75480A00866522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		149D31E51C75480B00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		149D31E71C75480B00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		149D31EC1C75480D00866522 /* picdiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = picdiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		149D31F01C75480D00866522 /* picdiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = picdiveTests.swift; sourceTree = "<group>"; };
+		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		149D31D51C75480800866522 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		149D31E91C75480D00866522 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		149D31CF1C75480700866522 = {
+			isa = PBXGroup;
+			children = (
+				149D31DA1C75480900866522 /* picdive */,
+				149D31EF1C75480D00866522 /* picdiveTests */,
+				149D31D91C75480900866522 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		149D31D91C75480900866522 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				149D31D81C75480900866522 /* picdive.app */,
+				149D31EC1C75480D00866522 /* picdiveTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		149D31DA1C75480900866522 /* picdive */ = {
+			isa = PBXGroup;
+			children = (
+				149D31DB1C75480900866522 /* AppDelegate.swift */,
+				149D31DD1C75480900866522 /* ViewController.swift */,
+				149D31DF1C75480A00866522 /* Main.storyboard */,
+				149D31E21C75480A00866522 /* Assets.xcassets */,
+				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
+				149D31E71C75480B00866522 /* Info.plist */,
+			);
+			path = picdive;
+			sourceTree = "<group>";
+		};
+		149D31EF1C75480D00866522 /* picdiveTests */ = {
+			isa = PBXGroup;
+			children = (
+				149D31F01C75480D00866522 /* picdiveTests.swift */,
+				149D31F21C75480D00866522 /* Info.plist */,
+			);
+			path = picdiveTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		149D31D71C75480800866522 /* picdive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 149D31F51C75480D00866522 /* Build configuration list for PBXNativeTarget "picdive" */;
+			buildPhases = (
+				149D31D41C75480800866522 /* Sources */,
+				149D31D51C75480800866522 /* Frameworks */,
+				149D31D61C75480800866522 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = picdive;
+			productName = picdive;
+			productReference = 149D31D81C75480900866522 /* picdive.app */;
+			productType = "com.apple.product-type.application";
+		};
+		149D31EB1C75480D00866522 /* picdiveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "picdiveTests" */;
+			buildPhases = (
+				149D31E81C75480D00866522 /* Sources */,
+				149D31E91C75480D00866522 /* Frameworks */,
+				149D31EA1C75480D00866522 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				149D31EE1C75480D00866522 /* PBXTargetDependency */,
+			);
+			name = picdiveTests;
+			productName = picdiveTests;
+			productReference = 149D31EC1C75480D00866522 /* picdiveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		149D31D01C75480700866522 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Sean;
+				TargetAttributes = {
+					149D31D71C75480800866522 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					149D31EB1C75480D00866522 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 149D31D71C75480800866522;
+					};
+				};
+			};
+			buildConfigurationList = 149D31D31C75480700866522 /* Build configuration list for PBXProject "picdive" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 149D31CF1C75480700866522;
+			productRefGroup = 149D31D91C75480900866522 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				149D31D71C75480800866522 /* picdive */,
+				149D31EB1C75480D00866522 /* picdiveTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		149D31D61C75480800866522 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */,
+				149D31E31C75480A00866522 /* Assets.xcassets in Resources */,
+				149D31E11C75480A00866522 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		149D31EA1C75480D00866522 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		149D31D41C75480800866522 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				149D31DE1C75480900866522 /* ViewController.swift in Sources */,
+				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		149D31E81C75480D00866522 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				149D31F11C75480D00866522 /* picdiveTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		149D31EE1C75480D00866522 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 149D31D71C75480800866522 /* picdive */;
+			targetProxy = 149D31ED1C75480D00866522 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		149D31DF1C75480A00866522 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				149D31E01C75480A00866522 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		149D31E41C75480B00866522 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				149D31E51C75480B00866522 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		149D31F31C75480D00866522 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		149D31F41C75480D00866522 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		149D31F61C75480D00866522 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = picdive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		149D31F71C75480D00866522 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = picdive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		149D31F91C75480D00866522 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = picdiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/picdive.app/picdive";
+			};
+			name = Debug;
+		};
+		149D31FA1C75480D00866522 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = picdiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/picdive.app/picdive";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		149D31D31C75480700866522 /* Build configuration list for PBXProject "picdive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				149D31F31C75480D00866522 /* Debug */,
+				149D31F41C75480D00866522 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		149D31F51C75480D00866522 /* Build configuration list for PBXNativeTarget "picdive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				149D31F61C75480D00866522 /* Debug */,
+				149D31F71C75480D00866522 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "picdiveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				149D31F91C75480D00866522 /* Debug */,
+				149D31FA1C75480D00866522 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 149D31D01C75480700866522 /* Project object */;
+}
