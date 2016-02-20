@@ -1,0 +1,6 @@
+framework module Pods_picdiveTests {
+  umbrella header "Pods-picdiveTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

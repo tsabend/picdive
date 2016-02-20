@@ -8,14 +8,20 @@
 import UIKit
 
 extension UIView {
+    
+    var size: CGSize {
+        get { return self.frame.size }
+        set { self.frame.size = newValue }
+
+    }
     var width: CGFloat {
-        get { return self.frame.width }
-        set { self.frame.size.width = newValue }
+        get { return self.size.width }
+        set { self.size.width = newValue }
     }
     
     var height: CGFloat {
-        get { return self.frame.height }
-        set { self.frame.size.height = newValue }
+        get { return self.size.height }
+        set { self.size.height = newValue }
     }
     
 }

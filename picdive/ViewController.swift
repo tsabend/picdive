@@ -59,7 +59,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let image = self.imageView.image else { return }
         
         let crop = image
-            .resized(toRect: self.imageView.frame)
+            .resized(toSize: self.imageView.size)
             .cropped(inRect: self.box.frame)
 
         self.snapshotImageView.alpha = 0

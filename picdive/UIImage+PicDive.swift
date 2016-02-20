@@ -10,9 +10,9 @@ import UIKit
 
 extension UIImage {
     
-    func resized(toRect rect: CGRect) -> UIImage {
-        return UIImage.drawImage(size: rect.size) { (size: CGSize, context: CGContext) -> () in
-            self.drawInRect(rect)
+    func resized(toSize size: CGSize) -> UIImage {
+        return UIImage.drawImage(size: size) { (size: CGSize, context: CGContext) -> () in
+            self.drawInRect(CGRect(origin: CGPoint.zero, size: size))
         }
     }
     

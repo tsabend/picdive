@@ -12,9 +12,10 @@
 		149D31E11C75480A00866522 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31DF1C75480A00866522 /* Main.storyboard */; };
 		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
 		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
-		149D31F11C75480D00866522 /* picdiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31F01C75480D00866522 /* picdiveTests.swift */; };
+		1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */; };
 		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
+		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +37,14 @@
 		149D31E51C75480B00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149D31E71C75480B00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		149D31EC1C75480D00866522 /* picdiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = picdiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		149D31F01C75480D00866522 /* picdiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = picdiveTests.swift; sourceTree = "<group>"; };
 		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.release.xcconfig"; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDive.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
+		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDiveSpec.swift"; sourceTree = "<group>"; };
+		50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_picdiveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BA02B2A276AC6B671F34E32 /* Pods-picdiveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +72,8 @@
 				149D31DA1C75480900866522 /* picdive */,
 				149D31EF1C75480D00866522 /* picdiveTests */,
 				149D31D91C75480900866522 /* Products */,
+				E78F29AAA2B2E908448FA1A3 /* Pods */,
+				BF258069B23DC4DF63FE01B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,10 +104,28 @@
 		149D31EF1C75480D00866522 /* picdiveTests */ = {
 			isa = PBXGroup;
 			children = (
-				149D31F01C75480D00866522 /* picdiveTests.swift */,
 				149D31F21C75480D00866522 /* Info.plist */,
+				48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */,
+				48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */,
 			);
 			path = picdiveTests;
+			sourceTree = "<group>";
+		};
+		BF258069B23DC4DF63FE01B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E78F29AAA2B2E908448FA1A3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9BA02B2A276AC6B671F34E32 /* Pods-picdiveTests.debug.xcconfig */,
+				4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,9 +152,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "picdiveTests" */;
 			buildPhases = (
+				08F8A26C9B715D9AE2F028CD /* Check Pods Manifest.lock */,
 				149D31E81C75480D00866522 /* Sources */,
 				149D31E91C75480D00866522 /* Frameworks */,
 				149D31EA1C75480D00866522 /* Resources */,
+				D2618D6F052D67614AFE7112 /* Embed Pods Frameworks */,
+				0F1D42F5893E268815E6C1EA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -198,6 +227,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		08F8A26C9B715D9AE2F028CD /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		0F1D42F5893E268815E6C1EA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2618D6F052D67614AFE7112 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		149D31D41C75480800866522 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -214,7 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				149D31F11C75480D00866522 /* picdiveTests.swift in Sources */,
+				48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,24 +432,31 @@
 		};
 		149D31F91C75480D00866522 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BA02B2A276AC6B671F34E32 /* Pods-picdiveTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = picdiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "picdiveTests/picdiveTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/picdive.app/picdive";
 			};
 			name = Debug;
 		};
 		149D31FA1C75480D00866522 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = picdiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "picdiveTests/picdiveTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/picdive.app/picdive";
 			};
 			name = Release;
