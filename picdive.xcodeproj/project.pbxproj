@@ -13,6 +13,8 @@
 		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
 		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
 		149D31F11C75480D00866522 /* picdiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31F01C75480D00866522 /* picdiveTests.swift */; };
+		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
+		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		149D31EC1C75480D00866522 /* picdiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = picdiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31F01C75480D00866522 /* picdiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = picdiveTests.swift; sourceTree = "<group>"; };
 		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDive.swift"; sourceTree = "<group>"; };
+		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 			children = (
 				149D31DB1C75480900866522 /* AppDelegate.swift */,
 				149D31DD1C75480900866522 /* ViewController.swift */,
+				48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */,
+				48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */,
 				149D31DF1C75480A00866522 /* Main.storyboard */,
 				149D31E21C75480A00866522 /* Assets.xcassets */,
 				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
@@ -197,7 +203,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */,
 				149D31DE1C75480900866522 /* ViewController.swift in Sources */,
+				48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */,
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +396,7 @@
 				149D31F71C75480D00866522 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "picdiveTests" */ = {
 			isa = XCConfigurationList;
@@ -396,6 +405,7 @@
 				149D31FA1C75480D00866522 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
