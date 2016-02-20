@@ -39,6 +39,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.snapshotImageView.layer.borderColor = UIColor.blackColor().CGColor
         self.snapshotImageView.layer.borderWidth = 4
         
+        self.snapshotImageView.contentMode = .Center
+        
         self.view.addSubview(self.imageView)
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
@@ -54,28 +56,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func snapShotWasPressed() {
-        UIGraphicsBeginImageContext(self.box.frame.size)
+        guard let image = self.imageView.image else { return }
+        
+        let crop = image
+            .resized(toSize: self.imageView.size)
+            .cropped(inRect: self.box.frame)
 
-        if let context = UIGraphicsGetCurrentContext() {
-
-            let clippedRect = CGRect(x: 0, y: 0, width: self.box.width, height: self.box.height)
-            
-            CGContextClipToRect(context, clippedRect)
-            
-            let drawRect = CGRect(x: -1 * self.box.frame.origin.x, y: -1 * self.box.frame.origin.y, width: self.imageView.width, height: self.imageView.height)
-            
-            CGContextDrawImage(context, drawRect, imageView.image?.CGImage)
-            
-        }
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
         self.snapshotImageView.alpha = 0
+        self.snapshotImageView.image = crop
         self.snapshotImageView.frame.origin.x = self.view.frame.maxX
-        self.snapshotImageView.image = image
-        UIView.animateWithDuration(3) {
+        UIView.animateWithDuration(0.3) {
             self.snapshotImageView.alpha = 1
             self.snapshotImageView.frame.origin.x = 0
         }
@@ -120,18 +110,3 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 
 }
-
-
-extension UIView {
-    var width: CGFloat {
-        get { return self.frame.width }
-        set { self.frame.size.width = newValue }
-    }
-
-    var height: CGFloat {
-        get { return self.frame.height }
-        set { self.frame.size.height = newValue }
-    }
-
-}
-
