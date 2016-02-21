@@ -24,7 +24,7 @@ extension UIImage {
         }
     }
    
-    static func drawImage(size size: CGSize!, closure: (size: CGSize, context: CGContext) -> ()) -> UIImage {
+    static func drawImage(size size: CGSize!, closure: (size: CGSize, context: CGContext) -> Void) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.mainScreen().scale)
         closure(size: size, context: UIGraphicsGetCurrentContext()!)
         let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()

@@ -35,10 +35,5 @@ class UIImagePicDiveSpec: QuickSpec {
             
         }
         
-        describe("math") {
-            it("works") {
-                expect(1 + 1) == 2
-            }
-        }
     }
 }

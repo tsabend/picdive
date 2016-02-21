@@ -14,7 +14,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let snapshotButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
     let snapshotImageView = UIImageView()
-    let box: UIView = UIView()
+    let box: CropSquareView = CropSquareView(frame: CGRect.zero)
+    let slider: UISlider = UISlider()
+    var numFrames: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,19 +35,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let pinch = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
         self.box.addGestureRecognizer(pinch)
         
-        self.box.layer.borderColor = UIColor.blackColor().CGColor
-        self.box.layer.borderWidth = 4
 
         self.snapshotImageView.layer.borderColor = UIColor.blackColor().CGColor
         self.snapshotImageView.layer.borderWidth = 4
         
         self.snapshotImageView.contentMode = .Center
         
+        self.slider.addTarget(self, action: "sliderDidSlide:", forControlEvents: UIControlEvents.ValueChanged)
+        self.slider.minimumValue = 1
+        self.slider.maximumValue = 5
+        
         self.view.addSubview(self.imageView)
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
         self.view.addSubview(self.box)
         self.view.addSubview(self.snapshotImageView)
+        self.view.addSubview(self.slider)
+    }
+    
+    func sliderDidSlide(slider: UISlider) {
+        let roundedValue = round(slider.value)
+        slider.setValue(roundedValue, animated: false)
+        self.box.numberOfBoxes = Int(roundedValue)
+        self.box.setNeedsDisplay()
     }
     
     func buttonWasPressed() {
@@ -103,7 +115,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.snapshotButton.center = self.view.center
         self.snapshotButton.frame.origin.y = self.imageView.frame.maxY + 70
         
-        self.box.frame.size = CGSize(width: 100, height: 100)
+        self.slider.sizeToFit()
+        self.slider.width = self.view.width
+        self.slider.frame.origin.y = self.view.height / 2 - 40
+        
+        self.box.frame.size = CGSize(width: 300, height: 300)
         
         self.snapshotImageView.frame = CGRect(x: 0, y: self.view.bounds.maxY - 100, width: 100, height: 100)
     }

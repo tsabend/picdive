@@ -1,12 +1,15 @@
 PODS:
+  - CGRectExtensions (2.0)
   - Nimble (3.1.0)
   - Quick (0.9.1)
 
 DEPENDENCIES:
+  - CGRectExtensions
   - Nimble
   - Quick
 
 SPEC CHECKSUMS:
+  CGRectExtensions: 67fa367a91d537bc2fcdd97069a66262777d1412
   Nimble: 79d40f4d69d47314229bbabacaa02b8838c779b9
   Quick: a5221fc21788b6aeda934805e68b061839bc3165
 

@@ -4,7 +4,7 @@
 use_frameworks!
 
 target 'picdive' do
-
+ pod "CGRectExtensions"
 end
 
 target 'picdiveTests' do
