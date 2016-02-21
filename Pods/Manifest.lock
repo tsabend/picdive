@@ -2,15 +2,18 @@ PODS:
   - CGRectExtensions (2.0)
   - Nimble (3.1.0)
   - Quick (0.9.1)
+  - SwiftGifOrigin (1.5.2)
 
 DEPENDENCIES:
   - CGRectExtensions
   - Nimble
   - Quick
+  - SwiftGifOrigin
 
 SPEC CHECKSUMS:
   CGRectExtensions: 67fa367a91d537bc2fcdd97069a66262777d1412
   Nimble: 79d40f4d69d47314229bbabacaa02b8838c779b9
   Quick: a5221fc21788b6aeda934805e68b061839bc3165
+  SwiftGifOrigin: a7671a6a68a2769e118c7da5bcc7c480798907b5
 
 COCOAPODS: 0.39.0

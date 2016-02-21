@@ -5,6 +5,7 @@ use_frameworks!
 
 target 'picdive' do
  pod "CGRectExtensions"
+ pod "SwiftGifOrigin"
 end
 
 target 'picdiveTests' do
