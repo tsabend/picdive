@@ -13,7 +13,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let button: UIButton = UIButton()
     let snapshotButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
-    let snapshotImageView = UIImageView()
+    let snapshotContainerView = ImageContainer()
     let box: CropSquareView = CropSquareView(frame: CGRect.zero)
     let slider: UISlider = UISlider()
     var numFrames: Int = 1
@@ -35,11 +35,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let pinch = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
         self.box.addGestureRecognizer(pinch)
         
-
-        self.snapshotImageView.layer.borderColor = UIColor.blackColor().CGColor
-        self.snapshotImageView.layer.borderWidth = 4
         
-        self.snapshotImageView.contentMode = .Center
+
+        self.imageView.image = UIImage(named: "bee-test-image")
         
         self.slider.addTarget(self, action: "sliderDidSlide:", forControlEvents: UIControlEvents.ValueChanged)
         self.slider.minimumValue = 1
@@ -49,7 +47,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
         self.view.addSubview(self.box)
-        self.view.addSubview(self.snapshotImageView)
+        self.view.addSubview(self.snapshotContainerView)
         self.view.addSubview(self.slider)
     }
     
@@ -70,17 +68,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func snapShotWasPressed() {
         guard let image = self.imageView.image else { return }
         
-        let crop = image
-            .resized(toSize: self.imageView.size)
-            .cropped(inRect: self.box.frame)
-
-        self.snapshotImageView.alpha = 0
-        self.snapshotImageView.image = crop
-        self.snapshotImageView.frame.origin.x = self.view.frame.maxX
-        UIView.animateWithDuration(0.3) {
-            self.snapshotImageView.alpha = 1
-            self.snapshotImageView.frame.origin.x = 0
+        let images = self.box.rects.map { (rect: CGRect) -> UIImage in
+            
+            return image
+                .resized(toSize: self.imageView.size)
+                .cropped(inRect: rect)
         }
+
+        self.snapshotContainerView.images = images
+        // TODO make a gif and put in a uiimageview that can play gifs due to the pod
         
     }
     
@@ -121,7 +117,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.box.frame.size = CGSize(width: 300, height: 300)
         
-        self.snapshotImageView.frame = CGRect(x: 0, y: self.view.bounds.maxY - 100, width: 100, height: 100)
+        self.snapshotContainerView.frame = CGRect(x: 0, y: self.view.bounds.maxY - 100, width: self.view.width, height: 100)
     }
 
 

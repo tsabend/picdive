@@ -40,14 +40,18 @@ class CropSquareView: UIView {
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         
-        for i in (0..<self.numberOfBoxes) {
-            let boxSize = rect.size * (1 - self.boxRatio *  i.f)
-            let resizedRect = rect.center(boxSize)
-            self.drawSquare(resizedRect)
+        self.rects.forEach { (rect: CGRect) -> () in
+            self.drawSquare(rect)
         }
+        
     }
     
-
+    var rects: [CGRect] {
+        return (0..<self.numberOfBoxes).map { (i: Int) -> CGRect in
+           let boxSize = self.frame.size * (1 - self.boxRatio *  i.f)
+           return self.frame.center(boxSize)
+        }
+    }
     
 
     

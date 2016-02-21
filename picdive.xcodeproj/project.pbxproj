@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1425C7C91C7A2A9F0034B370 /* CropSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */; };
+		1425C7CB1C7A3D3E0034B370 /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7CA1C7A3D3E0034B370 /* ImageContainer.swift */; };
 		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
 		149D31DE1C75480900866522 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DD1C75480900866522 /* ViewController.swift */; };
 		149D31E11C75480A00866522 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31DF1C75480A00866522 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropSquareView.swift; sourceTree = "<group>"; };
+		1425C7CA1C7A3D3E0034B370 /* ImageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
 		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31DB1C75480900866522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149D31DD1C75480900866522 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				149D31DB1C75480900866522 /* AppDelegate.swift */,
 				149D31DD1C75480900866522 /* ViewController.swift */,
+				1425C7CA1C7A3D3E0034B370 /* ImageContainer.swift */,
 				1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */,
 				48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */,
 				48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */,
@@ -344,6 +347,7 @@
 				149D31DE1C75480900866522 /* ViewController.swift in Sources */,
 				48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */,
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
+				1425C7CB1C7A3D3E0034B370 /* ImageContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
