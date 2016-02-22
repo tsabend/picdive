@@ -14,11 +14,15 @@ import MobileCoreServices
 class Gif {
     /// The images that make up the gif in the original order
     let images: [UIImage]
+    let totalTime: Double
+    let easing: TimingEasing
     private let times: [Double]
     private let reversed: Bool
-
+    
     init(images: [UIImage], easing: TimingEasing, totalTime: Double) {
         self.images = images
+        self.easing = easing
+        self.totalTime = totalTime
         self.times = easing.times(framesCount: images.count, totalTime: totalTime)
         self.reversed = easing.reversed
     }

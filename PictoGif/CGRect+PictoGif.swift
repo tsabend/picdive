@@ -32,4 +32,11 @@ public extension CGRect {
         }
 
     }
+    
+    
+    func horizontallyCenteredRectForString(string: NSString, withAttributes attributes: [String:AnyObject]) -> CGRect {
+        let size = string.sizeWithAttributes(attributes)
+        return CGRectMake(self.origin.x + (self.size.width-size.width)/2.0 , self.origin.y, self.size.width, size.height)
+    }
+    
 }

@@ -32,6 +32,24 @@ extension UIImage {
             image?.drawInRect(imageRect)
         }
     }
+    
+    func meme(withText text: NSString, bottom: Bool = false) -> UIImage {
+        return UIImage.drawImage(size: self.size) { (size, context) in
+            self.drawInRect(CGRect(origin: CGPoint.zero, size: size))
+            let size = text.sizeWithAttributes(self.memeAttributes)
+            let origin = CGPoint((self.size.width - size.width) / 2, 2)
+            text.drawInRect(CGRect(size, origin), withAttributes: self.memeAttributes)
+        }
+    }
+    
+    private var memeAttributes: [String : AnyObject] {
+        let textColor: UIColor = UIColor.whiteColor()
+        let textFont: UIFont = UIFont(name: "Helvetica Bold", size: 20)!
+        return [
+            NSFontAttributeName: textFont,
+            NSForegroundColorAttributeName: textColor,
+            ]
+    }
    
 
     static func drawImage(size size: CGSize!, closure: (size: CGSize, context: CGContext) -> Void) -> UIImage {

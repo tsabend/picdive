@@ -36,7 +36,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     private let watermarkButton = UIButton()
     var easing = TimingEasing.FinalFrame
     private let flash = UIView()
-    
+    private let memeButton = UIButton()
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,12 +74,18 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.watermarkButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
         self.watermarkButton.backgroundColor = UIColor.PictoPink()
         self.watermarkButton.hidden = PicDiveProducts.hasPurchasedWatermark
+        
+        
+        self.memeButton.addTarget(self, action: #selector(CustomizeGifViewController.meme), forControlEvents: .TouchUpInside)
+        self.memeButton.setTitle("MEME", forState: .Normal)
+        self.memeButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
+        
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.view.addSubview(self.gifView)
         self.view.addSubview(self.slider)
         self.gifView.addSubview(self.flash)
         self.view.addSubview(self.watermarkButton)
-        
+        self.view.addSubview(self.memeButton)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomizeGifViewController.removeWatermark), name: IAPHelper.IAPHelperPurchaseNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomizeGifViewController.reportFailure), name: IAPHelper.IAPHelperPurchaseFailedNotification, object: nil)
         
@@ -111,11 +117,28 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.watermarkButton.size = CGSize(self.view.width, 32)
         self.watermarkButton.alignBottom(0, toView: self.view)
         
+        self.memeButton.sizeToFit()
+        self.memeButton.moveAbove(siblingView: self.watermarkButton, margin: 8, alignment: .Center)
+        
+    }
+    
+    func meme() {
+        guard let gif = self.gif else { return }
+        let vc = MemeViewController()
+        vc.gif = gif
+        vc.completion = { gif in
+            self.gif = gif
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        let navigationController = NavigationController(rootViewController: vc)
+        navigationController.modalTransitionStyle = .CoverVertical
+        
+        self.presentViewController(navigationController, animated: true, completion: nil)
     }
     
 }
 
-// MARL: - Watermark Purchase
+// MARK: - Watermark Purchase
 
 extension CustomizeGifViewController {
     func buyRemoveWatermark() {
