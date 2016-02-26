@@ -14,7 +14,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let button: UIButton = UIButton()
     let snapshotButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
-    let snapshotContainerView = ImageContainer()
+    let stitchView = UIImageView()
     let gifView = UIImageView()
     let box: CropSquareView = CropSquareView(frame: CGRect.zero)
     let slider: UISlider = UISlider()
@@ -51,7 +51,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
         self.view.addSubview(self.box)
-        self.view.addSubview(self.snapshotContainerView)
+        self.view.addSubview(self.stitchView)
         self.view.addSubview(self.slider)
     }
     
@@ -79,8 +79,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 .cropped(inRect: rect)
         }
 
-        self.snapshotContainerView.images = images
-        
+        let stitchedImage = UIImage.stitchImages(images)
+        self.stitchView.image = stitchedImage
+
         if let data = Gif.makeData(images, delay: 1) {
             let gif = UIImage.gifWithData(data)
             self.gifView.image = gif
@@ -106,7 +107,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let sideLength: CGFloat = 100
+        let sideLength: CGFloat = 200
         let imageSize = CGSize(width: sideLength, height: sideLength)
         
         self.imageView.width = self.view.width
@@ -126,10 +127,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.box.frame.size = CGSize(width: 300, height: 300)
         
         self.gifView.size = imageSize
-        self.gifView.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
+        self.gifView.alignBottom(0, toView: self.view)
+        self.gifView.alignRight(0, toView: self.view)
         
-        self.snapshotContainerView.size = CGSize(width: self.view.width, height: sideLength)
-        self.snapshotContainerView.alignBottom(0, toView: self.view)
+        self.stitchView.contentMode = .ScaleAspectFit
+        self.stitchView.size = imageSize
+        self.stitchView.alignBottom(50, toView: self.view)
     }
 
 

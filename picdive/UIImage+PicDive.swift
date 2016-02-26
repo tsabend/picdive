@@ -31,4 +31,27 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+    
+
+    private static func accumulateSize(var size: CGSize, image: UIImage) -> CGSize {
+        size.width = max(image.size.width, size.width)
+        size.height = max(image.size.height, size.height)
+        return size
+    }
+    
+    private static func maxSize(forImages images: [UIImage]) -> CGSize {
+        return images.reduce(CGSize.zero, combine: UIImage.accumulateSize)
+    }
+    
+    static func stitchImages(images: [UIImage]) -> UIImage? {
+        let maxSize = UIImage.maxSize(forImages: images)
+        let totalSize = CGSize(width: maxSize.width, height: maxSize.height * images.count.f)
+        return UIImage.drawImage(size: totalSize) { (size, context) -> Void in
+            images.enumerate().forEach { (index: Int, image: UIImage) -> () in
+                let rect = CGRect(origin: CGPoint(0, maxSize.height * index.f), size: maxSize)
+                image.drawInRect(rect)
+            }
+
+        }
+    }
 }
