@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftGifOrigin
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -14,6 +15,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let snapshotButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
     let snapshotContainerView = ImageContainer()
+    let gifView = UIImageView()
     let box: CropSquareView = CropSquareView(frame: CGRect.zero)
     let slider: UISlider = UISlider()
     var numFrames: Int = 1
@@ -32,6 +34,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
         self.box.addGestureRecognizer(pan)
         
+        
         let pinch = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
         self.box.addGestureRecognizer(pinch)
         
@@ -44,6 +47,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.slider.maximumValue = 5
         
         self.view.addSubview(self.imageView)
+        self.view.addSubview(self.gifView)
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
         self.view.addSubview(self.box)
@@ -76,8 +80,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
 
         self.snapshotContainerView.images = images
-        // TODO make a gif and put in a uiimageview that can play gifs due to the pod
         
+        if let data = Gif.makeData(images, delay: 1) {
+            let gif = UIImage.gifWithData(data)
+            self.gifView.image = gif
+        }
     }
     
     func boxWasMoved(pan: UIPanGestureRecognizer) {
@@ -99,25 +106,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        let sideLength: CGFloat = 100
+        let imageSize = CGSize(width: sideLength, height: sideLength)
         
         self.imageView.width = self.view.width
         self.imageView.height = self.view.height / 2
-
-        self.button.sizeToFit()
-        self.button.center = self.view.center
-        self.button.frame.origin.y = self.imageView.frame.maxY + 100
         
-        self.snapshotButton.sizeToFit()
-        self.snapshotButton.center = self.view.center
-        self.snapshotButton.frame.origin.y = self.imageView.frame.maxY + 70
         
         self.slider.sizeToFit()
         self.slider.width = self.view.width
-        self.slider.frame.origin.y = self.view.height / 2 - 40
+        self.slider.moveBelow(siblingView: self.imageView, margin: 10, alignment: .Center)
+
+        self.button.sizeToFit()
+        self.button.moveBelow(siblingView: self.slider, margin: 10, alignment: .Center)
+        
+        self.snapshotButton.sizeToFit()
+        self.snapshotButton.moveBelow(siblingView: self.button, margin: 10, alignment: .Center)
         
         self.box.frame.size = CGSize(width: 300, height: 300)
         
-        self.snapshotContainerView.frame = CGRect(x: 0, y: self.view.bounds.maxY - 100, width: self.view.width, height: 100)
+        self.gifView.size = imageSize
+        self.gifView.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
+        
+        self.snapshotContainerView.size = CGSize(width: self.view.width, height: sideLength)
+        self.snapshotContainerView.alignBottom(0, toView: self.view)
     }
 
 

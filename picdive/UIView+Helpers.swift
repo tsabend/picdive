@@ -23,7 +23,96 @@ extension UIView {
         get { return self.size.height }
         set { self.size.height = newValue }
     }
+
+    var origin: CGPoint {
+        get { return self.frame.origin }
+        set { self.frame.origin = newValue }
+    }
     
+    var x: CGFloat {
+        get { return self.origin.x }
+        set { self.origin.x = newValue }
+    }
+    
+    var y: CGFloat {
+        get { return self.origin.y }
+        set { self.origin.y = newValue }
+    }
+    
+    func alignRight(rightMargin: CGFloat, toView view: UIView) {
+        self.x = view.bounds.width - self.bounds.width - rightMargin
+    }
+    
+    func alignBottom(bottomMargin: CGFloat, toView view: UIView) {
+        self.y = view.bounds.height - self.bounds.height - bottomMargin
+    }
+    
+    func moveToVerticalCenter(ofView view: UIView) -> Void {
+        self.y = view.bounds.size.height / 2.0 - self.bounds.size.height / 2.0
+    }
+    
+    func moveToHorizontalCenter(ofView view: UIView) {
+        self.x = view.bounds.size.width / 2.0 - self.bounds.size.width / 2.0
+    }
+
+    func moveToCenter(ofView view: UIView) {
+        self.moveToHorizontalCenter(ofView: view)
+        self.moveToVerticalCenter(ofView: view)
+    }
+
+    func moveBelow(siblingView view: UIView, margin: CGFloat) {
+        self.moveBelow(siblingView: view, margin: margin, alignment: .None)
+    }
+    
+    enum Alignment {
+        case Left, Right, Center, None
+    }
+    
+    func moveBelow(siblingView view: UIView, margin: CGFloat, alignment: Alignment) {
+        self.y = CGRectGetMaxY(view.frame) + margin
+        self.centerHorizontally(view, alignment: alignment)
+    }
+    
+    func centerHorizontally(view: UIView, alignment: Alignment = .Center) {
+        switch alignment {
+        case .Left:
+            self.x = view.x
+        case .Right:
+            self.x = view.frame.maxX - self.bounds.width
+        case .Center:
+            self.center.x = view.center.x
+        case .None:
+            break
+        }
+    }
+
+    func moveAbove(siblingView view: UIView, margin: CGFloat, alignment: Alignment) {
+        self.y = CGRectGetMinY(view.frame) - self.height - margin
+        self.centerHorizontally(view, alignment: alignment)
+    }
+    
+    func moveAbove(siblingView view: UIView, margin: CGFloat) {
+            self.moveAbove(siblingView: view, margin: margin, alignment: .None)
+    }
+    
+    func moveRight(siblingView view: UIView, margin: CGFloat, alignVertically: Bool = false){
+        self.x = view.frame.maxX + margin
+        if alignVertically {
+            self.centerVertically(toSiblingView: view)
+        }
+    }
+
+    func moveLeft(siblingView view: UIView, margin: CGFloat, alignVertically: Bool = false) {
+        self.x = view.frame.x - self.bounds.width - margin
+        if alignVertically {
+            self.centerVertically(toSiblingView: view)
+        }
+    }
+    
+    func centerVertically(toSiblingView view: UIView){
+        self.center.y = view.frame.center.y
+    }
+
 }
 
 extension Int {
