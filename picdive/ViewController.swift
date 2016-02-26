@@ -13,6 +13,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     let button: UIButton = UIButton()
     let snapshotButton: UIButton = UIButton()
+    let saveButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
     let stitchView = UIImageView()
     let gifView = UIImageView()
@@ -31,14 +32,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.snapshotButton.setTitleColor(UIColor.purpleColor(), forState: .Normal)
         self.snapshotButton.addTarget(self, action: "snapShotWasPressed", forControlEvents: .TouchUpInside)
         
+        self.saveButton.setTitle("Save", forState: .Normal)
+        self.saveButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+        self.saveButton.addTarget(self, action: "saveWasPressed", forControlEvents: .TouchUpInside)
+        
         let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
         self.box.addGestureRecognizer(pan)
         
         
         let pinch = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
         self.box.addGestureRecognizer(pinch)
-        
-        
 
         self.imageView.image = UIImage(named: "bee-test-image")
         
@@ -50,6 +53,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.gifView)
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
+        self.view.addSubview(self.saveButton)
         self.view.addSubview(self.box)
         self.view.addSubview(self.stitchView)
         self.view.addSubview(self.slider)
@@ -88,6 +92,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    func saveWasPressed() {
+        print("Boom")
+        if let image = self.stitchView.image {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        }
+        
+    }
+    
     func boxWasMoved(pan: UIPanGestureRecognizer) {
         let point = pan.locationInView(self.view)
         self.box.center = point
@@ -123,6 +135,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.snapshotButton.sizeToFit()
         self.snapshotButton.moveBelow(siblingView: self.button, margin: 10, alignment: .Center)
+        
+        self.saveButton.sizeToFit()
+        self.saveButton.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
         
         self.box.frame.size = CGSize(width: 300, height: 300)
         
