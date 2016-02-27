@@ -14,6 +14,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let button: UIButton = UIButton()
     let snapshotButton: UIButton = UIButton()
     let saveButton: UIButton = UIButton()
+    let shareButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
     let stitchView = UIImageView()
     let gifView = UIImageView()
