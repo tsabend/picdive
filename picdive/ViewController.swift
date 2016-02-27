@@ -37,6 +37,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.saveButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         self.saveButton.addTarget(self, action: "saveWasPressed", forControlEvents: .TouchUpInside)
         
+        self.shareButton.setTitle("Share", forState: .Normal)
+        self.shareButton.setTitleColor(UIColor.purpleColor(), forState: .Normal)
+        self.shareButton.addTarget(self, action: "shareWasPressed", forControlEvents: .TouchUpInside)
+        
         let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
         self.box.addGestureRecognizer(pan)
         
@@ -55,6 +59,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
         self.view.addSubview(self.saveButton)
+        self.view.addSubview(self.shareButton)
         self.view.addSubview(self.box)
         self.view.addSubview(self.stitchView)
         self.view.addSubview(self.slider)
@@ -94,11 +99,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func saveWasPressed() {
-        print("Boom")
         if let image = self.stitchView.image {
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         }
         
+    }
+    
+    func shareWasPressed() {
+        print("boom")
+        if let image = self.stitchView.image {
+            let shareItems: Array = [image]
+            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+            self.presentViewController(activityViewController, animated: true, completion: nil)
+        }
+
     }
     
     func boxWasMoved(pan: UIPanGestureRecognizer) {
@@ -139,6 +153,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.saveButton.sizeToFit()
         self.saveButton.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
+        
+        self.shareButton.sizeToFit()
+        self.shareButton.moveBelow(siblingView: self.stitchView, margin: 10, alignment: .Center)
+
         
         self.box.frame.size = CGSize(width: 300, height: 300)
         
