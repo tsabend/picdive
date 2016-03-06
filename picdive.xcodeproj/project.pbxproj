@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */; };
+		140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CC1C8CBE990022A7F0 /* GifViewController.swift */; };
 		1425C7C91C7A2A9F0034B370 /* CropSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */; };
 		1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437B7A91C7FDDDD004AF560 /* Gif.swift */; };
 		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+PicDive.swift"; sourceTree = "<group>"; };
+		140D45CC1C8CBE990022A7F0 /* GifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropSquareView.swift; sourceTree = "<group>"; };
 		1437B7A91C7FDDDD004AF560 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +104,7 @@
 			children = (
 				149D31DB1C75480900866522 /* AppDelegate.swift */,
 				149D31DD1C75480900866522 /* ViewController.swift */,
+				140D45CC1C8CBE990022A7F0 /* GifViewController.swift */,
 				1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */,
 				48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */,
 				1437B7A91C7FDDDD004AF560 /* Gif.swift */,
@@ -108,6 +113,7 @@
 				149D31E21C75480A00866522 /* Assets.xcassets */,
 				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
 				149D31E71C75480B00866522 /* Info.plist */,
+				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
 			);
 			path = picdive;
 			sourceTree = "<group>";
@@ -348,6 +354,8 @@
 				48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */,
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
+				140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */,
+				140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
