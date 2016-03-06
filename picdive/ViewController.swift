@@ -13,17 +13,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     let button: UIButton = UIButton()
     let snapshotButton: UIButton = UIButton()
-    let saveButton: UIButton = UIButton()
-    let shareButton: UIButton = UIButton()
+    let gifButton: UIButton = UIButton()
+    let reelButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
-    let stitchView = UIImageView()
-    let gifView = UIImageView()
+
     let box: CropSquareView = CropSquareView(frame: CGRect.zero)
     let slider: UISlider = UISlider()
     var numFrames: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor.PDOrange()
         
         self.button.setTitle("Camera Roll", forState: .Normal)
         self.button.setTitleColor(UIColor.blueColor(), forState: .Normal)
@@ -33,13 +34,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.snapshotButton.setTitleColor(UIColor.purpleColor(), forState: .Normal)
         self.snapshotButton.addTarget(self, action: "snapShotWasPressed", forControlEvents: .TouchUpInside)
         
-        self.saveButton.setTitle("Save", forState: .Normal)
-        self.saveButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-        self.saveButton.addTarget(self, action: "saveWasPressed", forControlEvents: .TouchUpInside)
+        self.gifButton.setTitle("Gif", forState: .Normal)
+        self.gifButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+        self.gifButton.addTarget(self, action: "gifWasPressed", forControlEvents: .TouchUpInside)
+
+        self.reelButton.setTitle("Reel", forState: .Normal)
+        self.reelButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+        self.reelButton.addTarget(self, action: "reelWasPressed", forControlEvents: .TouchUpInside)
         
-        self.shareButton.setTitle("Share", forState: .Normal)
-        self.shareButton.setTitleColor(UIColor.purpleColor(), forState: .Normal)
-        self.shareButton.addTarget(self, action: "shareWasPressed", forControlEvents: .TouchUpInside)
         
         let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
         self.box.addGestureRecognizer(pan)
@@ -53,15 +55,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.slider.addTarget(self, action: "sliderDidSlide:", forControlEvents: UIControlEvents.ValueChanged)
         self.slider.minimumValue = 1
         self.slider.maximumValue = 5
+        self.slider.value = 4
         
         self.view.addSubview(self.imageView)
-        self.view.addSubview(self.gifView)
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
-        self.view.addSubview(self.saveButton)
-        self.view.addSubview(self.shareButton)
+        self.view.addSubview(self.gifButton)
+        self.view.addSubview(self.reelButton)
         self.view.addSubview(self.box)
-        self.view.addSubview(self.stitchView)
         self.view.addSubview(self.slider)
     }
     
@@ -90,29 +91,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
 
         let stitchedImage = UIImage.stitchImages(images)
-        self.stitchView.image = stitchedImage
+        self.reel = stitchedImage
 
         if let data = Gif.makeData(images, delay: 1) {
             let gif = UIImage.gifWithData(data)
-            self.gifView.image = gif
+            self.gif = gif
         }
     }
     
-    func saveWasPressed() {
-        if let image = self.stitchView.image {
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        }
-        
-    }
-    
-    func shareWasPressed() {
-        print("boom")
-        if let image = self.stitchView.image {
-            let shareItems: Array = [image]
-            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-            self.presentViewController(activityViewController, animated: true, completion: nil)
-        }
 
+    var gif: UIImage?
+    var reel: UIImage?
+    
+    func gifWasPressed() {
+        self.modalTransitionStyle = .CoverVertical
+        let vc = GifViewController()
+        vc.gif = self.gif
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func reelWasPressed() {
+        self.modalTransitionStyle = .CoverVertical
+        let vc = ReelViewController()
+        vc.reel = self.reel
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func boxWasMoved(pan: UIPanGestureRecognizer) {
@@ -151,22 +153,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.snapshotButton.sizeToFit()
         self.snapshotButton.moveBelow(siblingView: self.button, margin: 10, alignment: .Center)
         
-        self.saveButton.sizeToFit()
-        self.saveButton.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
+        self.gifButton.sizeToFit()
+        self.gifButton.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
         
-        self.shareButton.sizeToFit()
-        self.shareButton.moveBelow(siblingView: self.stitchView, margin: 10, alignment: .Center)
-
-        
+        self.reelButton.sizeToFit()
+        self.reelButton.moveBelow(siblingView: self.gifButton, margin: 10, alignment: .Center)
+                
         self.box.frame.size = CGSize(width: 300, height: 300)
         
-        self.gifView.size = imageSize
-        self.gifView.alignBottom(0, toView: self.view)
-        self.gifView.alignRight(0, toView: self.view)
-        
-        self.stitchView.contentMode = .ScaleAspectFit
-        self.stitchView.size = imageSize
-        self.stitchView.alignBottom(50, toView: self.view)
     }
 
 
