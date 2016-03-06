@@ -45,6 +45,11 @@ class GifViewController: UIViewController {
     }
     
     func share() {
+        if let image = self.gif {
+            let shareItems: Array = [image]
+            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+            self.presentViewController(activityViewController, animated: true, completion: nil)
+        }
         
     }
     

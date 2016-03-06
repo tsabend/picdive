@@ -14,7 +14,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let button: UIButton = UIButton()
     let snapshotButton: UIButton = UIButton()
     let gifButton: UIButton = UIButton()
-    let shareButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
     let stitchView = UIImageView()
     let gifView = UIImageView()
@@ -39,9 +38,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.gifButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         self.gifButton.addTarget(self, action: "gifWasPressed", forControlEvents: .TouchUpInside)
         
-        self.shareButton.setTitle("Share", forState: .Normal)
-        self.shareButton.setTitleColor(UIColor.purpleColor(), forState: .Normal)
-        self.shareButton.addTarget(self, action: "shareWasPressed", forControlEvents: .TouchUpInside)
         
         let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
         self.box.addGestureRecognizer(pan)
@@ -60,7 +56,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.gifView)
         self.view.addSubview(self.button)
         self.view.addSubview(self.snapshotButton)
-        self.view.addSubview(self.shareButton)
         self.view.addSubview(self.gifButton)
         self.view.addSubview(self.box)
         self.view.addSubview(self.stitchView)
@@ -115,16 +110,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
-    func shareWasPressed() {
-        print("boom")
-        if let image = self.stitchView.image {
-            let shareItems: Array = [image]
-            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-            self.presentViewController(activityViewController, animated: true, completion: nil)
-        }
-
-    }
-    
     func boxWasMoved(pan: UIPanGestureRecognizer) {
         let point = pan.locationInView(self.view)
         self.box.center = point
@@ -163,11 +148,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.gifButton.sizeToFit()
         self.gifButton.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
-        
-        self.shareButton.sizeToFit()
-        self.shareButton.moveBelow(siblingView: self.stitchView, margin: 10, alignment: .Center)
-
-        
+                
         self.box.frame.size = CGSize(width: 300, height: 300)
         
         self.gifView.size = imageSize
