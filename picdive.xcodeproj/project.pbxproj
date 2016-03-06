@@ -11,6 +11,7 @@
 		140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CC1C8CBE990022A7F0 /* GifViewController.swift */; };
 		1425C7C91C7A2A9F0034B370 /* CropSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */; };
 		1426C19B1C8CC4EF00308155 /* PicDiveModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */; };
+		1426C19E1C8CC61D00308155 /* ReelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19D1C8CC61D00308155 /* ReelViewController.swift */; };
 		1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437B7A91C7FDDDD004AF560 /* Gif.swift */; };
 		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
 		149D31DE1C75480900866522 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DD1C75480900866522 /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 		140D45CC1C8CBE990022A7F0 /* GifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropSquareView.swift; sourceTree = "<group>"; };
 		1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicDiveModalViewController.swift; sourceTree = "<group>"; };
+		1426C19D1C8CC61D00308155 /* ReelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReelViewController.swift; sourceTree = "<group>"; };
 		1437B7A91C7FDDDD004AF560 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31DB1C75480900866522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			children = (
 				149D31DD1C75480900866522 /* ViewController.swift */,
 				140D45CC1C8CBE990022A7F0 /* GifViewController.swift */,
+				1426C19D1C8CC61D00308155 /* ReelViewController.swift */,
 				1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */,
 			);
 			name = ViewControllers;
@@ -367,6 +370,7 @@
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */,
+				1426C19E1C8CC61D00308155 /* ReelViewController.swift in Sources */,
 				140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
