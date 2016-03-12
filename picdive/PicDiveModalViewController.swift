@@ -44,8 +44,10 @@ class PicDiveModalViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         self.backButton.width = self.view.width
         self.backButton.height = 60
+        self.backButton.y = UIApplication.sharedApplication().statusBarFrame.height
         
         self.shareButton.sizeToFit()
 
