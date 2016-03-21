@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */; };
 		140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CC1C8CBE990022A7F0 /* GifViewController.swift */; };
-		1425C7C91C7A2A9F0034B370 /* CropSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */; };
+		1425C7C91C7A2A9F0034B370 /* PicScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */; };
 		1426C19B1C8CC4EF00308155 /* PicDiveModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */; };
 		1426C19E1C8CC61D00308155 /* ReelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19D1C8CC61D00308155 /* ReelViewController.swift */; };
 		1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */; };
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+PicDive.swift"; sourceTree = "<group>"; };
 		140D45CC1C8CBE990022A7F0 /* GifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
-		1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropSquareView.swift; sourceTree = "<group>"; };
+		1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicScopeView.swift; sourceTree = "<group>"; };
 		1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicDiveModalViewController.swift; sourceTree = "<group>"; };
 		1426C19D1C8CC61D00308155 /* ReelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReelViewController.swift; sourceTree = "<group>"; };
 		1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+PicDive.swift"; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		1426C1A51C8CCFA500308155 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */,
+				1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -410,7 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1425C7C91C7A2A9F0034B370 /* CropSquareView.swift in Sources */,
+				1425C7C91C7A2A9F0034B370 /* PicScopeView.swift in Sources */,
 				1426C19B1C8CC4EF00308155 /* PicDiveModalViewController.swift in Sources */,
 				48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */,
 				1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */,

@@ -18,10 +18,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let scrollView = UIScrollView()
     let imageView: UIImageView = UIImageView()
 
-    let box: CropSquareView = CropSquareView(frame: CGRect.zero)
     let slider: UISlider = UISlider()
     let sliderValueLabel = UILabel()
     var numFrames: Int = 1
+
+    var scope: PicScopeView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +45,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.reelButton.backgroundColor = UIColor.PDOrange()
         self.reelButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
         
-        let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
-        self.box.addGestureRecognizer(pan)
-        
-        
-        let pinch = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
-        self.box.addGestureRecognizer(pinch)
+        self.scope = PicScopeView()
         
         self.imageView.userInteractionEnabled = true
         let pinchImage = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
@@ -76,19 +72,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.button)
         self.view.addSubview(self.gifButton)
         self.view.addSubview(self.reelButton)
-        self.view.addSubview(self.box)
+        self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
         self.view.addSubview(self.sliderValueLabel)
-        
-
+    
     }
     
     func sliderDidSlide(slider: UISlider) {
         let roundedValue = round(slider.value)
         slider.setValue(roundedValue, animated: false)
         self.sliderValueLabel.text = "\(roundedValue)"
-        self.box.numberOfBoxes = Int(roundedValue)
-        self.generateBoxes()
+        self.scope.numberOfSteps = Int(roundedValue)
     }
     
     func buttonWasPressed() {
@@ -105,31 +99,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         baseRect.x += self.scrollView.contentOffset.x
         baseRect.y += self.scrollView.contentOffset.y
         let croppedByScrollview: UIImage = image.cropped(inRect: baseRect)
-        return self.buildRects().map { (rect: CGRect) -> UIImage in
+        return self.scope.frames.map { (rect: CGRect) -> UIImage in
             return croppedByScrollview
                 .cropped(inRect: rect)
                 .resized(toSize: baseRect.size)
-        }
-    }
-    
-    private func buildRects() -> [CGRect] {
-        let firstRect = self.scrollView.frame
-        let endRect = self.box.frame
-        
-        // They are both squares, so we will use their height to determine the ratio
-        let percentage = endRect.height / firstRect.height
-        let numberOfSteps = Int(self.slider.value)
-    
-        let xDiff = endRect.x
-        let yDiff = endRect.y
-        
-        return Array(0...numberOfSteps).map { (i: Int) -> CGRect in
-            let scale = 1 - (((1 - percentage) / CGFloat(numberOfSteps)) * CGFloat(i))
-            let size = CGSize(width: firstRect.width * scale, height: firstRect.height * scale)
-            let originShift = CGFloat(i) / CGFloat(numberOfSteps)
-            let x = xDiff * originShift
-            let y = yDiff * originShift
-            return CGRect(origin: CGPoint(x: x, y: y), size: size)
         }
     }
     
@@ -157,51 +130,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let vc = ReelViewController()
         vc.reel = self.makeReel()
         self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func boxWasMoved(pan: UIPanGestureRecognizer) {
-        guard let view = pan.view else { return }
-        let superview = self.scrollView
-        if pan.state == .Changed || pan.state == .Ended {
-            let superviewSize = superview.size
-            let viewSize = view.size
-            let translation = pan.translationInView(self.view)
-            var center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
-            var resetTranslation = CGPoint(x: translation.x, y: translation.y)
-            if center.x - viewSize.width / 2 < 0 {
-                center.x = viewSize.width / 2
-            } else if center.x + viewSize.width / 2 > superviewSize.width{
-                center.x = superviewSize.width - viewSize.width / 2
-            } else {
-                resetTranslation.x = 0
-            }
-
-            if center.y - viewSize.height / 2 < 0 {
-                center.y = viewSize.height / 2
-            } else if center.y + viewSize.height / 2 > superviewSize.height{
-                center.y = superviewSize.height - viewSize.height / 2
-            } else {
-                resetTranslation.y = 0
-            }
-            view.center = center
-            self.generateBoxes()
-            pan.setTranslation(CGPoint.zero, inView: self.view)
-            
-        }
-    }
-
-    var boxes: [UIView] = []
-    func generateBoxes() {
-        self.boxes.forEach {$0.removeFromSuperview() }
-        self.boxes = self.buildRects().map { (rect) -> UIView in
-            let view = UIView()
-            view.layer.borderColor = UIColor.grayColor().CGColor
-            view.layer.borderWidth = 2
-            view.frame = rect
-            view.userInteractionEnabled = false
-            self.view.addSubview(view)
-            return view
-        }
     }
     
     func boxWasPinched(pinch: UIPinchGestureRecognizer) {
@@ -247,7 +175,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.reelButton.size = buttonSize
         self.reelButton.moveRight(siblingView: self.gifButton, margin: 0, alignVertically: true)
         
-        self.box.frame.size = CGSize(width: 100, height: 100)
+        self.scope.frame = CGRect(CGPoint.zero, self.scrollView.size)
+        if self.scope.innerRect == CGRect.zero {
+            self.scope.innerRect = CGRect(100, 100, 100, 100)
+        }
         
     }
 }
