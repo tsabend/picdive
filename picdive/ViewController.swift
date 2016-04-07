@@ -10,7 +10,7 @@ import UIKit
 import SwiftGifOrigin
 import CGRectExtensions
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
 
     let button: UIButton = UIButton()
     let gifButton: UIButton = UIButton()
@@ -46,13 +46,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.reelButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
         
         self.scope = PicScopeView()
-        
-        self.imageView.userInteractionEnabled = true
-        let pinchImage = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
-        self.imageView.addGestureRecognizer(pinchImage)
 
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
+        self.scrollView.maximumZoomScale = 2
+        self.scrollView.delegate = self
         
         self.imageView.image = UIImage(named: "bee-test-image")
         
@@ -76,6 +74,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.slider)
         self.view.addSubview(self.sliderValueLabel)
     
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return self.imageView
     }
     
     func sliderDidSlide(slider: UISlider) {
@@ -130,17 +132,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let vc = ReelViewController()
         vc.reel = self.makeReel()
         self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func boxWasPinched(pinch: UIPinchGestureRecognizer) {
-        guard let view = pinch.view else { return }
-        view.transform = CGAffineTransformScale(view.transform, pinch.scale, pinch.scale)
-        if view.height < self.scrollView.height {
-            let scale = self.scrollView.height / view.height
-            view.transform = CGAffineTransformScale(view.transform, scale, scale)
-        }
-        pinch.scale = 1
-
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
