@@ -58,10 +58,10 @@ class PicScopeView: UIView {
         self.innerBox.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
         self.innerBox.userInteractionEnabled = true
     
-        let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasMoved))
         self.innerBox.addGestureRecognizer(pan)
     
-        let pinch = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasPinched))
         self.innerBox.addGestureRecognizer(pinch)
     }
 

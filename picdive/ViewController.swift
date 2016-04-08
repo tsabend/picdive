@@ -31,17 +31,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.button.setTitle("Camera Roll", forState: .Normal)
         self.button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        self.button.addTarget(self, action: "buttonWasPressed", forControlEvents: .TouchUpInside)
+        self.button.addTarget(self, action: #selector(ViewController.buttonWasPressed), forControlEvents: .TouchUpInside)
         
         self.gifButton.setTitle("Gif".uppercaseString, forState: .Normal)
         self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.gifButton.addTarget(self, action: "gifWasPressed", forControlEvents: .TouchUpInside)
+        self.gifButton.addTarget(self, action: #selector(ViewController.gifWasPressed), forControlEvents: .TouchUpInside)
         self.gifButton.backgroundColor = UIColor.PDPurple()
         self.gifButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
 
         self.reelButton.setTitle("Reel".uppercaseString, forState: .Normal)
         self.reelButton.setTitleColor(UIColor.PDPurple(), forState: .Normal)
-        self.reelButton.addTarget(self, action: "reelWasPressed", forControlEvents: .TouchUpInside)
+        self.reelButton.addTarget(self, action: #selector(ViewController.reelWasPressed), forControlEvents: .TouchUpInside)
         self.reelButton.backgroundColor = UIColor.PDOrange()
         self.reelButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
         
@@ -54,7 +54,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.imageView.image = UIImage(named: "bee-test-image")
         
-        self.slider.addTarget(self, action: "sliderDidSlide:", forControlEvents: UIControlEvents.ValueChanged)
+        self.slider.addTarget(self, action: #selector(ViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.minimumValue = 1
         self.slider.maximumValue = 8
         self.slider.value = 4
