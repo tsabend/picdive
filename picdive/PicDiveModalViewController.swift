@@ -16,16 +16,16 @@ class PicDiveModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.PDOrange()
+        self.view.backgroundColor = UIColor.PDDarkGray()
         
         self.backButton.setTitle("↑", forState: .Normal)
     
-        self.backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.backButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
         self.backButton.addTarget(self, action: #selector(PicDiveModalViewController.dismiss), forControlEvents: .TouchUpInside)
-        self.backButton.backgroundColor = UIColor.PDPurple()
+        self.backButton.backgroundColor = UIColor.PDTeal()
         
         self.shareButton.setTitle("Share", forState: .Normal)
-        self.shareButton.setTitleColor(UIColor.PDPurple(), forState: .Normal)
+        self.shareButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
         self.shareButton.addTarget(self, action: #selector(PicDiveModalViewController.share), forControlEvents: .TouchUpInside)
         
         self.view.addSubview(self.shareButton)

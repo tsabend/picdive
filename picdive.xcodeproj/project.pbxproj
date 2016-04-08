@@ -17,10 +17,10 @@
 		1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437B7A91C7FDDDD004AF560 /* Gif.swift */; };
 		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
 		149D31DE1C75480900866522 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DD1C75480900866522 /* ViewController.swift */; };
-		149D31E11C75480A00866522 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31DF1C75480A00866522 /* Main.storyboard */; };
 		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
 		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
 		1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */; };
+		4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */; };
 		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
 		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
@@ -49,7 +49,6 @@
 		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31DB1C75480900866522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149D31DD1C75480900866522 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		149D31E01C75480A00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		149D31E21C75480A00866522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149D31E51C75480B00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149D31E71C75480B00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +56,7 @@
 		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44C68FC6A7BA52A2F1544D15 /* Pods-picdive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdive.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdive/Pods-picdive.release.xcconfig"; sourceTree = "<group>"; };
 		4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.release.xcconfig"; sourceTree = "<group>"; };
+		4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDive.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -91,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				149D31DD1C75480900866522 /* ViewController.swift */,
+				4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */,
 				1426C1A71C8CCFF200308155 /* ModalViewControllers */,
 			);
 			name = ViewControllers;
@@ -101,7 +102,6 @@
 			children = (
 				149D31DB1C75480900866522 /* AppDelegate.swift */,
 				149D31E21C75480A00866522 /* Assets.xcassets */,
-				149D31DF1C75480A00866522 /* Main.storyboard */,
 				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
 				149D31E71C75480B00866522 /* Info.plist */,
 				1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */,
@@ -299,7 +299,6 @@
 				1426C1A31C8CCAFB00308155 /* Quicksand-Bold.otf in Resources */,
 				149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */,
 				149D31E31C75480A00866522 /* Assets.xcassets in Resources */,
-				149D31E11C75480A00866522 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +418,7 @@
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */,
+				4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */,
 				1426C19E1C8CC61D00308155 /* ReelViewController.swift in Sources */,
 				140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */,
 			);
@@ -443,14 +443,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		149D31DF1C75480A00866522 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				149D31E01C75480A00866522 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		149D31E41C75480B00866522 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

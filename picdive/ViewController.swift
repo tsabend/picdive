@@ -19,7 +19,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let imageView: UIImageView = UIImageView()
 
     let slider: UISlider = UISlider()
-    let sliderValueLabel = UILabel()
     var numFrames: Int = 1
 
     var scope: PicScopeView!
@@ -27,38 +26,40 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.PDOrange()
+        self.view.backgroundColor = UIColor.PDDarkGray()
         
         self.button.setTitle("Camera Roll", forState: .Normal)
         self.button.setTitleColor(UIColor.blueColor(), forState: .Normal)
         self.button.addTarget(self, action: #selector(ViewController.buttonWasPressed), forControlEvents: .TouchUpInside)
         
         self.gifButton.setTitle("Gif".uppercaseString, forState: .Normal)
-        self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.gifButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
         self.gifButton.addTarget(self, action: #selector(ViewController.gifWasPressed), forControlEvents: .TouchUpInside)
-        self.gifButton.backgroundColor = UIColor.PDPurple()
+        self.gifButton.backgroundColor = UIColor.PDTeal()
         self.gifButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
 
         self.reelButton.setTitle("Reel".uppercaseString, forState: .Normal)
-        self.reelButton.setTitleColor(UIColor.PDPurple(), forState: .Normal)
+        self.reelButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
         self.reelButton.addTarget(self, action: #selector(ViewController.reelWasPressed), forControlEvents: .TouchUpInside)
-        self.reelButton.backgroundColor = UIColor.PDOrange()
+        self.reelButton.backgroundColor = UIColor.PDBlue()
         self.reelButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
         
         self.scope = PicScopeView()
 
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
-        self.scrollView.maximumZoomScale = 2
+        self.scrollView.maximumZoomScale = 4
         self.scrollView.delegate = self
         
-        self.imageView.image = UIImage(named: "bee-test-image")
+//        self.imageView.image = UIImage(named: "bee-test-image")
         
         self.slider.addTarget(self, action: #selector(ViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.minimumValue = 1
         self.slider.maximumValue = 8
         self.slider.value = 4
-        self.sliderValueLabel.text = "4"
+        self.slider.minimumTrackTintColor = UIColor.PDBlue()
+        self.slider.maximumTrackTintColor = UIColor.PDLightGray()
+        self.slider.thumbTintColor = UIColor.whiteColor()
 
 
         
@@ -72,7 +73,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.addSubview(self.reelButton)
         self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
-        self.view.addSubview(self.sliderValueLabel)
+
     
     }
     
@@ -83,7 +84,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func sliderDidSlide(slider: UISlider) {
         let roundedValue = round(slider.value)
         slider.setValue(roundedValue, animated: false)
-        self.sliderValueLabel.text = "\(roundedValue)"
         self.scope.numberOfSteps = Int(roundedValue)
     }
     
@@ -143,21 +143,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLayoutSubviews()
         
 
-        self.scrollView.width = self.view.width
-        self.scrollView.height = self.view.width
+        let margin = 22.f
+        let scrollViewSideLength = self.view.width - margin
+        self.scrollView.width = scrollViewSideLength
+        self.scrollView.height = scrollViewSideLength
+        self.scrollView.origin = CGPoint(x: margin / 2, y: margin)
         
-        self.imageView.sizeToFit()
-        self.scrollView.contentSize = self.imageView.size
+        self.imageView.size = self.scrollView.size
+//        self.scrollView.contentSize = self.imageView.size
         
         self.slider.sizeToFit()
-        self.slider.width = self.view.width
+        self.slider.width = scrollViewSideLength
         self.slider.moveBelow(siblingView: self.scrollView, margin: 10, alignment: .Center)
         
-        self.sliderValueLabel.sizeToFit()
-        self.sliderValueLabel.moveBelow(siblingView: self.slider, margin: 2, alignment: .Center)
+        
 
         self.button.sizeToFit()
-        self.button.moveBelow(siblingView: self.sliderValueLabel, margin: 10, alignment: .Center)
+        self.button.moveBelow(siblingView: self.slider, margin: 10, alignment: .Center)
         
         let buttonSize = CGSize(width: self.view.width / 2, height: 80)
         self.gifButton.size = buttonSize
@@ -166,10 +168,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.reelButton.size = buttonSize
         self.reelButton.moveRight(siblingView: self.gifButton, margin: 0, alignVertically: true)
         
-        self.scope.frame = CGRect(CGPoint.zero, self.scrollView.size)
+        self.scope.frame = self.scrollView.frame
         if self.scope.innerRect == CGRect.zero {
             self.scope.innerRect = CGRect(100, 100, 100, 100)
         }
         
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
 }
