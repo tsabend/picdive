@@ -39,6 +39,14 @@ extension UIView {
         get { return self.origin.y }
         set { self.origin.y = newValue }
     }
+
+    var maxX: CGFloat {
+        get { return self.frame.maxX }
+    }
+    
+    var maxY: CGFloat {
+        get { return self.frame.maxY }
+    }
     
     func alignRight(rightMargin: CGFloat, toView view: UIView) {
         self.x = view.bounds.width - self.bounds.width - rightMargin

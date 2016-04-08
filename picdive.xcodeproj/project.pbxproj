@@ -9,16 +9,18 @@
 /* Begin PBXBuildFile section */
 		140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */; };
 		140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CC1C8CBE990022A7F0 /* GifViewController.swift */; };
-		1425C7C91C7A2A9F0034B370 /* CropSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */; };
+		1425C7C91C7A2A9F0034B370 /* PicScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */; };
 		1426C19B1C8CC4EF00308155 /* PicDiveModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */; };
 		1426C19E1C8CC61D00308155 /* ReelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19D1C8CC61D00308155 /* ReelViewController.swift */; };
+		1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */; };
+		1426C1A31C8CCAFB00308155 /* Quicksand-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */; };
 		1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437B7A91C7FDDDD004AF560 /* Gif.swift */; };
 		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
 		149D31DE1C75480900866522 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DD1C75480900866522 /* ViewController.swift */; };
-		149D31E11C75480A00866522 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31DF1C75480A00866522 /* Main.storyboard */; };
 		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
 		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
 		1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */; };
+		4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */; };
 		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
 		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
@@ -38,14 +40,15 @@
 /* Begin PBXFileReference section */
 		140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+PicDive.swift"; sourceTree = "<group>"; };
 		140D45CC1C8CBE990022A7F0 /* GifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
-		1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropSquareView.swift; sourceTree = "<group>"; };
+		1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicScopeView.swift; sourceTree = "<group>"; };
 		1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicDiveModalViewController.swift; sourceTree = "<group>"; };
 		1426C19D1C8CC61D00308155 /* ReelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReelViewController.swift; sourceTree = "<group>"; };
+		1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+PicDive.swift"; sourceTree = "<group>"; };
+		1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.otf"; sourceTree = "<group>"; };
 		1437B7A91C7FDDDD004AF560 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31DB1C75480900866522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149D31DD1C75480900866522 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		149D31E01C75480A00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		149D31E21C75480A00866522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149D31E51C75480B00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149D31E71C75480B00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44C68FC6A7BA52A2F1544D15 /* Pods-picdive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdive.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdive/Pods-picdive.release.xcconfig"; sourceTree = "<group>"; };
 		4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.release.xcconfig"; sourceTree = "<group>"; };
+		4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDive.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -87,11 +91,59 @@
 			isa = PBXGroup;
 			children = (
 				149D31DD1C75480900866522 /* ViewController.swift */,
+				4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */,
+				1426C1A71C8CCFF200308155 /* ModalViewControllers */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1426C1A21C8CCAE900308155 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				149D31DB1C75480900866522 /* AppDelegate.swift */,
+				149D31E21C75480A00866522 /* Assets.xcassets */,
+				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
+				149D31E71C75480B00866522 /* Info.plist */,
+				1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1426C1A41C8CCF9900308155 /* UIKit+Picdive */ = {
+			isa = PBXGroup;
+			children = (
+				48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */,
+				48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */,
+				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
+				1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */,
+			);
+			name = "UIKit+Picdive";
+			sourceTree = "<group>";
+		};
+		1426C1A51C8CCFA500308155 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		1426C1A61C8CCFBC00308155 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1437B7A91C7FDDDD004AF560 /* Gif.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		1426C1A71C8CCFF200308155 /* ModalViewControllers */ = {
+			isa = PBXGroup;
+			children = (
 				140D45CC1C8CBE990022A7F0 /* GifViewController.swift */,
 				1426C19D1C8CC61D00308155 /* ReelViewController.swift */,
 				1426C19A1C8CC4EF00308155 /* PicDiveModalViewController.swift */,
 			);
-			name = ViewControllers;
+			name = ModalViewControllers;
 			sourceTree = "<group>";
 		};
 		149D31CF1C75480700866522 = {
@@ -117,17 +169,11 @@
 		149D31DA1C75480900866522 /* picdive */ = {
 			isa = PBXGroup;
 			children = (
-				149D31DB1C75480900866522 /* AppDelegate.swift */,
+				1426C1A61C8CCFBC00308155 /* Models */,
 				1426C19C1C8CC50F00308155 /* ViewControllers */,
-				1425C7C81C7A2A9F0034B370 /* CropSquareView.swift */,
-				48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */,
-				1437B7A91C7FDDDD004AF560 /* Gif.swift */,
-				48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */,
-				149D31DF1C75480A00866522 /* Main.storyboard */,
-				149D31E21C75480A00866522 /* Assets.xcassets */,
-				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
-				149D31E71C75480B00866522 /* Info.plist */,
-				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
+				1426C1A51C8CCFA500308155 /* Views */,
+				1426C1A41C8CCF9900308155 /* UIKit+Picdive */,
+				1426C1A21C8CCAE900308155 /* Supporting Files */,
 			);
 			path = picdive;
 			sourceTree = "<group>";
@@ -218,6 +264,7 @@
 				TargetAttributes = {
 					149D31D71C75480800866522 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 7VU28Z8W3T;
 					};
 					149D31EB1C75480D00866522 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -249,9 +296,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1426C1A31C8CCAFB00308155 /* Quicksand-Bold.otf in Resources */,
 				149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */,
 				149D31E31C75480A00866522 /* Assets.xcassets in Resources */,
-				149D31E11C75480A00866522 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,14 +409,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1425C7C91C7A2A9F0034B370 /* CropSquareView.swift in Sources */,
+				1425C7C91C7A2A9F0034B370 /* PicScopeView.swift in Sources */,
 				1426C19B1C8CC4EF00308155 /* PicDiveModalViewController.swift in Sources */,
 				48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */,
+				1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */,
 				149D31DE1C75480900866522 /* ViewController.swift in Sources */,
 				48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */,
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */,
+				4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */,
 				1426C19E1C8CC61D00308155 /* ReelViewController.swift in Sources */,
 				140D45CD1C8CBE990022A7F0 /* GifViewController.swift in Sources */,
 			);
@@ -394,14 +443,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		149D31DF1C75480A00866522 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				149D31E01C75480A00866522 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		149D31E41C75480B00866522 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -501,6 +542,7 @@
 			baseConfigurationReference = A9AE8AEA1AC3F967538AB03D /* Pods-picdive.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = picdive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sellistsabend.picdive;
@@ -513,6 +555,7 @@
 			baseConfigurationReference = 44C68FC6A7BA52A2F1544D15 /* Pods-picdive.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = picdive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sellistsabend.picdive;

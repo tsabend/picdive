@@ -16,17 +16,17 @@ class PicDiveModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.PDOrange()
+        self.view.backgroundColor = UIColor.PDDarkGray()
         
         self.backButton.setTitle("↑", forState: .Normal)
     
-        self.backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.backButton.addTarget(self, action: "dismiss", forControlEvents: .TouchUpInside)
-        self.backButton.backgroundColor = UIColor.PDPurple()
+        self.backButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
+        self.backButton.addTarget(self, action: #selector(PicDiveModalViewController.dismiss), forControlEvents: .TouchUpInside)
+        self.backButton.backgroundColor = UIColor.PDTeal()
         
         self.shareButton.setTitle("Share", forState: .Normal)
-        self.shareButton.setTitleColor(UIColor.PDPurple(), forState: .Normal)
-        self.shareButton.addTarget(self, action: "share", forControlEvents: .TouchUpInside)
+        self.shareButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
+        self.shareButton.addTarget(self, action: #selector(PicDiveModalViewController.share), forControlEvents: .TouchUpInside)
         
         self.view.addSubview(self.shareButton)
         self.view.addSubview(self.backButton)
@@ -44,8 +44,10 @@ class PicDiveModalViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         self.backButton.width = self.view.width
         self.backButton.height = 60
+        self.backButton.y = UIApplication.sharedApplication().statusBarFrame.height
         
         self.shareButton.sizeToFit()
 

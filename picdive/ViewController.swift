@@ -8,69 +8,83 @@
 
 import UIKit
 import SwiftGifOrigin
+import CGRectExtensions
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
 
     let button: UIButton = UIButton()
-    let snapshotButton: UIButton = UIButton()
     let gifButton: UIButton = UIButton()
     let reelButton: UIButton = UIButton()
+    let scrollView = UIScrollView()
     let imageView: UIImageView = UIImageView()
 
-    let box: CropSquareView = CropSquareView(frame: CGRect.zero)
     let slider: UISlider = UISlider()
     var numFrames: Int = 1
+
+    var scope: PicScopeView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.PDOrange()
+        self.view.backgroundColor = UIColor.PDDarkGray()
         
         self.button.setTitle("Camera Roll", forState: .Normal)
         self.button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        self.button.addTarget(self, action: "buttonWasPressed", forControlEvents: .TouchUpInside)
+        self.button.addTarget(self, action: #selector(ViewController.buttonWasPressed), forControlEvents: .TouchUpInside)
         
-        self.snapshotButton.setTitle("SnapShot", forState: .Normal)
-        self.snapshotButton.setTitleColor(UIColor.purpleColor(), forState: .Normal)
-        self.snapshotButton.addTarget(self, action: "snapShotWasPressed", forControlEvents: .TouchUpInside)
-        
-        self.gifButton.setTitle("Gif", forState: .Normal)
-        self.gifButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-        self.gifButton.addTarget(self, action: "gifWasPressed", forControlEvents: .TouchUpInside)
+        self.gifButton.setTitle("Gif".uppercaseString, forState: .Normal)
+        self.gifButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
+        self.gifButton.addTarget(self, action: #selector(ViewController.gifWasPressed), forControlEvents: .TouchUpInside)
+        self.gifButton.backgroundColor = UIColor.PDTeal()
+        self.gifButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
 
-        self.reelButton.setTitle("Reel", forState: .Normal)
-        self.reelButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-        self.reelButton.addTarget(self, action: "reelWasPressed", forControlEvents: .TouchUpInside)
+        self.reelButton.setTitle("Reel".uppercaseString, forState: .Normal)
+        self.reelButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
+        self.reelButton.addTarget(self, action: #selector(ViewController.reelWasPressed), forControlEvents: .TouchUpInside)
+        self.reelButton.backgroundColor = UIColor.PDBlue()
+        self.reelButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
         
-        
-        let pan = UIPanGestureRecognizer(target: self, action: "boxWasMoved:")
-        self.box.addGestureRecognizer(pan)
-        
-        
-        let pinch = UIPinchGestureRecognizer(target: self, action: "boxWasPinched:")
-        self.box.addGestureRecognizer(pinch)
+        self.scope = PicScopeView()
 
-        self.imageView.image = UIImage(named: "bee-test-image")
+        self.scrollView.showsHorizontalScrollIndicator = false
+        self.scrollView.showsVerticalScrollIndicator = false
+        self.scrollView.maximumZoomScale = 4
+        self.scrollView.delegate = self
         
-        self.slider.addTarget(self, action: "sliderDidSlide:", forControlEvents: UIControlEvents.ValueChanged)
+//        self.imageView.image = UIImage(named: "bee-test-image")
+        
+        self.slider.addTarget(self, action: #selector(ViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.minimumValue = 1
-        self.slider.maximumValue = 5
+        self.slider.maximumValue = 8
         self.slider.value = 4
+        self.slider.minimumTrackTintColor = UIColor.PDBlue()
+        self.slider.maximumTrackTintColor = UIColor.PDLightGray()
+        self.slider.thumbTintColor = UIColor.whiteColor()
+
+
         
-        self.view.addSubview(self.imageView)
+        self.modalTransitionStyle = .CoverVertical
+       
+        self.view.addSubview(self.scrollView)
+        
+        self.scrollView.addSubview(self.imageView)
         self.view.addSubview(self.button)
-        self.view.addSubview(self.snapshotButton)
         self.view.addSubview(self.gifButton)
         self.view.addSubview(self.reelButton)
-        self.view.addSubview(self.box)
+        self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
+
+    
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return self.imageView
     }
     
     func sliderDidSlide(slider: UISlider) {
         let roundedValue = round(slider.value)
         slider.setValue(roundedValue, animated: false)
-        self.box.numberOfBoxes = Int(roundedValue)
-        self.box.setNeedsDisplay()
+        self.scope.numberOfSteps = Int(roundedValue)
     }
     
     func buttonWasPressed() {
@@ -80,52 +94,44 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    func snapShotWasPressed() {
-        guard let image = self.imageView.image else { return }
+    private func snapshotImages() -> [UIImage]? {
+        guard let image = self.imageView.image else { return nil }
         
-        let images = self.box.rects.map { (rect: CGRect) -> UIImage in
-            
-            return image
-                .resized(toSize: self.imageView.size)
+        var baseRect = self.scrollView.frame
+        baseRect.x += self.scrollView.contentOffset.x
+        baseRect.y += self.scrollView.contentOffset.y
+        let croppedByScrollview: UIImage = image.cropped(inRect: baseRect)
+        return self.scope.frames.map { (rect: CGRect) -> UIImage in
+            return croppedByScrollview
                 .cropped(inRect: rect)
-        }
-
-        let stitchedImage = UIImage.stitchImages(images)
-        self.reel = stitchedImage
-
-        if let data = Gif.makeData(images, delay: 1) {
-            let gif = UIImage.gifWithData(data)
-            self.gif = gif
+                .resized(toSize: baseRect.size)
         }
     }
     
-
-    var gif: UIImage?
-    var reel: UIImage?
+    private func makeGif() -> UIImage? {
+        let time = Double(4 / self.slider.value)
+        if let images = self.snapshotImages(), data = Gif.makeData(images, delay: time) {
+            return UIImage.gifWithData(data)
+        }
+        return nil
+    }
     
+    private func makeReel() -> UIImage? {
+        guard let images = self.snapshotImages() else {return nil}
+        return UIImage.stitchImages(images)
+    }
+    
+
     func gifWasPressed() {
-        self.modalTransitionStyle = .CoverVertical
         let vc = GifViewController()
-        vc.gif = self.gif
+        vc.gif = self.makeGif()
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func reelWasPressed() {
-        self.modalTransitionStyle = .CoverVertical
         let vc = ReelViewController()
-        vc.reel = self.reel
+        vc.reel = self.makeReel()
         self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func boxWasMoved(pan: UIPanGestureRecognizer) {
-        let point = pan.locationInView(self.view)
-        self.box.center = point
-    }
-    
-    func boxWasPinched(pinch: UIPinchGestureRecognizer) {
-        guard let view = pinch.view else { return }
-        view.transform = CGAffineTransformScale(view.transform, pinch.scale, pinch.scale)
-        pinch.scale = 1;
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
@@ -136,32 +142,40 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let sideLength: CGFloat = 200
-        let imageSize = CGSize(width: sideLength, height: sideLength)
+
+        let margin = 22.f
+        let scrollViewSideLength = self.view.width - margin
+        self.scrollView.width = scrollViewSideLength
+        self.scrollView.height = scrollViewSideLength
+        self.scrollView.origin = CGPoint(x: margin / 2, y: margin)
         
-        self.imageView.width = self.view.width
-        self.imageView.height = self.view.height / 2
-        
+        self.imageView.size = self.scrollView.size
+//        self.scrollView.contentSize = self.imageView.size
         
         self.slider.sizeToFit()
-        self.slider.width = self.view.width
-        self.slider.moveBelow(siblingView: self.imageView, margin: 10, alignment: .Center)
+        self.slider.width = scrollViewSideLength
+        self.slider.moveBelow(siblingView: self.scrollView, margin: 10, alignment: .Center)
+        
+        
 
         self.button.sizeToFit()
         self.button.moveBelow(siblingView: self.slider, margin: 10, alignment: .Center)
         
-        self.snapshotButton.sizeToFit()
-        self.snapshotButton.moveBelow(siblingView: self.button, margin: 10, alignment: .Center)
+        let buttonSize = CGSize(width: self.view.width / 2, height: 80)
+        self.gifButton.size = buttonSize
+        self.gifButton.alignBottom(0, toView: self.view)
         
-        self.gifButton.sizeToFit()
-        self.gifButton.moveBelow(siblingView: self.snapshotButton, margin: 10, alignment: .Center)
+        self.reelButton.size = buttonSize
+        self.reelButton.moveRight(siblingView: self.gifButton, margin: 0, alignVertically: true)
         
-        self.reelButton.sizeToFit()
-        self.reelButton.moveBelow(siblingView: self.gifButton, margin: 10, alignment: .Center)
-                
-        self.box.frame.size = CGSize(width: 300, height: 300)
+        self.scope.frame = self.scrollView.frame
+        if self.scope.innerRect == CGRect.zero {
+            self.scope.innerRect = CGRect(100, 100, 100, 100)
+        }
         
     }
-
-
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
 }

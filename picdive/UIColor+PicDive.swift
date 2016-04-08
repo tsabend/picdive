@@ -10,17 +10,20 @@ import UIKit
 
 extension UIColor {
     
-    class func PDOrange() -> UIColor {
-        return UIColor(red: 255/255, green: 176/255, blue: 52/255, alpha: 1)
+    class func PDLightGray() -> UIColor {
+        return UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
     }
     
-    class func PDRed() -> UIColor {
-        return UIColor(red: 235/255, green: 54/255, blue: 60/255, alpha: 1)
+    class func PDTeal() -> UIColor {
+        return UIColor(red: 74/255, green: 168/255, blue: 150/255, alpha: 1)
     }
     
-    class func PDPurple() -> UIColor {
-        return UIColor(red: 61/255, green: 39/255, blue: 52/255, alpha: 1)
+    class func PDBlue() -> UIColor {
+        return UIColor(red: 47/255, green: 101/255, blue: 155/255, alpha: 1)
     }
     
+    class func PDDarkGray() -> UIColor {
+        return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
+    }
 
 }

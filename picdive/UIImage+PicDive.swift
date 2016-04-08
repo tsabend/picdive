@@ -33,7 +33,8 @@ extension UIImage {
     }
     
 
-    private static func accumulateSize(var size: CGSize, image: UIImage) -> CGSize {
+    private static func accumulateSize(size: CGSize, image: UIImage) -> CGSize {
+        var size = size
         size.width = max(image.size.width, size.width)
         size.height = max(image.size.height, size.height)
         return size

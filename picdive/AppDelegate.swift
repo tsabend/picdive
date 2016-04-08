@@ -1,4 +1,4 @@
-//
+ //
 //  AppDelegate.swift
 //  picdive
 //
@@ -16,11 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        let window = UIWindow()
-        window.frame = UIScreen.mainScreen().bounds
-        let vc = ViewController()
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
+        
+        self.window = UIWindow()
+        self.window?.frame = UIScreen.mainScreen().bounds
+        let vc = ImagePickerViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        self.window?.rootViewController = nav
+        self.window?.makeKeyAndVisible()
         
         return true
     }
