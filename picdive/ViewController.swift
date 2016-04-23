@@ -10,12 +10,10 @@ import UIKit
 import SwiftGifOrigin
 import CGRectExtensions
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
+class ViewController: UIViewController {
 
-    let button: UIButton = UIButton()
     let gifButton: UIButton = UIButton()
     let reelButton: UIButton = UIButton()
-    let scrollView = UIScrollView()
     let imageView: UIImageView = UIImageView()
 
     let slider: UISlider = UISlider()
@@ -27,10 +25,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.PDDarkGray()
-        
-        self.button.setTitle("Camera Roll", forState: .Normal)
-        self.button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        self.button.addTarget(self, action: #selector(ViewController.buttonWasPressed), forControlEvents: .TouchUpInside)
         
         self.gifButton.setTitle("Gif".uppercaseString, forState: .Normal)
         self.gifButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
@@ -46,13 +40,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.scope = PicScopeView()
 
-        self.scrollView.showsHorizontalScrollIndicator = false
-        self.scrollView.showsVerticalScrollIndicator = false
-        self.scrollView.maximumZoomScale = 4
-        self.scrollView.delegate = self
-        
-//        self.imageView.image = UIImage(named: "bee-test-image")
-        
         self.slider.addTarget(self, action: #selector(ViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.minimumValue = 1
         self.slider.maximumValue = 8
@@ -60,15 +47,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.slider.minimumTrackTintColor = UIColor.PDBlue()
         self.slider.maximumTrackTintColor = UIColor.PDLightGray()
         self.slider.thumbTintColor = UIColor.whiteColor()
-
-
         
         self.modalTransitionStyle = .CoverVertical
        
-        self.view.addSubview(self.scrollView)
-        
-        self.scrollView.addSubview(self.imageView)
-        self.view.addSubview(self.button)
+        self.view.addSubview(self.imageView)
         self.view.addSubview(self.gifButton)
         self.view.addSubview(self.reelButton)
         self.view.addSubview(self.scope)
@@ -87,24 +69,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.scope.numberOfSteps = Int(roundedValue)
     }
     
-    func buttonWasPressed() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        
-        self.presentViewController(imagePicker, animated: true, completion: nil)
-    }
-    
     private func snapshotImages() -> [UIImage]? {
         guard let image = self.imageView.image else { return nil }
         
-        var baseRect = self.scrollView.frame
-        baseRect.x += self.scrollView.contentOffset.x
-        baseRect.y += self.scrollView.contentOffset.y
-        let croppedByScrollview: UIImage = image.cropped(inRect: baseRect)
         return self.scope.frames.map { (rect: CGRect) -> UIImage in
-            return croppedByScrollview
+            return image
                 .cropped(inRect: rect)
-                .resized(toSize: baseRect.size)
+                .resized(toSize: self.imageView.size)
         }
     }
     
@@ -133,33 +104,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         vc.reel = self.makeReel()
         self.presentViewController(vc, animated: true, completion: nil)
     }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        self.imageView.image = image
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-
         let margin = 22.f
         let scrollViewSideLength = self.view.width - margin
-        self.scrollView.width = scrollViewSideLength
-        self.scrollView.height = scrollViewSideLength
-        self.scrollView.origin = CGPoint(x: margin / 2, y: margin)
         
-        self.imageView.size = self.scrollView.size
-//        self.scrollView.contentSize = self.imageView.size
+        self.imageView.size = CGSize(self.view.width, self.view.width)
         
         self.slider.sizeToFit()
         self.slider.width = scrollViewSideLength
-        self.slider.moveBelow(siblingView: self.scrollView, margin: 10, alignment: .Center)
-        
-        
-
-        self.button.sizeToFit()
-        self.button.moveBelow(siblingView: self.slider, margin: 10, alignment: .Center)
+        self.slider.moveBelow(siblingView: self.imageView, margin: 10, alignment: .Center)
         
         let buttonSize = CGSize(width: self.view.width / 2, height: 80)
         self.gifButton.size = buttonSize
@@ -168,9 +124,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.reelButton.size = buttonSize
         self.reelButton.moveRight(siblingView: self.gifButton, margin: 0, alignVertically: true)
         
-        self.scope.frame = self.scrollView.frame
+        self.scope.frame = self.imageView.frame
         if self.scope.innerRect == CGRect.zero {
-            self.scope.innerRect = CGRect(100, 100, 100, 100)
+            self.scope.innerRect = CGRect(150, 150, 100, 100)
         }
         
     }

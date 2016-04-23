@@ -62,7 +62,7 @@ class PicScopeView: UIView {
         self.innerBox.addGestureRecognizer(pan)
     
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasPinched))
-        self.innerBox.addGestureRecognizer(pinch)
+        self.addGestureRecognizer(pinch)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -131,7 +131,10 @@ class PicScopeView: UIView {
     
     
     func boxWasPinched(pinch: UIPinchGestureRecognizer) {
-        guard let view = pinch.view else { return }
+        let view = self.innerBox
+        if pinch.state == .Began {
+            self.boxes.forEach {$0.removeFromSuperview() }
+        }
         let newSideLength = view.width * pinch.scale
 
         if view.origin.x + newSideLength < self.width && view.origin.y + newSideLength < self.height {
@@ -144,10 +147,6 @@ class PicScopeView: UIView {
             self.resetBoxes()
         }
         
-    }
-    
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        return CGRectContainsPoint(self.innerBox.frame, point)
     }
 
 }

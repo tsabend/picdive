@@ -40,7 +40,6 @@ class GifViewController: PicDiveModalViewController {
 
         self.gifView.width = self.view.width
         self.gifView.height = self.view.width
-        self.gifView.moveBelow(siblingView: self.backButton, margin: 0)
         
         self.shareButton.moveBelow(siblingView: self.gifView, margin: 110, alignment: .Center)
         

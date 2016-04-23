@@ -32,7 +32,6 @@ class ReelViewController: PicDiveModalViewController {
         self.imageView.sizeToFit()
         self.imageView.width = self.view.width / 2
         self.imageView.height = fmin(self.imageView.height, self.view.height)
-        self.imageView.moveBelow(siblingView: self.backButton, margin: 0, alignment: .Left)
         
     }
 }
