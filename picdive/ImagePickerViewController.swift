@@ -10,8 +10,9 @@
 import UIKit
 import Photos
 
-class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
+    let cameraButton = UIButton()
     var photos: [UIImage?] = []
     
     override func viewDidLoad() {
@@ -29,9 +30,33 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             self.photos = images
         }
         
+        self.cameraButton.setTitle("📸", forState: .Normal)
+        self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
+        
         self.view.addSubview(self.collectionView)
+        self.view.addSubview(self.cameraButton)
     }
     
+    // MARK: - Camera
+    func cameraWasPressed() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .Camera
+        vc.delegate = self
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.selectImage(image)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: - CollectionView
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -50,16 +75,27 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let image = self.photos[indexPath.item] else { return }
+        self.selectImage(image)
+    }
+    
+    func selectImage(image: UIImage) {
         let vc = ViewController()
-        let image = self.photos[indexPath.item]
         vc.imageView.image = image
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        self.cameraButton.sizeToFit()
+        
         self.collectionView.frame = CGRect(0, self.view.height * 0.2, self.view.width, self.view.height * 0.8)
+        
+        self.cameraButton.moveAbove(siblingView: self.collectionView, margin: 16, alignment: .Center)
     }
+    
+    
     
 }
 
@@ -80,6 +116,21 @@ class ImageCell: UICollectionViewCell {
         self.imageView.frame = self.contentView.bounds
     }
     
+}
+
+class ImagePickerFlowLayout: UICollectionViewFlowLayout {
+    override init() {
+        super.init()
+        
+        self.minimumInteritemSpacing = 0
+        let itemSideLength = UIScreen.mainScreen().bounds.width / 4
+        self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+       fatalError("coder")
+    }
 }
 
 struct PhotoRetriever {
