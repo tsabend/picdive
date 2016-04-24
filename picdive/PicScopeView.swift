@@ -59,7 +59,7 @@ class PicScopeView: UIView {
         self.innerBox.userInteractionEnabled = true
     
         let pan = UIPanGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasMoved))
-        self.innerBox.addGestureRecognizer(pan)
+        self.addGestureRecognizer(pan)
     
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasPinched))
         self.addGestureRecognizer(pinch)
@@ -72,7 +72,6 @@ class PicScopeView: UIView {
     private func resetBoxes() {
         self.boxes.forEach {$0.removeFromSuperview() }
         self.boxes = self.buildRects().map { BoxView(frame: $0) }
-        self.setupBoxGestures()
         self.boxes.forEach(self.addSubview)
     }
     
@@ -93,11 +92,8 @@ class PicScopeView: UIView {
     }
     
     func boxWasMoved(pan: UIPanGestureRecognizer) {
-        guard let view = pan.view else { return }
+        let view = self.innerBox
 
-        if pan.state == .Began {
-            self.boxes.forEach {$0.removeFromSuperview() }
-        }
         if pan.state == .Changed {
             
             let viewSize = view.size
@@ -121,7 +117,7 @@ class PicScopeView: UIView {
             }
             view.center = center
             pan.setTranslation(CGPoint.zero, inView: self)
-            
+            self.resetBoxes()
         }
         if pan.state == .Ended {
             
