@@ -79,10 +79,10 @@ class ViewController: UIViewController {
         }
     }
     
-    private func makeGif() -> UIImage? {
+    private func makeGif() -> Gif? {
         let time = Double(4 / self.slider.value)
-        if let images = self.snapshotImages(), data = Gif.makeData(images, delay: time) {
-            return UIImage.gifWithData(data)
+        if let images = self.snapshotImages() {
+            return Gif(images: images, delay: time)
         }
         return nil
     }

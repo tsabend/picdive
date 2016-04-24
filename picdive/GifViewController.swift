@@ -11,9 +11,9 @@ import UIKit
 
 class GifViewController: PicDiveModalViewController {
     
-    var gif: UIImage? {
+    var gif: Gif? {
         didSet {
-            self.gifView.image = gif
+            self.gifView.image = gif?.image
         }
     }
     
@@ -28,7 +28,7 @@ class GifViewController: PicDiveModalViewController {
     
     override func share() {
         if let image = self.gif {
-            let shareItems: Array = [image]
+            let shareItems: Array = [image.data]
             let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
             self.presentViewController(activityViewController, animated: true, completion: nil)
         }
