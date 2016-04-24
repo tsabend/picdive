@@ -10,12 +10,21 @@
 import UIKit
 import Photos
 
-class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var photos: [UIImage?] = []
+class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
+    private var photos: [(UIImage?, PHAsset)] = []
+    
+    private let cameraButton = UIButton()
+    private let noImagePlaceholder = UILabel()
+    private let cropper = ImageCropper()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.PDDarkGray()
+        
         
         self.view.backgroundColor = UIColor.PDLightGray()
         self.collectionView.backgroundColor = UIColor.PDDarkGray()
@@ -29,9 +38,39 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             self.photos = images
         }
         
+        self.cameraButton.setTitle("📸", forState: .Normal)
+        self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
+        
+        self.noImagePlaceholder.text = "Select an Image"
+        self.noImagePlaceholder.textColor = UIColor.PDDarkGray()
+        
+        
+        self.view.addSubview(self.cropper)
         self.view.addSubview(self.collectionView)
+        self.view.addSubview(self.cameraButton)
+        self.view.addSubview(self.noImagePlaceholder)
     }
     
+    // MARK: - Camera
+    func cameraWasPressed() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .Camera
+        vc.delegate = self
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.selectImage(image)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: - CollectionView
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -42,62 +81,80 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(String(ImageCell.self), forIndexPath: indexPath) as? ImageCell {
-            cell.imageView.image = self.photos[indexPath.item]
+            cell.imageView.image = self.photos[indexPath.item].0
             cell.backgroundColor = UIColor.redColor()
             return cell
         }
         return UICollectionViewCell()
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(self.view.width, 44)
+    }
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let asset = self.photos[indexPath.item].1
+        PhotoRetriever().getImage(asset) { image in
+            if let image = image {
+                self.selectImage(image)
+            }
+        }
+    }
+    
+    func selectImage(image: UIImage) {
+        self.cropper.image = image
+        self.noImagePlaceholder.hidden = true
+        
+        let barButton = UIBarButtonItem(title: "✔", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ImagePickerViewController.segueToDive))
+        self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    func segueToDive() {
         let vc = ViewController()
-        let image = self.photos[indexPath.item]
-        vc.imageView.image = image
+//        let image = self.cropper.image
+//        let crop = image?.cropped(inRect: cropper.bounds)
+        vc.imageView.image = self.cropper.crop()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.collectionView.frame = CGRect(0, self.view.height * 0.2, self.view.width, self.view.height * 0.8)
+        
+        
+        let sideLength = UIScreen.mainScreen().bounds.width
+        self.cropper.size = CGSize(width: sideLength, height: sideLength)
+        
+        self.noImagePlaceholder.sizeToFit()
+        self.noImagePlaceholder.center = self.cropper.center
+        
+
+//        self.cameraButton.sizeToFit()
+//        self.cameraButton.moveAbove(siblingView: self.collectionView, margin: 16, alignment: .Center)
+
+        self.collectionView.frame = CGRect(0, self.cropper.maxY, self.view.width, self.view.maxY - self.cropper.maxY)
+        
+        
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
 }
 
-class ImageCell: UICollectionViewCell {
-    let imageView = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.contentView.addSubview(self.imageView)
+class ImagePickerFlowLayout: UICollectionViewFlowLayout {
+    override init() {
+        super.init()
+        
+        self.minimumInteritemSpacing = 0
+        self.minimumLineSpacing = 0
+        let itemSideLength = UIScreen.mainScreen().bounds.width / 4
+        self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) is terrible")
+       fatalError("coder")
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.imageView.frame = self.contentView.bounds
-    }
-    
 }
 
-struct PhotoRetriever {
-    func queryPhotos(@noescape queryCallback: ([UIImage?]? -> Void)) {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: fetchOptions)
-        var images: [UIImage?] = []
-        let contentMode: PHImageContentMode = .Default
-        fetchResult.enumerateObjectsUsingBlock { (object, index, stop) in
-            let options = PHImageRequestOptions()
-            options.synchronous = true
-            options.deliveryMode = .HighQualityFormat
-            PHImageManager.defaultManager().requestImageForAsset(object as! PHAsset, targetSize: PHImageManagerMaximumSize, contentMode: contentMode, options: options) {
-                image, info in
-                images.append(image)
-            }
-        }
-        queryCallback(images)
-    }
-}

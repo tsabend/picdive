@@ -47,7 +47,7 @@ class PicDiveModalViewController: UIViewController {
         
         self.backButton.width = self.view.width
         self.backButton.height = 60
-        self.backButton.y = UIApplication.sharedApplication().statusBarFrame.height
+        self.backButton.alignBottom(0, toView: self.view)
         
         self.shareButton.sizeToFit()
 

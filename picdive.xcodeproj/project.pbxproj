@@ -21,6 +21,9 @@
 		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
 		1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */; };
 		4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */; };
+		48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */; };
+		48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */; };
+		48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */; };
 		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
 		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
@@ -57,6 +60,9 @@
 		44C68FC6A7BA52A2F1544D15 /* Pods-picdive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdive.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdive/Pods-picdive.release.xcconfig"; sourceTree = "<group>"; };
 		4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.release.xcconfig"; sourceTree = "<group>"; };
 		4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
+		48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
+		48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRetriever.swift; sourceTree = "<group>"; };
+		48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCell.swift; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDive.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -124,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */,
+				48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */,
+				48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -132,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				1437B7A91C7FDDDD004AF560 /* Gif.swift */,
+				48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -410,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1425C7C91C7A2A9F0034B370 /* PicScopeView.swift in Sources */,
+				48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */,
 				1426C19B1C8CC4EF00308155 /* PicDiveModalViewController.swift in Sources */,
 				48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */,
 				1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */,
@@ -417,6 +427,8 @@
 				48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */,
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
+				48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */,
+				48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */,
 				140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */,
 				4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */,
 				1426C19E1C8CC61D00308155 /* ReelViewController.swift in Sources */,
