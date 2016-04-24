@@ -46,8 +46,14 @@ class ImageCropper: UIView, UIScrollViewDelegate {
         
         guard let image = image else { return }
         let aspectRatio = image.size.height/image.size.width
-        self.imageView.width = self.scrollView.width
-        self.imageView.height = self.scrollView.height * aspectRatio
+        if aspectRatio > 1 {
+            self.imageView.width = self.scrollView.width
+            self.imageView.height = self.scrollView.height * aspectRatio
+        } else {
+            self.imageView.width = self.scrollView.width / aspectRatio
+            self.imageView.height = self.scrollView.height
+            
+        }
     }
 
     func crop() -> UIImage {

@@ -17,7 +17,11 @@ extension CFString {
 }
 
 struct Gif {
-    static func makeFile(images: [UIImage], delay: Double) -> NSURL? {
+    let url: NSURL
+    let data: NSData
+    let image: UIImage
+    
+    init?(images: [UIImage], delay: Double) {
         let fileProps = [kCGImagePropertyGIFDictionary.s: [kCGImagePropertyGIFLoopCount.s: 0]]
         let frameProperties = [kCGImagePropertyGIFDictionary.s: [kCGImagePropertyGIFDelayTime.s: delay]]
         let documentsDirectory = NSTemporaryDirectory()
@@ -30,13 +34,11 @@ struct Gif {
             let cgImage = image.CGImage!
             CGImageDestinationAddImage(destination, cgImage, frameProperties)
         }
-        return CGImageDestinationFinalize(destination) ? url : nil
-    }
-    
-    static func makeData(images: [UIImage], delay: Double) -> NSData? {
-        if let url = Gif.makeFile(images, delay: delay) {
-            return NSData(contentsOfURL: url)
-        }
-        return nil
+        guard CGImageDestinationFinalize(destination) else { return nil }
+        self.url = url
+        guard let data = NSData(contentsOfURL: url) else { return nil }
+        self.data = data
+        guard let image = UIImage.gifWithData(data) else { return nil }
+        self.image = image
     }
 }
