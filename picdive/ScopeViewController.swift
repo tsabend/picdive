@@ -10,10 +10,8 @@ import UIKit
 import SwiftGifOrigin
 import CGRectExtensions
 
-class ViewController: UIViewController {
+class ScopeViewController: UIViewController {
 
-    let gifButton: UIButton = UIButton()
-    let reelButton: UIButton = UIButton()
     let imageView: UIImageView = UIImageView()
 
     let slider: UISlider = UISlider()
@@ -24,23 +22,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.PDDarkGray()
+        self.navigationItem.title = "Enhance!"
+        let barButton = UIBarButtonItem(title: "✔", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ScopeViewController.segueToCustomize))
+        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popViewControllerAnimated(_:)))
+        self.navigationItem.leftBarButtonItem = backButton
+        self.navigationItem.rightBarButtonItem = barButton
         
-        self.gifButton.setTitle("Gif".uppercaseString, forState: .Normal)
-        self.gifButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
-        self.gifButton.addTarget(self, action: #selector(ViewController.gifWasPressed), forControlEvents: .TouchUpInside)
-        self.gifButton.backgroundColor = UIColor.PDTeal()
-        self.gifButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
-
-        self.reelButton.setTitle("Reel".uppercaseString, forState: .Normal)
-        self.reelButton.setTitleColor(UIColor.PDLightGray(), forState: .Normal)
-        self.reelButton.addTarget(self, action: #selector(ViewController.reelWasPressed), forControlEvents: .TouchUpInside)
-        self.reelButton.backgroundColor = UIColor.PDBlue()
-        self.reelButton.titleLabel?.font = UIFont.boldFont(withSize: 32)
+        self.view.backgroundColor = UIColor.PDDarkGray()
         
         self.scope = PicScopeView()
 
-        self.slider.addTarget(self, action: #selector(ViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.slider.addTarget(self, action: #selector(ScopeViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.minimumValue = 1
         self.slider.maximumValue = 8
         self.slider.value = 4
@@ -51,16 +43,15 @@ class ViewController: UIViewController {
         self.modalTransitionStyle = .CoverVertical
        
         self.view.addSubview(self.imageView)
-        self.view.addSubview(self.gifButton)
-        self.view.addSubview(self.reelButton)
         self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
-
     
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return self.imageView
+    func segueToCustomize() {
+        let vc = CustomizeGifViewController()
+        vc.gif = self.makeGif()
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     func sliderDidSlide(slider: UISlider) {
@@ -86,24 +77,6 @@ class ViewController: UIViewController {
         }
         return nil
     }
-    
-    private func makeReel() -> UIImage? {
-        guard let images = self.snapshotImages() else {return nil}
-        return UIImage.stitchImages(images)
-    }
-    
-
-    func gifWasPressed() {
-        let vc = GifViewController()
-        vc.gif = self.makeGif()
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func reelWasPressed() {
-        let vc = ReelViewController()
-        vc.reel = self.makeReel()
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -112,26 +85,17 @@ class ViewController: UIViewController {
         let scrollViewSideLength = self.view.width - margin
         
         self.imageView.size = CGSize(self.view.width, self.view.width)
+        self.imageView.center = self.view.center
         
         self.slider.sizeToFit()
         self.slider.width = scrollViewSideLength
         self.slider.moveBelow(siblingView: self.imageView, margin: 10, alignment: .Center)
         
-        let buttonSize = CGSize(width: self.view.width / 2, height: 80)
-        self.gifButton.size = buttonSize
-        self.gifButton.alignBottom(0, toView: self.view)
-        
-        self.reelButton.size = buttonSize
-        self.reelButton.moveRight(siblingView: self.gifButton, margin: 0, alignVertically: true)
         
         self.scope.frame = self.imageView.frame
         if self.scope.innerRect == CGRect.zero {
             self.scope.innerRect = CGRect(150, 150, 100, 100)
         }
         
-    }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
     }
 }

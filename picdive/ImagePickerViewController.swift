@@ -16,14 +16,13 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     private var photos: [(UIImage?, PHAsset)] = []
     
     private let cameraButton = UIButton()
-    private let noImagePlaceholder = UILabel()
-    private let cropper = ImageCropper()
-    
+    private let noImagePlaceholder = UIImageView()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.tintColor = UIColor.PDDarkGray()
+        self.navigationItem.title = "Select an image"
         
         
         self.view.backgroundColor = UIColor.PDLightGray()
@@ -38,14 +37,12 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             self.photos = images
         }
         
-        self.cameraButton.setTitle("📸", forState: .Normal)
+        self.cameraButton.setTitle("Take a Photo 📸", forState: .Normal)
         self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
         
-        self.noImagePlaceholder.text = "Select an Image"
-        self.noImagePlaceholder.textColor = UIColor.PDDarkGray()
+        self.noImagePlaceholder.image = UIImage(named: "enhance_icon")
         
         
-        self.view.addSubview(self.cropper)
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.cameraButton)
         self.view.addSubview(self.noImagePlaceholder)
@@ -102,44 +99,30 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     func selectImage(image: UIImage) {
-        self.cropper.image = image
-        self.noImagePlaceholder.hidden = true
+        let vc = CroppingViewController()
+        vc.image = image
+        self.navigationController?.pushViewController(vc, animated: false)
         
-        let barButton = UIBarButtonItem(title: "✔", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ImagePickerViewController.segueToDive))
-        self.navigationItem.rightBarButtonItem = barButton
     }
     
-    func segueToDive() {
-        let vc = ViewController()
-//        let image = self.cropper.image
-//        let crop = image?.cropped(inRect: cropper.bounds)
-        vc.imageView.image = self.cropper.crop()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         
         let sideLength = UIScreen.mainScreen().bounds.width
-        self.cropper.size = CGSize(width: sideLength, height: sideLength)
         
-        self.noImagePlaceholder.sizeToFit()
-        self.noImagePlaceholder.center = self.cropper.center
+        self.noImagePlaceholder.size = CGSize(width: 176, height: 89)
+        self.noImagePlaceholder.center.x = self.view.center.x
+        self.noImagePlaceholder.y = (sideLength - self.noImagePlaceholder.height) / 2
         
+        self.cameraButton.sizeToFit()
+        self.cameraButton.moveAbove(siblingView: self.collectionView, margin: -40, alignment: .Center)
 
-//        self.cameraButton.sizeToFit()
-//        self.cameraButton.moveAbove(siblingView: self.collectionView, margin: 16, alignment: .Center)
-
-        self.collectionView.frame = CGRect(0, self.cropper.maxY, self.view.width, self.view.maxY - self.cropper.maxY)
+        self.collectionView.frame = CGRect(0, sideLength, self.view.width, self.view.maxY - sideLength)
         
         
     }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
-    }
-    
 }
 
 class ImagePickerFlowLayout: UICollectionViewFlowLayout {

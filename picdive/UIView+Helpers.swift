@@ -13,8 +13,8 @@ extension UIView {
     var size: CGSize {
         get { return self.frame.size }
         set { self.frame.size = newValue }
-
     }
+    
     var width: CGFloat {
         get { return self.size.width }
         set { self.size.width = newValue }

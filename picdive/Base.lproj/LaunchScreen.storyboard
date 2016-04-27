@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PicDive_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="bt7-3U-aEp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="enhance_logo_v1" translatesAutoresizingMaskIntoConstraints="NO" id="bt7-3U-aEp">
                                 <rect key="frame" x="180" y="40" width="240" height="309"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="FrV-6p-EPc"/>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="PicDive_Logo" width="859" height="309"/>
+        <image name="enhance_logo_v1" width="1441" height="185"/>
     </resources>
 </document>
