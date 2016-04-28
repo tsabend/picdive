@@ -26,8 +26,7 @@ class ImageCropper: UIView, UIScrollViewDelegate {
         
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
-        self.scrollView.maximumZoomScale = 4
-        
+
         self.addSubview(self.scrollView)
         self.scrollView.addSubview(self.imageView)
     }
@@ -42,18 +41,29 @@ class ImageCropper: UIView, UIScrollViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.scrollView.frame = self.bounds
-        
         guard let image = image else { return }
-        let aspectRatio = image.size.height/image.size.width
-        if aspectRatio > 1 {
-            self.imageView.width = self.scrollView.width
-            self.imageView.height = self.scrollView.height * aspectRatio
-        } else {
-            self.imageView.width = self.scrollView.width / aspectRatio
-            self.imageView.height = self.scrollView.height
-            
-        }
+        
+        self.imageView.sizeToFit()
+        self.scrollView.frame = self.bounds
+        self.scrollView.contentSize = image.size
+        
+
+    }
+    
+    func setup() {
+        let minScale: CGFloat = 1
+        let contentSize = self.scrollView.contentSize
+        let scaleWidth = self.scrollView.width / contentSize.width
+        let scaleHeight = self.scrollView.height / contentSize.height
+        let tmpMinScale = max(scaleWidth, scaleHeight)
+        
+        self.scrollView.minimumZoomScale = tmpMinScale
+        self.scrollView.maximumZoomScale = (tmpMinScale > minScale) ? tmpMinScale : minScale
+        self.scrollView.zoomScale = tmpMinScale
+        
+        self.scrollView.contentOffset.x = (contentSize.width - self.scrollView.width) / 2
+        self.scrollView.contentOffset.y = (contentSize.height - self.scrollView.height) / 2
+        
     }
 
     func crop() -> UIImage {
