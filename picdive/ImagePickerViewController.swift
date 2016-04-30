@@ -15,6 +15,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
     private var photos: [(UIImage?, PHAsset)] = []
     private let cameraButton = UIButton()
+    private let headerView = UIView()
     private let noImagePlaceholder = UIImageView()
     
     override func viewDidLoad() {
@@ -23,7 +24,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.title = "Select an image"
         
         self.view.backgroundColor = UIColor.PDLightGray()
-        
+        self.headerView.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -40,9 +41,10 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.noImagePlaceholder.image = UIImage(named: "enhance_icon")
         
+        self.view.addSubview(self.headerView)
+        self.headerView.addSubview(self.cameraButton)
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.noImagePlaceholder)
-        self.view.addSubview(self.cameraButton)
     }
     
     // MARK: - Camera
@@ -101,16 +103,19 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         super.viewDidLayoutSubviews()
         
         
-        let sideLength = UIScreen.mainScreen().bounds.width
-        
         self.noImagePlaceholder.size = CGSize(width: 176, height: 89)
         self.noImagePlaceholder.center.x = self.view.center.x
-        self.noImagePlaceholder.y = (sideLength - self.noImagePlaceholder.height) / 2
+        self.noImagePlaceholder.y = (self.view.width - self.noImagePlaceholder.height) / 2
+        
+        self.collectionView.size = CGSize(width: self.view.width, height: self.view.width)
+        self.collectionView.alignBottom(0, toView: self.view)
+        
+        self.headerView.size = CGSize(width: self.view.width, height: 64)
+        self.headerView.alignBottom(0, toView: self.collectionView)
         
         self.cameraButton.sizeToFit()
-        self.cameraButton.moveAbove(siblingView: self.collectionView, margin: 16, alignment: .Center)
-
         self.collectionView.frame = CGRect(0, sideLength, self.view.width, self.view.maxY - sideLength)
+        self.cameraButton.moveToCenterOfSuperview()
     }
 }
 
@@ -122,11 +127,14 @@ class ImagePickerFlowLayout: UICollectionViewFlowLayout {
         self.minimumLineSpacing = 0
         let itemSideLength = UIScreen.mainScreen().bounds.width / 4
         self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
+        self.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
        fatalError("coder")
     }
+    
 
 }
 

@@ -6,7 +6,9 @@ use_frameworks!
 target 'picdive' do
  pod "CGRectExtensions"
  pod "SwiftGifOrigin"
+ pod 'Reveal-iOS-SDK', :configurations => ['Debug']
 end
+
 
 target 'picdiveTests' do
   pod "Quick"
