@@ -102,19 +102,17 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        
         self.noImagePlaceholder.size = CGSize(width: 176, height: 89)
         self.noImagePlaceholder.center.x = self.view.center.x
         self.noImagePlaceholder.y = (self.view.width - self.noImagePlaceholder.height) / 2
         
-        self.collectionView.size = CGSize(width: self.view.width, height: self.view.width)
+        self.collectionView.size = CGSize(self.view.width, self.view.maxY - self.view.width - 64)
         self.collectionView.alignBottom(0, toView: self.view)
         
         self.headerView.size = CGSize(width: self.view.width, height: 64)
-        self.headerView.alignBottom(0, toView: self.collectionView)
+        self.headerView.y = self.collectionView.y - self.headerView.height
         
         self.cameraButton.sizeToFit()
-        self.collectionView.frame = CGRect(0, sideLength, self.view.width, self.view.maxY - sideLength)
         self.cameraButton.moveToCenterOfSuperview()
     }
 }
