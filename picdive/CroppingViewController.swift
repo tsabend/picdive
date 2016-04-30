@@ -21,8 +21,7 @@ class CroppingViewController: UIViewController, FlowViewController, ImagePresent
     
     var nextImageViewDataSource: ImageViewDataSource? {
         return self.cropper.crop()
-    }
-    
+    } 
     
     private let cropper = ImageCropper()
     

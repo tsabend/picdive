@@ -56,8 +56,7 @@ protocol FlowViewController {
 
 }
 
-extension FlowViewController where Self: UIViewController, Self: ImagePresenter, Next: UIViewController, Next: ImagePresenter {
-    
+extension FlowViewController where Self: UIViewController, Self: ImagePresenter, Next: UIViewController {
     
     func toNext() {
         var vc = Next()
