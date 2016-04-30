@@ -8,13 +8,16 @@
 
 import UIKit
 
-class PublishingViewController : UIViewController {
-    var gif: Gif? {
+class PublishingViewController : UIViewController, ImagePresenter {
+    
+    var imageViewDataSource: ImageViewDataSource? {
         didSet {
-            self.gifView.image = gif?.image
+            if let gif = self.imageViewDataSource as? Gif {
+                self.gifView.image = gif.image
+            }
         }
     }
-    
+
     private let gifView = UIImageView()
     
     

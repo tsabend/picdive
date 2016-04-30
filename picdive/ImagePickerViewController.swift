@@ -11,21 +11,19 @@ import UIKit
 import Photos
 
 class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
     private var photos: [(UIImage?, PHAsset)] = []
-    
     private let cameraButton = UIButton()
     private let noImagePlaceholder = UIImageView()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Select an image"
-        
+        self.title = "Select an image"
         
         self.view.backgroundColor = UIColor.PDLightGray()
+        
         self.collectionView.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -42,10 +40,9 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.noImagePlaceholder.image = UIImage(named: "enhance_icon")
         
-        
         self.view.addSubview(self.collectionView)
-        self.view.addSubview(self.cameraButton)
         self.view.addSubview(self.noImagePlaceholder)
+        self.view.addSubview(self.cameraButton)
     }
     
     // MARK: - Camera
@@ -85,10 +82,6 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         return UICollectionViewCell()
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(self.view.width, 44)
-    }
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let asset = self.photos[indexPath.item].1
         PhotoRetriever().getImage(asset) { image in
@@ -100,11 +93,9 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     
     func selectImage(image: UIImage) {
         let vc = CroppingViewController()
-        vc.image = image
+        vc.imageViewDataSource = image
         self.navigationController?.pushViewController(vc, animated: false)
-        
     }
-    
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -117,11 +108,9 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.noImagePlaceholder.y = (sideLength - self.noImagePlaceholder.height) / 2
         
         self.cameraButton.sizeToFit()
-        self.cameraButton.moveAbove(siblingView: self.collectionView, margin: -40, alignment: .Center)
+        self.cameraButton.moveAbove(siblingView: self.collectionView, margin: 16, alignment: .Center)
 
         self.collectionView.frame = CGRect(0, sideLength, self.view.width, self.view.maxY - sideLength)
-        
-        
     }
 }
 
@@ -135,9 +124,9 @@ class ImagePickerFlowLayout: UICollectionViewFlowLayout {
         self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
        fatalError("coder")
     }
+
 }
 

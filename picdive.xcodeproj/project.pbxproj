@@ -25,6 +25,7 @@
 		48EDFF521CD0593C00B879D3 /* CustomizeGifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */; };
 		48EDFF541CD05A2A00B879D3 /* PublishingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */; };
 		48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF551CD05ED700B879D3 /* NavigationController.swift */; };
+		48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */; };
 		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
 		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
@@ -65,6 +66,7 @@
 		48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizeGifViewController.swift; sourceTree = "<group>"; };
 		48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishingViewController.swift; sourceTree = "<group>"; };
 		48EDFF551CD05ED700B879D3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewController.swift; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDive.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				149D31DD1C75480900866522 /* ScopeViewController.swift */,
 				4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */,
 				48EDFF4F1CD053D000B879D3 /* CroppingViewController.swift */,
+				48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */,
 				48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */,
 				48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */,
 				48EDFF551CD05ED700B879D3 /* NavigationController.swift */,
@@ -424,6 +427,7 @@
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				48EDFF501CD053D000B879D3 /* CroppingViewController.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
+				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,
 				48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */,
 				48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */,
 				48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */,

@@ -7,35 +7,36 @@
 //
 import UIKit
 
-class CroppingViewController: UIViewController {
-  
-    var image: UIImage? {
+
+class CroppingViewController: UIViewController, FlowViewController, ImagePresenter {
+    
+    typealias Next = ScopeViewController
+    var imageViewDataSource: ImageViewDataSource? {
         didSet {
-            self.cropper.image = self.image
+            if let image = self.imageViewDataSource as? UIImage {
+                self.cropper.image = image
+            }
         }
     }
+    
+    var nextImageViewDataSource: ImageViewDataSource? {
+        return self.cropper.crop()
+    }
+    
     
     private let cropper = ImageCropper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.title = "Crop your image"
-        let barButton = UIBarButtonItem(title: "✔", style: UIBarButtonItemStyle.Done, target: self, action: #selector(CroppingViewController.segueToDive))
-        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popViewControllerAnimated(_:)))
-        self.navigationItem.leftBarButtonItem = backButton
-        self.navigationItem.rightBarButtonItem = barButton
+        self.title = "Crop your image"
+        self.setupNavigationBar()
         
         self.view.backgroundColor = UIColor.PDDarkGray()
 
         self.view.addSubview(self.cropper)
     }
     
-    func segueToDive() {
-        let vc = ScopeViewController()
-        vc.imageView.image = self.cropper.crop()
-        self.navigationController?.pushViewController(vc, animated: false)
-    }
+   
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

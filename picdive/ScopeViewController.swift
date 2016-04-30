@@ -10,9 +10,23 @@ import UIKit
 import SwiftGifOrigin
 import CGRectExtensions
 
-class ScopeViewController: UIViewController {
+class ScopeViewController: UIViewController, ImagePresenter, FlowViewController {
 
-    let imageView: UIImageView = UIImageView()
+    typealias Next = CustomizeGifViewController
+    var imageViewDataSource: ImageViewDataSource? {
+        didSet {
+            if let image = self.imageViewDataSource as? UIImage {
+                self.imageView.image = image
+            }
+        }
+    }
+    
+    var nextImageViewDataSource: ImageViewDataSource? {
+        return self.makeGif()
+    }
+    
+    
+    private let imageView: UIImageView = UIImageView()
 
     let slider: UISlider = UISlider()
     var numFrames: Int = 1
@@ -21,12 +35,8 @@ class ScopeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.title = "Enhance!"
-        let barButton = UIBarButtonItem(title: "✔", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ScopeViewController.segueToCustomize))
-        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popViewControllerAnimated(_:)))
-        self.navigationItem.leftBarButtonItem = backButton
-        self.navigationItem.rightBarButtonItem = barButton
+        self.title = "Enhance!"
+        self.setupNavigationBar()
         
         self.view.backgroundColor = UIColor.PDDarkGray()
         
@@ -46,12 +56,6 @@ class ScopeViewController: UIViewController {
         self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
     
-    }
-    
-    func segueToCustomize() {
-        let vc = CustomizeGifViewController()
-        vc.gif = self.makeGif()
-        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     func sliderDidSlide(slider: UISlider) {

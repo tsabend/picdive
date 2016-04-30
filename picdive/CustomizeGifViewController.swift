@@ -8,44 +8,34 @@
 
 import UIKit
 
-class CustomizeGifViewController: UIViewController {
-    var gif: Gif? {
+class CustomizeGifViewController: UIViewController, FlowViewController, ImagePresenter {
+    typealias Next = PublishingViewController
+    var imageViewDataSource: ImageViewDataSource? {
         didSet {
-            self.gifView.image = gif?.image
+            if let gif = self.imageViewDataSource as? Gif {
+                self.gifView.image = gif.image
+            }
         }
     }
-    
+
     private let gifView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Customize your Gif"
-        let barButton = UIBarButtonItem(title: "✔", style: UIBarButtonItemStyle.Done, target: self, action: #selector(CustomizeGifViewController.segueToPublish))
-        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popViewControllerAnimated(_:)))
-        self.navigationItem.leftBarButtonItem = backButton
-        self.navigationItem.rightBarButtonItem = barButton
+        self.title = "Customize your Gif"
+       
         self.view.backgroundColor = UIColor.PDDarkGray()
 
         self.view.addSubview(self.gifView)
         
     }
     
-    func segueToPublish() {
-        let vc = PublishingViewController()
-        vc.gif = self.gif
-        self.navigationController?.pushViewController(vc, animated: false)
-    }
-    
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.gifView.size = CGSize(self.view.width, self.view.width)
         self.gifView.center = self.view.center
-        
-        
     }
-    
 
 }
