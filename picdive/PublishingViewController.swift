@@ -26,11 +26,15 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.view.backgroundColor = UIColor.PDDarkGray()
 
         self.navigationItem.title = "Share"
+        self.setupNavigationBar()
+        self.view.addSubview(self.gifView)
+    }
+    
+    func setupNavigationBar() {
         let barButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popToRootViewControllerAnimated(_:)))
         let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popViewControllerAnimated(_:)))
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.rightBarButtonItem = barButton
-        self.view.addSubview(self.gifView)
     }
     
     override func viewDidLayoutSubviews() {

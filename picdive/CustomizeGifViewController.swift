@@ -24,7 +24,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         super.viewDidLoad()
         
         self.title = "Customize your Gif"
-       
+        self.setupNavigationBar()
         self.view.backgroundColor = UIColor.PDDarkGray()
 
         self.view.addSubview(self.gifView)
