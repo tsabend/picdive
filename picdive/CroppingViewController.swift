@@ -42,7 +42,7 @@ class CroppingViewController: UIViewController, FlowViewController, ImagePresent
         
         self.cropper.size = CGSize(width: self.view.width, height: self.view.width)
         self.cropper.center = self.view.center
-        self.cropper.setup()
+        
 
     }
     

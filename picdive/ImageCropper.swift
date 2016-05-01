@@ -47,23 +47,18 @@ class ImageCropper: UIView, UIScrollViewDelegate {
         self.scrollView.frame = self.bounds
         self.scrollView.contentSize = image.size
         
+        let scaleWidth = self.scrollView.width / image.size.width
+        let scaleHeight = self.scrollView.height / image.size.height
+        let scale = max(scaleWidth, scaleHeight)
+        
+        self.scrollView.minimumZoomScale = scale
+        self.scrollView.maximumZoomScale = max(scale, 4) // always allow at least 4x zoom
+        self.scrollView.zoomScale = scale
+        
+        self.scrollView.contentInset = UIEdgeInsetsZero
 
-    }
-    
-    func setup() {
-        let minScale: CGFloat = 1
-        let contentSize = self.scrollView.contentSize
-        let scaleWidth = self.scrollView.width / contentSize.width
-        let scaleHeight = self.scrollView.height / contentSize.height
-        let tmpMinScale = max(scaleWidth, scaleHeight)
-        
-        self.scrollView.minimumZoomScale = tmpMinScale
-        self.scrollView.maximumZoomScale = (tmpMinScale > minScale) ? tmpMinScale : minScale
-        self.scrollView.zoomScale = tmpMinScale
-        
-        self.scrollView.contentOffset.x = (contentSize.width - self.scrollView.width) / 2
-        self.scrollView.contentOffset.y = (contentSize.height - self.scrollView.height) / 2
-        
+        self.scrollView.contentOffset.x = (self.scrollView.contentSize.width - self.scrollView.width) / 2
+        self.scrollView.contentOffset.y = (self.scrollView.contentSize.height - self.scrollView.height) / 2
     }
 
     func crop() -> UIImage {
