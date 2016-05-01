@@ -13,6 +13,9 @@ class PicScopeView: UIView {
     /// The number of frames to generate between the outer and inner box
     var numberOfSteps = 4 { didSet { self.resetBoxes() } }
     
+    /// The frames of all of the boxes
+    var frames: [CGRect] { return self.boxes.map{$0.frame} }
+    
     /// The frame of the inner box. Setting this value
     /// will regenerate the boxes
     var innerRect: CGRect = CGRect.zero {
@@ -20,9 +23,6 @@ class PicScopeView: UIView {
             self.resetBoxes()
         }
     }
-
-    /// The frames of all of the boxes
-    var frames: [CGRect] { return self.boxes.map{$0.frame} }
     
     private var boxes: [UIView] = []
     
