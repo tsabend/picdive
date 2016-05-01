@@ -9,29 +9,12 @@
 import UIKit
 import CGRectExtensions
 
-
-class BoxView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
-        self.layer.borderWidth = 2
-        self.userInteractionEnabled = false
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class PicScopeView: UIView {
+    /// The number of frames to generate between the outer and inner box
+    var numberOfSteps = 4 { didSet { self.resetBoxes() } }
     
-    var numberOfSteps = 4 {
-        didSet {
-            self.resetBoxes()
-        }
-    }
-    
-    private var boxes: [UIView] = []
+    /// The frame of the inner box. Setting this value
+    /// will regenerate the boxes
     var innerRect: CGRect {
         get {
             return self.innerBox.frame
@@ -41,34 +24,27 @@ class PicScopeView: UIView {
             self.resetBoxes()
         }
     }
-    
-    private let innerBox = BoxView(frame: CGRect.zero)
+
+    /// The frames of all of the boxes
     var frames: [CGRect] {
         let boxes = self.boxes + [self.innerBox]
         return boxes.map{$0.frame}
     }
+    
+    private var boxes: [UIView] = []
+    private let innerBox = BoxView(frame: CGRect.zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupBoxGestures()
         self.addSubview(self.innerBox)
     }
-    
-    private func setupBoxGestures() {
-        self.innerBox.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
-        self.innerBox.userInteractionEnabled = true
-    
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasMoved))
-        self.addGestureRecognizer(pan)
-    
-        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasPinched))
-        self.addGestureRecognizer(pinch)
-    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Boxes
     private func resetBoxes() {
         self.boxes.forEach {$0.removeFromSuperview() }
         self.boxes = self.buildRects().map { BoxView(frame: $0) }
@@ -76,19 +52,19 @@ class PicScopeView: UIView {
     }
     
     private func buildRects() -> [CGRect] {
-
-        let innerSideLength = self.innerRect.width
-        let percentage = innerSideLength / self.width
+        return Array(self.frame.squaresBetween(rect: self.innerRect, steps: self.numberOfSteps).dropLast())
+    }
+    
+    // MARK: - Gestures
+    private func setupBoxGestures() {
+        self.innerBox.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
+        self.innerBox.userInteractionEnabled = true
         
-        return Array(0...self.numberOfSteps - 1).map { (i: Int) -> CGRect in
-            let scale = 1 - ((1 - percentage) / self.numberOfSteps.f * i.f)
-            let scaledSideLength = self.width * scale
-
-            let originShift = i.f / self.numberOfSteps.f
-            let x = self.innerRect.x * originShift
-            let y = self.innerRect.y * originShift
-            return CGRect(x: x, y: y, width: scaledSideLength, height: scaledSideLength)
-        }
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasMoved))
+        self.addGestureRecognizer(pan)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasPinched))
+        self.addGestureRecognizer(pinch)
     }
     
     func boxWasMoved(pan: UIPanGestureRecognizer) {
@@ -145,4 +121,18 @@ class PicScopeView: UIView {
         
     }
 
+    // MARK: - BoxView
+    class BoxView: UIView {
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
+            self.layer.borderWidth = 2
+        }
+        
+        required init?(coder aDecoder: NSCoder) { fatalError("") }
+    }
+    
+    enum Easing {
+        case In, Out, Linear
+    }
 }

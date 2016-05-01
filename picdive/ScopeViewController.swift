@@ -43,8 +43,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         self.scope = PicScopeView()
 
         self.slider.addTarget(self, action: #selector(ScopeViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.slider.minimumValue = 1
-        self.slider.maximumValue = 8
+        self.slider.minimumValue = 2
+        self.slider.maximumValue = 7
         self.slider.value = 4
         self.slider.minimumTrackTintColor = UIColor.PDBlue()
         self.slider.maximumTrackTintColor = UIColor.PDLightGray()
@@ -97,6 +97,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         
         
         self.scope.frame = self.imageView.frame
+        
         if self.scope.innerRect == CGRect.zero {
             self.scope.innerRect = CGRect(150, 150, 100, 100)
         }

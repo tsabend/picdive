@@ -26,6 +26,8 @@
 		48EDFF541CD05A2A00B879D3 /* PublishingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */; };
 		48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF551CD05ED700B879D3 /* NavigationController.swift */; };
 		48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */; };
+		48EDFF5A1CD63ED300B879D3 /* CGRect+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */; };
+		48EDFF5C1CD6411A00B879D3 /* CGRect+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF5B1CD6411A00B879D3 /* CGRect+PicDive.swift */; };
 		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
 		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
@@ -67,6 +69,8 @@
 		48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishingViewController.swift; sourceTree = "<group>"; };
 		48EDFF551CD05ED700B879D3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewController.swift; sourceTree = "<group>"; };
+		48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+PicDiveSpec.swift"; sourceTree = "<group>"; };
+		48EDFF5B1CD6411A00B879D3 /* CGRect+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+PicDive.swift"; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDive.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -128,6 +132,7 @@
 			children = (
 				48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */,
 				48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */,
+				48EDFF5B1CD6411A00B879D3 /* CGRect+PicDive.swift */,
 				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
 				1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */,
 			);
@@ -190,6 +195,7 @@
 			children = (
 				149D31F21C75480D00866522 /* Info.plist */,
 				48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */,
+				48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */,
 				48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */,
 			);
 			path = picdiveTests;
@@ -430,6 +436,7 @@
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,
 				48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */,
 				48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */,
+				48EDFF5C1CD6411A00B879D3 /* CGRect+PicDive.swift in Sources */,
 				48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */,
 				140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */,
 				4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */,
@@ -441,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */,
+				48EDFF5A1CD63ED300B879D3 /* CGRect+PicDiveSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
