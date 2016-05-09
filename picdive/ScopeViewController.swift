@@ -58,6 +58,25 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let originalPos = self.slider.y
+        self.slider.y = self.view.height + self.slider.height
+        UIView.animateWithDuration(0.33, animations: {
+            self.slider.y = originalPos
+            }, completion: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        
+        UIView.animateWithDuration(0.33, animations: {
+            self.slider.y = self.view.height + self.slider.height
+            }, completion: nil)
+        super.viewWillDisappear(animated)
+    }
+
+    
     func sliderDidSlide(slider: UISlider) {
         let roundedValue = round(slider.value)
         slider.setValue(roundedValue, animated: false)

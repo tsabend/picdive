@@ -34,9 +34,7 @@ class CroppingViewController: UIViewController, FlowViewController, ImagePresent
 
         self.view.addSubview(self.cropper)
     }
-    
-   
-    
+        
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
