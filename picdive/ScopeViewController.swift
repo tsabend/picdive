@@ -9,6 +9,11 @@
 import UIKit
 import SwiftGifOrigin
 import CGRectExtensions
+import pop
+
+public func after(seconds seconds: Double, exec: ()->Void) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * 1e9)), dispatch_get_main_queue(), exec)
+}
 
 class ScopeViewController: UIViewController, ImagePresenter, FlowViewController {
 
@@ -61,11 +66,20 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let originalPos = self.slider.y
-        self.slider.y = self.view.height + self.slider.height
-        UIView.animateWithDuration(0.33, animations: {
-            self.slider.y = originalPos
-            }, completion: nil)
+        let offscreen = self.view.height + self.slider.height
+        self.slider.y = offscreen
+        
+        after(seconds: 0.1) {
+            let originalPos = self.imageView.maxY + 28
+            
+            
+            let anim = POPSpringAnimation(propertyNamed: kPOPLayerPositionY)
+            anim.toValue = originalPos
+            anim.velocity = 4
+            anim.springBounciness = 4
+            anim.springSpeed = 4
+            self.slider.layer.pop_addAnimation(anim, forKey: "slider")
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -112,7 +126,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         
         self.slider.sizeToFit()
         self.slider.width = scrollViewSideLength
-        self.slider.moveBelow(siblingView: self.imageView, margin: 10, alignment: .Center)
+        self.slider.centerHorizontally(self.imageView)
         
         
         self.scope.frame = self.imageView.frame
