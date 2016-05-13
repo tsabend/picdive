@@ -23,6 +23,13 @@ class CroppingViewController: UIViewController, FlowViewController, ImagePresent
         return self.cropper.crop()
     } 
     
+    func toNext() {
+        let vc = Next()
+        vc.imageViewDataSource = self.nextImageViewDataSource
+        self.navigationController?.pushViewController(vc, animated: false)
+        vc.animateIn()
+    }
+    
     private let cropper = ImageCropper()
     
     override func viewDidLoad() {

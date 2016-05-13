@@ -106,11 +106,11 @@
 		1426C19C1C8CC50F00308155 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				149D31DD1C75480900866522 /* ScopeViewController.swift */,
 				4884BFE21CDFEE9C00761F30 /* EasingViewController.swift */,
 				4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */,
 				48EDFF4F1CD053D000B879D3 /* CroppingViewController.swift */,
 				48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */,
+				149D31DD1C75480900866522 /* ScopeViewController.swift */,
 				48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */,
 				48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */,
 				48EDFF551CD05ED700B879D3 /* NavigationController.swift */,

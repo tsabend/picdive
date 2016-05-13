@@ -13,3 +13,11 @@ class NavigationController: UINavigationController {
         return .LightContent
     }
 }
+
+extension UINavigationController {
+    func pushViewControllerWithTransitions(viewController: UIViewController, @noescape from: Void -> Void,  @noescape to: Void -> Void) {
+        from()
+        self.pushViewController(viewController, animated: false)
+        to()
+    }
+}

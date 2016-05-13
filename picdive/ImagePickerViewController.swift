@@ -9,6 +9,7 @@
 
 import UIKit
 import Photos
+import pop
 
 class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -96,7 +97,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     func selectImage(image: UIImage) {
         let vc = CroppingViewController()
         vc.imageViewDataSource = image
-        self.navigationController?.pushViewController(vc, animated: false)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     override func viewDidLayoutSubviews() {
