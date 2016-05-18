@@ -32,9 +32,23 @@ class PublishingViewController : UIViewController, ImagePresenter {
     
     func setupNavigationBar() {
         let barButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popToRootViewControllerAnimated(_:)))
-        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popViewControllerAnimated(_:)))
+        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(PublishingViewController.back))
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.rightBarButtonItem = barButton
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(PublishingViewController.copyGif))
+        self.gifView.addGestureRecognizer(longPress)
+        self.gifView.userInteractionEnabled = true
+        
+    }
+    
+    func back() {
+        self.navigationController?.popViewControllerAnimated(false)
+    }
+    
+    func copyGif() {
+        guard let gif = self.imageViewDataSource as? Gif else { return }
+        UIPasteboard.generalPasteboard().setData(gif.data, forPasteboardType: "com.compuserve.gif")
     }
     
     override func viewDidLayoutSubviews() {
