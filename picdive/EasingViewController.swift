@@ -23,6 +23,64 @@ enum ScopeEasing: EasingType {
             return "Linear"
         }
     }
+    
+    private func easeIn(framesCount: Int, totalTime c: Double) -> [Double] {
+        let d = Double(framesCount)
+        let b = c * d / 100
+        return (0..<framesCount).map { (t) -> Double in
+            let factor = pow(Double(t)/d, 2)
+            return b + (c-b) * factor
+        }
+    }
+}
+
+enum TimingEasing: EasingType {
+    case Linear, FinalFrame, Reverse
+    var label: String {
+        switch self {
+        case Linear:
+            return "Linear"
+        case FinalFrame:
+            return "Final Frame"
+        case Reverse:
+            return "Reverse"
+        }
+    }
+    
+//    private func easeIn(framesCount: Int, totalTime c: Double) -> [Double] {
+//        let d = Double(framesCount)
+//        let b = c * d / 100
+//        return (0..<framesCount).map { (t) -> Double in
+//            let factor = pow(Double(t)/d, 2)
+//            return b + (c-b) * factor
+//        }
+//    }
+//    private func easeIn(framesCount: Int, totalTime c: Double) -> [Double] {
+//        let min = 1.0
+//        let weightings = (0..<framesCount).map { (t) -> Double in
+//            let factor = pow(t.d/c, 2)
+//            return factor * (framesCount.d - t.d) + min
+//        }
+//        let divisor = weightings.reduce(0, combine: +)
+//        return weightings.map({c*$0/divisor})
+//    }
+
+    
+    func times(framesCount count: Int, totalTime duration: Double) -> [Double] {
+        switch self {
+        case .Linear, .Reverse:
+            return (0..<count).map {_ in duration/count.d}
+        case .FinalFrame:
+            var norms = (0..<count-1).map {_ in 2.d/3.d*duration/count.d}
+            let final = 2.d/3.d*duration/count.d + 1.0/3.0
+            norms.append(<#T##newElement: Element##Element#>)
+            
+            // 0.5, 0.5, 0.75, 1.5
+            
+            let last = norm * 3/count.d
+
+        }
+    }
 }
 
 class EasingCell: UICollectionViewCell {
@@ -54,6 +112,7 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     var collectionView: UICollectionView!
     var easings: [EasingType] = []
+    var onClick: (EasingType? -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,7 +146,7 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("boom")
+        self.onClick?(self.easings[safe: indexPath.row])
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,14 +159,9 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         super.didMoveToParentViewController(parent)
-//        self.collectionView.contentOffset = CGPoint.zero
-//        self.automaticallyAdjustsScrollViewInsets = false
-//        self.edgesForExtendedLayout = UIRectEdge.None
         self.collectionView.contentInset = UIEdgeInsetsZero
         self.collectionView.invalidateIntrinsicContentSize()
-        
         self.collectionView.reloadData()
-
     }
 }
 

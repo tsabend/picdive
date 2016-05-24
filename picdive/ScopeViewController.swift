@@ -134,9 +134,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     }
     
     private func makeGif() -> Gif? {
-        let time = Double(4 / self.slider.value)
         if let images = self.snapshotImages() {
-            return Gif(images: images, delay: time)
+            return Gif(images: images, easing: TimingEasing.Linear, totalTime: Double(4/self.slider.value))
         }
         return nil
     }

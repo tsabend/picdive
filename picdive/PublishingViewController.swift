@@ -19,6 +19,9 @@ class PublishingViewController : UIViewController, ImagePresenter {
     }
 
     private let gifView = UIImageView()
+    private let shareButton = UIButton()
+    private let gifButton = UIButton()
+    private let stripButton = UIButton()
     
     
     override func viewDidLoad() {
@@ -36,10 +39,20 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.rightBarButtonItem = barButton
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(PublishingViewController.copyGif))
-        self.gifView.addGestureRecognizer(longPress)
-        self.gifView.userInteractionEnabled = true
+        self.shareButton.setTitle("Share Gif", forState: .Normal)
+        self.shareButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.shareButton.addTarget(self, action: #selector(PublishingViewController.share), forControlEvents: .TouchUpInside)
+        self.gifButton.setTitle("Copy Gif", forState: .Normal)
+        self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.gifButton.addTarget(self, action: #selector(PublishingViewController.copyGif), forControlEvents: .TouchUpInside)
         
+        self.stripButton.setTitle("Copy Strip", forState: .Normal)
+        self.stripButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.stripButton.addTarget(self, action: #selector(PublishingViewController.copyStrip), forControlEvents: .TouchUpInside)
+        
+        self.view.addSubview(self.shareButton)
+        self.view.addSubview(self.gifButton)
+        self.view.addSubview(self.stripButton)
     }
     
     func back() {
@@ -49,6 +62,26 @@ class PublishingViewController : UIViewController, ImagePresenter {
     func copyGif() {
         guard let gif = self.imageViewDataSource as? Gif else { return }
         UIPasteboard.generalPasteboard().setData(gif.data, forPasteboardType: "com.compuserve.gif")
+        self.presentCopyConfirm()
+    }
+    
+    func presentCopyConfirm(){
+        let vc = UIAlertController(title: "Copied!", message: nil, preferredStyle: .Alert)
+        vc.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func copyStrip() {
+        guard let gif = self.imageViewDataSource as? Gif else { return }
+        let strip = UIImage.stitchImages(gif.images)
+        UIPasteboard.generalPasteboard().image = strip
+        self.presentCopyConfirm()
+    }
+    
+    func share() {
+        guard let gif = self.imageViewDataSource as? Gif, strip = UIImage.stitchImages(gif.images) else { return }
+        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [strip], applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -56,5 +89,16 @@ class PublishingViewController : UIViewController, ImagePresenter {
         
         self.gifView.size = CGSize(self.view.width, self.view.width)
         self.gifView.center = self.view.center
+        
+        self.shareButton.sizeToFit()
+        self.shareButton.moveBelow(siblingView: self.gifView, margin: 44, alignment: .Center)
+        
+        self.gifButton.sizeToFit()
+        self.stripButton.sizeToFit()
+        
+        let xMargin = (self.view.width - self.gifButton.width - self.stripButton.width) / 3
+        self.gifButton.moveAbove(siblingView: self.gifView, margin: 22)
+        self.gifButton.x = xMargin
+        self.stripButton.moveRight(siblingView: self.gifButton, margin: xMargin, alignVertically: true)
     }
 }

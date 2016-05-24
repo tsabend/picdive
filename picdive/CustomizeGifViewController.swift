@@ -12,10 +12,14 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     typealias Next = PublishingViewController
     var imageViewDataSource: ImageViewDataSource? {
         didSet {
-            if let gif = self.imageViewDataSource as? Gif {
+            if let gif = self.gif {
                 self.gifView.image = gif.image
             }
         }
+    }
+    var gif: Gif? {
+        get { return self.imageViewDataSource as? Gif }
+        set { self.imageViewDataSource = newValue }
     }
 
     private let gifView = UIImageView()
@@ -39,7 +43,12 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.addChildViewController(self.easingsViewController)
         self.view.addSubview(self.easingsViewController.view)
         self.easingsViewController.didMoveToParentViewController(self)
-        self.easingsViewController.easings = [ScopeEasing.In, ScopeEasing.Out,  ScopeEasing.Linear]
+        self.easingsViewController.easings = [TimingEasing.In, TimingEasing.Out,  TimingEasing.Linear, TimingEasing.Reverse]
+        self.easingsViewController.onClick = { [weak self] easing in
+            guard let easing = easing as? TimingEasing, gif = self?.gif, strongSelf = self else { return }
+            strongSelf.gif = Gif(images: gif.images, easing: easing, totalTime: Double(strongSelf.slider.value))
+            
+        }
         
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.view.addSubview(self.gifView)

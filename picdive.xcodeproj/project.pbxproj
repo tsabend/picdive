@@ -19,6 +19,7 @@
 		1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */; };
 		4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */; };
 		4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4884BFE21CDFEE9C00761F30 /* EasingViewController.swift */; };
+		48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */; };
 		48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */; };
 		48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */; };
 		48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */; };
@@ -63,6 +64,7 @@
 		4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.release.xcconfig"; sourceTree = "<group>"; };
 		4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		4884BFE21CDFEE9C00761F30 /* EasingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingViewController.swift; sourceTree = "<group>"; };
+		48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+PicDive.swift"; sourceTree = "<group>"; };
 		48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
 		48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRetriever.swift; sourceTree = "<group>"; };
 		48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCell.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				48EDFF5B1CD6411A00B879D3 /* CGRect+PicDive.swift */,
 				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
 				1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */,
+				48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */,
 			);
 			name = "UIKit+Picdive";
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				48EDFF501CD053D000B879D3 /* CroppingViewController.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */,
+				48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */,
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,
 				48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */,
 				48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */,
