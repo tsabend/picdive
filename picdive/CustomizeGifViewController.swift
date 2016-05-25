@@ -37,7 +37,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.slider.continuous = false
         self.slider.minimumValue = 2
         self.slider.maximumValue = 10
-        self.slider.value = 4
+        self.slider.value = Float(self.gif?.images.count ?? 4)
         self.slider.minimumTrackTintColor = UIColor.PDBlue()
         self.slider.maximumTrackTintColor = UIColor.PDLightGray()
         self.slider.thumbTintColor = UIColor.whiteColor()
