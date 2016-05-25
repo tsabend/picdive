@@ -23,10 +23,9 @@ struct Gif {
     let images: [UIImage]
     
     init?(images: [UIImage], easing: TimingEasing, totalTime: Double) {
-        self.init(images: images, times: easing.times(framesCount: images.count, totalTime: totalTime))
-    }
-    
-    init?(images: [UIImage], times: [Double]) {
+        let times = easing.times(framesCount: images.count, totalTime: totalTime)
+        
+
         guard times.count == images.count else { return nil }
         let fileProps = [kCGImagePropertyGIFDictionary.s: [kCGImagePropertyGIFLoopCount.s: 0]]
         let documentsDirectory = NSTemporaryDirectory()
@@ -35,8 +34,9 @@ struct Gif {
         guard let destination = CGImageDestinationCreateWithURL(url, kUTTypeGIF, images.count, nil) else { return nil }
         CGImageDestinationSetProperties(destination, fileProps)
         
-        
-        let props = zip(images, times)
+        // Reverse the images used to make the gif, but save the images in the original order
+        let imagesForGif = easing.reversed ? images.reverse() : images
+        let props = zip(imagesForGif, times)
         props.forEach { (image: UIImage, delay: Double) -> () in
             let timingProperties = [kCGImagePropertyGIFDictionary.s: [kCGImagePropertyGIFDelayTime.s: delay]]
             let cgImage = image.CGImage!
@@ -49,5 +49,9 @@ struct Gif {
         guard let image = UIImage.gifWithData(data) else { return nil }
         self.image = image
         self.images = images
+    }
+    
+    var horizontalStrip: UIImage? {
+        return UIImage.stitchImagesHorizontal(self.images)
     }
 }

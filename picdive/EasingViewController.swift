@@ -35,15 +35,26 @@ enum ScopeEasing: EasingType {
 }
 
 enum TimingEasing: EasingType {
-    case Linear, FinalFrame, Reverse
+    case Linear, FinalFrame, Reverse, ReverseFinalFrame
     var label: String {
         switch self {
-        case Linear:
+        case .Linear:
             return "Linear"
-        case FinalFrame:
+        case .FinalFrame:
             return "Final Frame"
-        case Reverse:
+        case .Reverse:
             return "Reverse"
+        case .ReverseFinalFrame:
+            return "Reversed Final Frame"
+        }
+    }
+    
+    var reversed: Bool {
+        switch self {
+        case .Reverse, .ReverseFinalFrame:
+            return true
+        default:
+            return false
         }
     }
     
@@ -70,17 +81,16 @@ enum TimingEasing: EasingType {
         switch self {
         case .Linear, .Reverse:
             return (0..<count).map {_ in duration/count.d}
-        case .FinalFrame:
-            var norms = (0..<count-1).map {_ in 2.d/3.d*duration/count.d}
-            let final = 2.d/3.d*duration/count.d + 1.0/3.0
-            norms.append(<#T##newElement: Element##Element#>)
-            
-            // 0.5, 0.5, 0.75, 1.5
-            
-            let last = norm * 3/count.d
-
+        case .FinalFrame, .ReverseFinalFrame:
+            let finalFrameTax = 0.15
+            let normalFrameDuration = duration/count.d * (1.0 - finalFrameTax)
+            let finalFrameDuration = duration/count.d + ((duration/count.d) * finalFrameTax * (count.d - 1.0))
+            var norms = (0..<count - 1).map { _ in normalFrameDuration }
+            norms.append(finalFrameDuration)
+            return norms
         }
     }
+    
 }
 
 class EasingCell: UICollectionViewCell {

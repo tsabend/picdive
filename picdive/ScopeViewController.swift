@@ -33,7 +33,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     
     private let imageView: UIImageView = UIImageView()
 
-    let slider: UISlider = UISlider()
+    let slider: Slider = Slider()
     let easingsViewController = EasingViewController()
     var numFrames: Int = 1
 
@@ -55,6 +55,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         self.slider.minimumTrackTintColor = UIColor.PDBlue()
         self.slider.maximumTrackTintColor = UIColor.PDLightGray()
         self.slider.thumbTintColor = UIColor.whiteColor()
+        self.slider.minimumValueImage = UIImage(named: "few-frames")
+        self.slider.maximumValueImage = UIImage(named: "many-frames")
         
         self.modalTransitionStyle = .CoverVertical
         
@@ -135,7 +137,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     
     private func makeGif() -> Gif? {
         if let images = self.snapshotImages() {
-            return Gif(images: images, easing: TimingEasing.Linear, totalTime: Double(4/self.slider.value))
+            return Gif(images: images, easing: TimingEasing.Linear, totalTime: Double(self.slider.value))
         }
         return nil
     }

@@ -25,6 +25,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     private let gifView = UIImageView()
     let easingsViewController = EasingViewController()
     let slider: UISlider = UISlider()
+    var easing = TimingEasing.Linear
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +34,9 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.setupNavigationBar()
         
         self.slider.addTarget(self, action: #selector(CustomizeGifViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.slider.continuous = false
         self.slider.minimumValue = 2
-        self.slider.maximumValue = 7
+        self.slider.maximumValue = 10
         self.slider.value = 4
         self.slider.minimumTrackTintColor = UIColor.PDBlue()
         self.slider.maximumTrackTintColor = UIColor.PDLightGray()
@@ -43,9 +45,10 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.addChildViewController(self.easingsViewController)
         self.view.addSubview(self.easingsViewController.view)
         self.easingsViewController.didMoveToParentViewController(self)
-        self.easingsViewController.easings = [TimingEasing.In, TimingEasing.Out,  TimingEasing.Linear, TimingEasing.Reverse]
+        self.easingsViewController.easings = [TimingEasing.Linear,  TimingEasing.FinalFrame, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
         self.easingsViewController.onClick = { [weak self] easing in
             guard let easing = easing as? TimingEasing, gif = self?.gif, strongSelf = self else { return }
+            strongSelf.easing = easing
             strongSelf.gif = Gif(images: gif.images, easing: easing, totalTime: Double(strongSelf.slider.value))
             
         }
@@ -57,8 +60,9 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     }
     
     func sliderDidSlide(slider: UISlider) {
-        let roundedValue = round(slider.value)
-        slider.setValue(roundedValue, animated: false)
+        guard let gif = self.gif else { return }
+        let value = Double(slider.value)
+        self.gif = Gif(images: gif.images, easing: self.easing, totalTime: value)
     }
     
     override func viewDidLayoutSubviews() {

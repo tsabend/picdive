@@ -14,6 +14,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
         didSet {
             if let gif = self.imageViewDataSource as? Gif {
                 self.gifView.image = gif.image
+                self.stripImageView.image = gif.horizontalStrip
             }
         }
     }
@@ -22,7 +23,8 @@ class PublishingViewController : UIViewController, ImagePresenter {
     private let shareButton = UIButton()
     private let gifButton = UIButton()
     private let stripButton = UIButton()
-    
+    private let stripView = UIScrollView()
+    private let stripImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +33,13 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.navigationItem.title = "Share"
         self.setupNavigationBar()
         self.view.addSubview(self.gifView)
+        self.stripView.addSubview(self.stripImageView)
+        self.view.addSubview(self.stripView)
     }
     
     func setupNavigationBar() {
         let barButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popToRootViewControllerAnimated(_:)))
-        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(PublishingViewController.back))
+        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self, action: #selector(PublishingViewController.back))
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.rightBarButtonItem = barButton
         
@@ -73,15 +77,15 @@ class PublishingViewController : UIViewController, ImagePresenter {
     
     func copyStrip() {
         guard let gif = self.imageViewDataSource as? Gif else { return }
-        let strip = UIImage.stitchImages(gif.images)
+        let strip = UIImage.stitchImagesVertical(gif.images)
         UIPasteboard.generalPasteboard().image = strip
         self.presentCopyConfirm()
     }
     
     func share() {
-        guard let gif = self.imageViewDataSource as? Gif, strip = UIImage.stitchImages(gif.images) else { return }
-        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [strip], applicationActivities: nil)
-        self.presentViewController(activityViewController, animated: true, completion: nil)
+//        guard let gif = self.imageViewDataSource as? Gif, strip = UIImage.stitchImages(gif.images) else { return }
+//        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [strip], applicationActivities: nil)
+//        self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -90,15 +94,26 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.gifView.size = CGSize(self.view.width, self.view.width)
         self.gifView.center = self.view.center
         
-        self.shareButton.sizeToFit()
-        self.shareButton.moveBelow(siblingView: self.gifView, margin: 44, alignment: .Center)
-        
+//        self.shareButton.sizeToFit()
+//        self.shareButton.moveBelow(siblingView: self.gifView, margin: 44, alignment: .Center)
+//        
         self.gifButton.sizeToFit()
         self.stripButton.sizeToFit()
         
-        let xMargin = (self.view.width - self.gifButton.width - self.stripButton.width) / 3
-        self.gifButton.moveAbove(siblingView: self.gifView, margin: 22)
-        self.gifButton.x = xMargin
-        self.stripButton.moveRight(siblingView: self.gifButton, margin: xMargin, alignVertically: true)
+        
+        self.gifButton.moveAbove(siblingView: self.gifView, margin: 22, alignment: .Center)
+        
+        
+        self.stripView.width = self.view.width
+        self.stripView.height = 65
+        self.stripImageView.size.height = 64
+        self.stripImageView.size.width = 64 * (self.imageViewDataSource as! Gif).images.count.f
+        self.stripView.contentSize.width = self.stripImageView.width
+        if self.stripImageView.width < self.view.width {
+            self.stripImageView.moveToCenterOfSuperview()
+        }
+        
+        self.stripView.moveBelow(siblingView: self.gifView, margin: 44)
+        self.stripButton.moveAbove(siblingView: self.stripView, margin: 10, alignment: .Center)
     }
 }

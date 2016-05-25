@@ -12,6 +12,7 @@
 		1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */; };
 		1426C1A31C8CCAFB00308155 /* Quicksand-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */; };
 		1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437B7A91C7FDDDD004AF560 /* Gif.swift */; };
+		1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497E25D1CF5301D00A9E253 /* Slider.swift */; };
 		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
 		149D31DE1C75480900866522 /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DD1C75480900866522 /* ScopeViewController.swift */; };
 		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+PicDive.swift"; sourceTree = "<group>"; };
 		1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.otf"; sourceTree = "<group>"; };
 		1437B7A91C7FDDDD004AF560 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
+		1497E25D1CF5301D00A9E253 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31DB1C75480900866522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149D31DD1C75480900866522 /* ScopeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */,
 				48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */,
 				48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */,
+				1497E25D1CF5301D00A9E253 /* Slider.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */,
 				48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */,
+				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,
 				48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */,
 				48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */,
