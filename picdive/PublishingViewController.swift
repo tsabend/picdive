@@ -46,11 +46,11 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.shareButton.setTitle("Share Gif", forState: .Normal)
         self.shareButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.shareButton.addTarget(self, action: #selector(PublishingViewController.share), forControlEvents: .TouchUpInside)
-        self.gifButton.setTitle("Copy Gif", forState: .Normal)
+        self.gifButton.setTitle("Copy as Gif", forState: .Normal)
         self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.gifButton.addTarget(self, action: #selector(PublishingViewController.copyGif), forControlEvents: .TouchUpInside)
         
-        self.stripButton.setTitle("Copy Strip", forState: .Normal)
+        self.stripButton.setTitle("Copy as Photo Strip", forState: .Normal)
         self.stripButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.stripButton.addTarget(self, action: #selector(PublishingViewController.copyStrip), forControlEvents: .TouchUpInside)
         
@@ -90,9 +90,9 @@ class PublishingViewController : UIViewController, ImagePresenter {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         self.gifView.size = CGSize(self.view.width, self.view.width)
-        self.gifView.center = self.view.center
+        self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
         
 //        self.shareButton.sizeToFit()
 //        self.shareButton.moveBelow(siblingView: self.gifView, margin: 44, alignment: .Center)
@@ -101,11 +101,11 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.stripButton.sizeToFit()
         
         
-        self.gifButton.moveAbove(siblingView: self.gifView, margin: 22, alignment: .Center)
+        self.gifButton.moveBelow(siblingView: self.gifView, margin: 16, alignment: .Center)
         
         
         self.stripView.width = self.view.width
-        self.stripView.height = 65
+        self.stripView.height = 64
         self.stripImageView.size.height = 64
         self.stripImageView.size.width = 64 * (self.imageViewDataSource as! Gif).images.count.f
         self.stripView.contentSize.width = self.stripImageView.width
@@ -113,7 +113,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
             self.stripImageView.moveToCenterOfSuperview()
         }
         
-        self.stripView.moveBelow(siblingView: self.gifView, margin: 44)
-        self.stripButton.moveAbove(siblingView: self.stripView, margin: 10, alignment: .Center)
+        self.stripView.moveBelow(siblingView: self.gifButton, margin: 16)
+        self.stripButton.moveBelow(siblingView: self.stripView, margin: 16, alignment: .Center)
     }
 }

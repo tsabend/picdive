@@ -7,119 +7,10 @@
 //
 
 import UIKit
-protocol EasingType {
-    var label: String { get }
-}
-
-enum ScopeEasing: EasingType {
-    case In, Out, Linear
-    var label: String {
-        switch self {
-        case In:
-            return "In"
-        case Out:
-            return "Out"
-        case Linear:
-            return "Linear"
-        }
-    }
-    
-    private func easeIn(framesCount: Int, totalTime c: Double) -> [Double] {
-        let d = Double(framesCount)
-        let b = c * d / 100
-        return (0..<framesCount).map { (t) -> Double in
-            let factor = pow(Double(t)/d, 2)
-            return b + (c-b) * factor
-        }
-    }
-}
-
-enum TimingEasing: EasingType {
-    case Linear, FinalFrame, Reverse, ReverseFinalFrame
-    var label: String {
-        switch self {
-        case .Linear:
-            return "Linear"
-        case .FinalFrame:
-            return "Final Frame"
-        case .Reverse:
-            return "Reverse"
-        case .ReverseFinalFrame:
-            return "Reversed Final Frame"
-        }
-    }
-    
-    var reversed: Bool {
-        switch self {
-        case .Reverse, .ReverseFinalFrame:
-            return true
-        default:
-            return false
-        }
-    }
-    
-//    private func easeIn(framesCount: Int, totalTime c: Double) -> [Double] {
-//        let d = Double(framesCount)
-//        let b = c * d / 100
-//        return (0..<framesCount).map { (t) -> Double in
-//            let factor = pow(Double(t)/d, 2)
-//            return b + (c-b) * factor
-//        }
-//    }
-//    private func easeIn(framesCount: Int, totalTime c: Double) -> [Double] {
-//        let min = 1.0
-//        let weightings = (0..<framesCount).map { (t) -> Double in
-//            let factor = pow(t.d/c, 2)
-//            return factor * (framesCount.d - t.d) + min
-//        }
-//        let divisor = weightings.reduce(0, combine: +)
-//        return weightings.map({c*$0/divisor})
-//    }
-
-    
-    func times(framesCount count: Int, totalTime duration: Double) -> [Double] {
-        switch self {
-        case .Linear, .Reverse:
-            return (0..<count).map {_ in duration/count.d}
-        case .FinalFrame, .ReverseFinalFrame:
-            let finalFrameTax = 0.15
-            let normalFrameDuration = duration/count.d * (1.0 - finalFrameTax)
-            let finalFrameDuration = duration/count.d + ((duration/count.d) * finalFrameTax * (count.d - 1.0))
-            var norms = (0..<count - 1).map { _ in normalFrameDuration }
-            norms.append(finalFrameDuration)
-            return norms
-        }
-    }
-    
-}
-
-class EasingCell: UICollectionViewCell {
-    let imageView = UIImageView()
-    let label = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor.PDLightGray()
-        self.contentView.addSubview(self.imageView)
-        self.contentView.addSubview(self.label)
-        self.layer.borderColor = UIColor.blackColor().CGColor
-        self.layer.borderWidth = 2
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        self.label.sizeToFit()
-        self.label.moveToCenterOfSuperview()
-    }
-}
 
 class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    var label = UILabel()
     var collectionView: UICollectionView!
     var easings: [EasingType] = []
     var onClick: (EasingType? -> Void)?
@@ -134,7 +25,12 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
         self.collectionView.registerClass(EasingCell.self, forCellWithReuseIdentifier: String(EasingCell.self))
         self.collectionView.backgroundColor = UIColor.clearColor()
         self.collectionView.showsHorizontalScrollIndicator = false
+        
+        self.label.textColor = UIColor.PDLightGray()
+        self.view.addSubview(self.label)
         self.view.addSubview(self.collectionView)
+        
+
     }
     
     // MARK: - CollectionView
@@ -161,10 +57,10 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.collectionView.frame = self.view.bounds
-        self.collectionView.contentSize = self.view.bounds.size
-        self.collectionView.contentOffset = CGPoint.zero
-
+        self.label.sizeToFit()
+        self.label.moveToHorizontalCenter(ofView: self.view)
+        self.collectionView.size = CGSize(self.view.width, self.view.height - self.label.height)
+        self.collectionView.moveBelow(siblingView: self.label, margin: 0)
     }
     
     override func didMoveToParentViewController(parent: UIViewController?) {
@@ -172,6 +68,10 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
         self.collectionView.contentInset = UIEdgeInsetsZero
         self.collectionView.invalidateIntrinsicContentSize()
         self.collectionView.reloadData()
+        after(seconds: 0.1) {
+            
+            self.collectionView.selectItemAtIndexPath(NSIndexPath(forItem: 0,inSection: 0), animated: false, scrollPosition: .None)
+        }
     }
 }
 
@@ -180,9 +80,9 @@ class EasingFlowLayout: UICollectionViewFlowLayout {
         super.init()
         
         
-        self.itemSize = CGSize(width: 128, height: 64)
+        self.itemSize = CGSize(width: 96, height: 64)
         self.minimumLineSpacing = 16
-        self.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
         self.headerReferenceSize = CGSize.zero
         self.scrollDirection = .Horizontal 
 

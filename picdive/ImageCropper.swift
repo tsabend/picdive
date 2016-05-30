@@ -13,6 +13,7 @@ class ImageCropper: UIView, UIScrollViewDelegate {
     var image: UIImage? {
         didSet {
             self.imageView.image = image
+            self.imageView.frame = CGRect.zero
             self.setNeedsLayout()
         }
     }
@@ -44,6 +45,7 @@ class ImageCropper: UIView, UIScrollViewDelegate {
         guard let image = image else { return }
         
         self.imageView.sizeToFit()
+        self.imageView.origin = CGPoint.zero
         self.scrollView.frame = self.bounds
         self.scrollView.contentSize = image.size
         
@@ -61,7 +63,8 @@ class ImageCropper: UIView, UIScrollViewDelegate {
         self.scrollView.contentOffset.y = (self.scrollView.contentSize.height - self.scrollView.height) / 2
     }
 
-    func crop() -> UIImage {
+    func crop() -> UIImage? {
+        guard self.image != nil else { return nil }
         return UIImage.drawImage(size: self.scrollView.size) { (size, context) in
             CGContextTranslateCTM(context, -self.scrollView.contentOffset.x, -self.scrollView.contentOffset.y)
             self.scrollView.layer.renderInContext(context)

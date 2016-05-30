@@ -38,6 +38,7 @@ protocol ImagePresenter {
     
     var imageViewDataSource: ImageViewDataSource? { get set }
     var nextImageViewDataSource: ImageViewDataSource? { get }
+    func animateIn()
     
 }
 
@@ -45,6 +46,7 @@ extension ImagePresenter {
     var nextImageViewDataSource: ImageViewDataSource? {
         return self.imageViewDataSource
     }
+    func animateIn() {}
 }
 
 protocol FlowViewController {
@@ -62,6 +64,7 @@ extension FlowViewController where Self: UIViewController, Self: ImagePresenter,
         var vc = Next()
         vc.imageViewDataSource = self.nextImageViewDataSource
         self.navigationController?.pushViewController(vc, animated: false)
+        vc.animateIn()
     }
     
     func back() {
@@ -70,9 +73,10 @@ extension FlowViewController where Self: UIViewController, Self: ImagePresenter,
     
     func setupNavigationBar() {
         self.navigationItem.title = self.title
-        let nextButton = BarButtonItem(title: "✔") { [weak self] in self?.toNext() }
         let backButton = BarButtonItem(title: "X") { [weak self] in self?.back() }
         self.navigationItem.leftBarButtonItem = backButton
+       
+        let nextButton = BarButtonItem(title: "->") { [weak self] in self?.toNext() }
         self.navigationItem.rightBarButtonItem = nextButton
     }
 }

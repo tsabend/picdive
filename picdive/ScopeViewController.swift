@@ -34,7 +34,6 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     private let imageView: UIImageView = UIImageView()
 
     let slider: Slider = Slider()
-    let easingsViewController = EasingViewController()
     var numFrames: Int = 1
 
     var scope: PicScopeView!
@@ -49,22 +48,11 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         self.scope = PicScopeView()
 
         self.slider.addTarget(self, action: #selector(ScopeViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.slider.minimumValue = 2
-        self.slider.maximumValue = 7
-        self.slider.value = 4
-        self.slider.minimumTrackTintColor = UIColor.PDBlue()
-        self.slider.maximumTrackTintColor = UIColor.PDLightGray()
-        self.slider.thumbTintColor = UIColor.whiteColor()
-        self.slider.minimumValueImage = UIImage(named: "few-frames")
-        self.slider.maximumValueImage = UIImage(named: "many-frames")
+        self.slider.setupValues(min: 2, max: 7, initial: 4)
+        self.slider.setupImages(min: UIImage(named: "few-frames"), max: UIImage(named: "many-frames"))
         
         self.modalTransitionStyle = .CoverVertical
         
-        self.addChildViewController(self.easingsViewController)
-        self.view.addSubview(self.easingsViewController.view)
-        self.easingsViewController.didMoveToParentViewController(self)
-        self.easingsViewController.easings = [ScopeEasing.In, ScopeEasing.Out,  ScopeEasing.Linear]
-    
         self.view.addSubview(self.imageView)
         self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
@@ -81,24 +69,17 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         
         let offscreen = self.view.height + self.slider.height
         self.slider.y = offscreen
-        self.scope.alpha = 0
-        self.easingsViewController.view.frame.x = self.view.maxX
-        
-        after(seconds: 0.1) {
-            let originalPos = self.imageView.maxY + 28
+        after(seconds: 0.01) {
+            let originalPos = self.imageView.maxY + 64
             
             
             let anim2 = POPSpringAnimation(propertyNamed: kPOPLayerPositionY)
             anim2.toValue = originalPos
-            anim2.velocity = 4
+            anim2.velocity = 8
             anim2.springBounciness = 4
             anim2.springSpeed = 4
             self.slider.layer.pop_addAnimation(anim2, forKey: "slider")
-            
-            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                self.easingsViewController.view.frame.x = 0
-                self.scope.alpha = 1
-                }, completion: nil)
+            self.scope.animate()
         }
     }
     
@@ -111,8 +92,6 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
             sliderAnimation.springBounciness = 4
             sliderAnimation.springSpeed = 4
             self.slider.layer.pop_addAnimation(sliderAnimation, forKey: "slider")
-            self.easingsViewController.view.frame.x = self.view.maxX
-            self.scope.alpha = 0
             }, completion: { _ in
                 self.navigationController?.popViewControllerAnimated(false)
         })
@@ -149,14 +128,11 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         let scrollViewSideLength = self.view.width - margin
         
         self.imageView.size = CGSize(self.view.width, self.view.width)
-        self.imageView.center = self.view.center
+        self.imageView.y = self.navigationController?.navigationBar.maxY ?? 0
         
         self.slider.sizeToFit()
         self.slider.width = scrollViewSideLength
         self.slider.centerHorizontally(self.imageView)
-        
-        self.easingsViewController.view.size = CGSize(width: self.imageView.width, height: 128)
-        self.easingsViewController.view.moveAbove(siblingView: self.imageView, margin: 10)
         
         
         self.scope.frame = self.imageView.frame

@@ -18,11 +18,12 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     private let cameraButton = UIButton()
     private let headerView = UIView()
     private let noImagePlaceholder = UIImageView()
+    private let imageCropper = ImageCropper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Select an image"
+        self.title = "Pick your image"
         
         self.view.backgroundColor = UIColor.PDLightGray()
         self.headerView.backgroundColor = UIColor.PDDarkGray()
@@ -35,6 +36,13 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         PhotoRetriever().queryPhotos { (images) in
             guard let images = images else { return }
             self.photos = images
+            if let first = images.first {
+                PhotoRetriever().getImage(first.1) { (image) in
+                    if let image = image {
+                        self.selectImage(image)
+                    }
+                }
+            }
         }
         
         self.cameraButton.setTitle("Take a Photo 📸", forState: .Normal)
@@ -46,8 +54,9 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.headerView.addSubview(self.cameraButton)
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.noImagePlaceholder)
+        self.view.addSubview(self.imageCropper)
     }
-    
+
     // MARK: - Camera
     func cameraWasPressed() {
         let vc = UIImagePickerController()
@@ -94,10 +103,20 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         }
     }
     
+    
     func selectImage(image: UIImage) {
-        let vc = CroppingViewController()
-        vc.imageViewDataSource = image
-        self.navigationController?.pushViewController(vc, animated: true)
+        let nextButton = BarButtonItem(title: "->") { [weak self] in self?.toNext() }
+        self.navigationItem.rightBarButtonItem = nextButton
+        self.imageCropper.image = image
+    }
+    
+    func toNext() {
+        if let image = self.imageCropper.crop() {
+            let vc = ScopeViewController()
+            vc.imageViewDataSource = image
+            self.navigationController?.pushViewController(vc, animated: false)
+            vc.animateIn()
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -106,12 +125,17 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.noImagePlaceholder.size = CGSize(width: 176, height: 89)
         self.noImagePlaceholder.center.x = self.view.center.x
         self.noImagePlaceholder.y = (self.view.width - self.noImagePlaceholder.height) / 2
+
+        self.imageCropper.size = CGSize(self.view.width, self.view.width)
+        self.imageCropper.y = self.navigationController?.navigationBar.maxY ?? 0
+
+        self.headerView.size = CGSize(width: self.view.width, height: 64)
+        self.headerView.moveBelow(siblingView: self.imageCropper, margin: 0)
+        //y = self.collectionView.y - self.headerView.height
+        
         
         self.collectionView.size = CGSize(self.view.width, self.view.maxY - self.view.width - 64)
-        self.collectionView.alignBottom(0, toView: self.view)
-        
-        self.headerView.size = CGSize(width: self.view.width, height: 64)
-        self.headerView.y = self.collectionView.y - self.headerView.height
+        self.collectionView.moveBelow(siblingView: self.headerView, margin: 0)
         
         self.cameraButton.sizeToFit()
         self.cameraButton.moveToCenterOfSuperview()

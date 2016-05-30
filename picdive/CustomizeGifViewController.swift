@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import pop
 
 class CustomizeGifViewController: UIViewController, FlowViewController, ImagePresenter {
     typealias Next = PublishingViewController
@@ -24,7 +25,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
 
     private let gifView = UIImageView()
     let easingsViewController = EasingViewController()
-    let slider: UISlider = UISlider()
+    let slider = Slider()
     var easing = TimingEasing.Linear
     
     override func viewDidLoad() {
@@ -35,13 +36,11 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
         self.slider.addTarget(self, action: #selector(CustomizeGifViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.continuous = false
-        self.slider.minimumValue = 2
-        self.slider.maximumValue = 10
-        self.slider.value = Float(self.gif?.images.count ?? 4)
-        self.slider.minimumTrackTintColor = UIColor.PDBlue()
-        self.slider.maximumTrackTintColor = UIColor.PDLightGray()
-        self.slider.thumbTintColor = UIColor.whiteColor()
         
+        self.slider.setupValues(min: 2, max: 10, initial: Float(self.gif?.images.count ?? 4))
+        self.slider.setupImages(min: UIImage(named: "few-frames"), max: UIImage(named: "many-frames"))
+        
+        self.easingsViewController.label.text = "Timing"
         self.addChildViewController(self.easingsViewController)
         self.view.addSubview(self.easingsViewController.view)
         self.easingsViewController.didMoveToParentViewController(self)
@@ -59,6 +58,13 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
     }
     
+    func animateIn() {
+        self.easingsViewController.view.alpha = 0
+        UIView.animateWithDuration(0.2) {
+            self.easingsViewController.view.alpha = 1
+        }
+    }
+    
     func sliderDidSlide(slider: UISlider) {
         guard let gif = self.gif else { return }
         let value = Double(slider.value)
@@ -69,15 +75,16 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         super.viewDidLayoutSubviews()
         
         self.gifView.size = CGSize(self.view.width, self.view.width)
-        self.gifView.center = self.view.center
-        
-        self.easingsViewController.view.size = CGSize(width: self.gifView.width, height: 128)
-        self.easingsViewController.view.moveAbove(siblingView: self.gifView, margin: 10, alignment: .Center)
+        self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
         
         
         self.slider.sizeToFit()
         self.slider.width = self.view.width - 22
-        self.slider.moveBelow(siblingView: self.gifView, margin: 12, alignment: .Center)
+        self.slider.moveBelow(siblingView: self.gifView, margin: 48.5, alignment: .Center)
+
+        self.easingsViewController.view.size = CGSize(width: self.gifView.width, height: 100)
+        self.easingsViewController.view.moveBelow(siblingView: self.slider, margin: 8, alignment: .Center)
+        
     }
 
 }
