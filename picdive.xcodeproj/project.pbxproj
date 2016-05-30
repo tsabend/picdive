@@ -24,6 +24,7 @@
 		48A0C7DB1CFC8B3000ACD5A7 /* Easings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */; };
 		48A0C7DD1CFC8B4600ACD5A7 /* EasingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */; };
 		48A0C7DF1CFD006500ACD5A7 /* NumberConversions+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DE1CFD006500ACD5A7 /* NumberConversions+PicDive.swift */; };
+		48A0C7E11CFD062B00ACD5A7 /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7E01CFD062B00ACD5A7 /* UIView+Animations.swift */; };
 		48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */; };
 		48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */; };
 		48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */; };
@@ -72,6 +73,7 @@
 		48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Easings.swift; sourceTree = "<group>"; };
 		48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingCell.swift; sourceTree = "<group>"; };
 		48A0C7DE1CFD006500ACD5A7 /* NumberConversions+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumberConversions+PicDive.swift"; sourceTree = "<group>"; };
+		48A0C7E01CFD062B00ACD5A7 /* UIView+Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Animations.swift"; sourceTree = "<group>"; };
 		48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
 		48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRetriever.swift; sourceTree = "<group>"; };
 		48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCell.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */,
 				48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */,
+				48A0C7E01CFD062B00ACD5A7 /* UIView+Animations.swift */,
 				48A0C7DE1CFD006500ACD5A7 /* NumberConversions+PicDive.swift */,
 				48EDFF5B1CD6411A00B879D3 /* CGRect+PicDive.swift */,
 				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
@@ -450,6 +453,7 @@
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */,
+				48A0C7E11CFD062B00ACD5A7 /* UIView+Animations.swift in Sources */,
 				48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */,
 				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,

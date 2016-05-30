@@ -14,6 +14,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     var imageViewDataSource: ImageViewDataSource? {
         didSet {
             if let gif = self.gif {
+                self.flash.flash()
                 self.gifView.image = gif.image
             }
         }
@@ -27,6 +28,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     let easingsViewController = EasingViewController()
     let slider = Slider()
     var easing = TimingEasing.Linear
+    private let flash = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,21 +42,28 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.slider.setupValues(min: 2, max: 10, initial: Float(self.gif?.images.count ?? 4))
         self.slider.setupImages(min: UIImage(named: "few-frames"), max: UIImage(named: "many-frames"))
         
+        self.easingsViewController.easings = [TimingEasing.Linear,  TimingEasing.FinalFrame, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
         self.easingsViewController.label.text = "Timing"
+        
         self.addChildViewController(self.easingsViewController)
         self.view.addSubview(self.easingsViewController.view)
         self.easingsViewController.didMoveToParentViewController(self)
-        self.easingsViewController.easings = [TimingEasing.Linear,  TimingEasing.FinalFrame, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
+       
         self.easingsViewController.onClick = { [weak self] easing in
             guard let easing = easing as? TimingEasing, gif = self?.gif, strongSelf = self else { return }
-            strongSelf.easing = easing
-            strongSelf.gif = Gif(images: gif.images, easing: easing, totalTime: Double(strongSelf.slider.value))
             
+            strongSelf.easing = easing
+            
+            strongSelf.gif = Gif(images: gif.images, easing: easing, totalTime: Double(strongSelf.slider.value))            
         }
+        
+        self.flash.backgroundColor = UIColor.whiteColor()
+        self.flash.alpha = 0
         
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.view.addSubview(self.gifView)
         self.view.addSubview(self.slider)
+        self.gifView.addSubview(self.flash)
         
     }
     
@@ -76,7 +85,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
         self.gifView.size = CGSize(self.view.width, self.view.width)
         self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
-        
+        self.flash.frame = self.gifView.bounds
         
         self.slider.sizeToFit()
         self.slider.width = self.view.width - 22
