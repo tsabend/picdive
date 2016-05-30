@@ -18,14 +18,12 @@ class ImageCell: UICollectionViewCell {
         self.contentView.addSubview(self.imageView)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) is terrible")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.imageView.frame = self.contentView.bounds
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) is terrible")
+    }
 }
-

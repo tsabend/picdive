@@ -7,33 +7,12 @@
 //
 
 import Foundation
+
 protocol EasingType {
     var label: String { get }
 }
 
-enum ScopeEasing: EasingType {
-    case In, Out, Linear
-    var label: String {
-        switch self {
-        case In:
-            return "In"
-        case Out:
-            return "Out"
-        case Linear:
-            return "Linear"
-        }
-    }
-    
-    private func easeIn(framesCount: Int, totalTime c: Double) -> [Double] {
-        let d = Double(framesCount)
-        let b = c * d / 100
-        return (0..<framesCount).map { (t) -> Double in
-            let factor = pow(Double(t)/d, 2)
-            return b + (c-b) * factor
-        }
-    }
-}
-
+/// The easing type for setting the duration of images within a gif.
 enum TimingEasing: EasingType {
     case Linear, FinalFrame, Reverse, ReverseFinalFrame
     var label: String {

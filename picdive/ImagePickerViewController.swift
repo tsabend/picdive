@@ -25,8 +25,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.title = "Pick your image"
         
-        self.view.backgroundColor = UIColor.PDLightGray()
-        self.headerView.backgroundColor = UIColor.PDDarkGray()
+        self.view.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -131,8 +130,6 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
 
         self.headerView.size = CGSize(width: self.view.width, height: 64)
         self.headerView.moveBelow(siblingView: self.imageCropper, margin: 0)
-        //y = self.collectionView.y - self.headerView.height
-        
         
         self.collectionView.size = CGSize(self.view.width, self.view.maxY - self.view.width - 64)
         self.collectionView.moveBelow(siblingView: self.headerView, margin: 0)

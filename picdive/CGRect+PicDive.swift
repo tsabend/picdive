@@ -20,7 +20,7 @@ extension CGRect {
     
     var square: Bool { return self.width == self.height }
 
-    func squaresBetween(rect otherRect: CGRect, steps: Int, easing: CGRect.Easing = .Linear) -> [CGRect] {
+    func squaresBetween(rect otherRect: CGRect, steps: Int) -> [CGRect] {
         guard self.size > otherRect.size else { return [] }
         guard self.square && otherRect.square else { return [] }
 

@@ -59,42 +59,20 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     
     }
     
-    
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
-    }
-    
     func animateIn() {
         
         let offscreen = self.view.height + self.slider.height
         self.slider.y = offscreen
         after(seconds: 0.01) {
             let originalPos = self.imageView.maxY + 64
-            
-            
-            let anim2 = POPSpringAnimation(propertyNamed: kPOPLayerPositionY)
-            anim2.toValue = originalPos
-            anim2.velocity = 8
-            anim2.springBounciness = 4
-            anim2.springSpeed = 4
-            self.slider.layer.pop_addAnimation(anim2, forKey: "slider")
+            let animation = POPSpringAnimation(propertyNamed: kPOPLayerPositionY)
+            animation.toValue = originalPos
+            animation.velocity = 8
+            animation.springBounciness = 4
+            animation.springSpeed = 4
+            self.slider.layer.pop_addAnimation(animation, forKey: "slider")
             self.scope.animate()
         }
-    }
-    
-    func back() {
-        UIView.animateWithDuration(0.2, animations: {
-            let offscreen = self.view.height + self.slider.height
-            let sliderAnimation = POPSpringAnimation(propertyNamed: kPOPLayerPositionY)
-            sliderAnimation.toValue = offscreen
-            sliderAnimation.velocity = 4
-            sliderAnimation.springBounciness = 4
-            sliderAnimation.springSpeed = 4
-            self.slider.layer.pop_addAnimation(sliderAnimation, forKey: "slider")
-            }, completion: { _ in
-                self.navigationController?.popViewControllerAnimated(false)
-        })
     }
     
     

@@ -22,10 +22,6 @@ class EasingCell: UICollectionViewCell {
         self.layer.borderWidth = 2
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override var selected: Bool {
         didSet {
             self.label.textColor = self.selected ? UIColor.yellowColor() : UIColor.PDBlue()
@@ -37,5 +33,9 @@ class EasingCell: UICollectionViewCell {
         
         self.label.sizeToFit()
         self.label.moveToCenterOfSuperview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

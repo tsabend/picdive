@@ -10,6 +10,7 @@ import UIKit
 import CGRectExtensions
 
 class PicScopeView: UIView {
+    
     /// The number of frames to generate between the outer and inner box
     var numberOfSteps = 4 { didSet { self.resetBoxes() } }
     
@@ -36,10 +37,6 @@ class PicScopeView: UIView {
         self.addGestureRecognizer(pinch)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Boxes
     private func resetBoxes() {
         self.boxes.forEach {$0.removeFromSuperview() }
@@ -90,8 +87,6 @@ class PicScopeView: UIView {
         self.boxWasScaled(pinch.scale)
         print(pinch.scale)
         pinch.scale = 1
-
-        
     }
     
     private func boxWasScaled(scale: CGFloat) {
@@ -105,6 +100,7 @@ class PicScopeView: UIView {
         }
     }
     
+    // MARK: - animations
     func animate() {
         let total = 400
         (0...total).forEach { (idx) in
@@ -117,7 +113,7 @@ class PicScopeView: UIView {
     }
 
     // MARK: - BoxView
-    class BoxView: UIView {
+    private class BoxView: UIView {
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
@@ -127,7 +123,8 @@ class PicScopeView: UIView {
         required init?(coder aDecoder: NSCoder) { fatalError("") }
     }
     
-    enum Easing {
-        case In, Out, Linear
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
 }
