@@ -25,5 +25,9 @@ extension UIColor {
     class func PDDarkGray() -> UIColor {
         return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
     }
+    
+    class func PDGray() -> UIColor {
+        return UIColor(red: 56/255, green: 56/255, blue: 56/255, alpha: 1)
+    }
 
 }

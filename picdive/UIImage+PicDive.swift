@@ -44,7 +44,7 @@ extension UIImage {
         return images.reduce(CGSize.zero, combine: UIImage.accumulateSize)
     }
     
-    static func stitchImages(images: [UIImage]) -> UIImage? {
+    static func stitchImagesVertical(images: [UIImage]) -> UIImage? {
         let maxSize = UIImage.maxSize(forImages: images)
         let totalSize = CGSize(width: maxSize.width, height: maxSize.height * images.count.f)
         return UIImage.drawImage(size: totalSize) { (size, context) -> Void in
@@ -53,6 +53,18 @@ extension UIImage {
                 image.drawInRect(rect)
             }
 
+        }
+    }
+    
+    static func stitchImagesHorizontal(images: [UIImage]) -> UIImage? {
+        let maxSize = UIImage.maxSize(forImages: images)
+        let totalSize = CGSize(width: maxSize.width  * images.count.f, height: maxSize.height)
+        return UIImage.drawImage(size: totalSize) { (size, context) -> Void in
+            images.enumerate().forEach { (index: Int, image: UIImage) -> () in
+                let rect = CGRect(origin: CGPoint(maxSize.width * index.f, 0), size: maxSize)
+                image.drawInRect(rect)
+            }
+            
         }
     }
 }

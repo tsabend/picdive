@@ -49,7 +49,9 @@ class PicScopeView: UIView {
     }
     
     private func buildRects() -> [CGRect] {
-        return self.frame.squaresBetween(rect: self.innerRect, steps: self.numberOfSteps)
+        return self
+            .frame
+            .squaresBetween(rect: self.innerRect, steps: self.numberOfSteps)
     }
     
     // MARK: - Gestures
@@ -85,22 +87,33 @@ class PicScopeView: UIView {
     
     
     func boxWasPinched(pinch: UIPinchGestureRecognizer) {
-        let innerRect = self.innerRect
-        if pinch.state == .Began {
-            self.boxes.forEach {$0.removeFromSuperview() }
-        }
-        let newSideLength = innerRect.width * pinch.scale
+        self.boxWasScaled(pinch.scale)
+        print(pinch.scale)
+        pinch.scale = 1
 
+        
+    }
+    
+    private func boxWasScaled(scale: CGFloat) {
+        let innerRect = self.innerRect
+        let newSideLength = innerRect.width * scale
+        
         if innerRect.origin.x + newSideLength < self.width && innerRect.origin.y + newSideLength < self.height {
             let center = innerRect.center
             self.innerRect.size = CGSize(width: newSideLength, height: newSideLength)
             self.innerRect.center = center
         }
-        pinch.scale = 1
-        if pinch.state == .Ended {
-            self.resetBoxes()
+    }
+    
+    func animate() {
+        let total = 400
+        (0...total).forEach { (idx) in
+            let scale: CGFloat = idx >= total/2 ? 1.005 : 0.995
+            after(seconds: 0.00125 * idx.d, exec: {
+                self.boxWasScaled(scale)
+            })
+          
         }
-        
     }
 
     // MARK: - BoxView

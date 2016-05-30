@@ -134,5 +134,9 @@ extension Int {
     var f: CGFloat {
         return CGFloat(self)
     }
+    
+    var d: Double {
+        return Double(self)
+    }
 }
 
