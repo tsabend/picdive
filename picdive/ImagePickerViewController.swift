@@ -54,6 +54,23 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.noImagePlaceholder)
         self.view.addSubview(self.imageCropper)
+        
+        self.headerView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ImagePickerViewController.headerWasPanned)))
+    }
+    
+    func headerWasPanned(pan: UIPanGestureRecognizer) {
+        let delta = self.headerView.y - pan.locationInView(self.view).y
+        
+        self.headerView.y -= delta
+        self.collectionView.y -= delta
+        
+        if pan.state == .Ended {
+            self.imageCropper.width = 280
+            self.imageCropper.height = 280
+            self.imageCropper.image = self.imageCropper.image
+            self.imageCropper.origin = CGPoint.zero
+            self.imageCropper.x += (self.view.width - 280)/2
+        }
     }
 
     // MARK: - Camera
@@ -125,7 +142,11 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.noImagePlaceholder.center.x = self.view.center.x
         self.noImagePlaceholder.y = (self.view.width - self.noImagePlaceholder.height) / 2
 
-        self.imageCropper.size = CGSize(self.view.width, self.view.width)
+        if self.imageCropper.size == CGSize.zero {
+            self.imageCropper.size = CGSize(self.view.width, self.view.width)
+            
+        }
+        
         self.imageCropper.y = self.navigationController?.navigationBar.maxY ?? 0
 
         self.headerView.size = CGSize(width: self.view.width, height: 64)
