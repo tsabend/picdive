@@ -29,7 +29,8 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.collectionView.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        
+        self.collectionView.contentInset = UIEdgeInsetsZero
+        self.automaticallyAdjustsScrollViewInsets = false
         self.collectionView.registerClass(ImageCell.self, forCellWithReuseIdentifier: String(ImageCell.self))
         
         
@@ -257,9 +258,9 @@ class ImagePickerFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         
-        let interItemSpacing: CGFloat = 2
+        let interItemSpacing: CGFloat = 4
         self.minimumInteritemSpacing = interItemSpacing
-        self.minimumLineSpacing = 2
+        self.minimumLineSpacing = 4
         let itemSideLength = (UIScreen.mainScreen().bounds.width / 4) - interItemSpacing
         self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
         self.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
