@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageCropper: UIView, UIScrollViewDelegate {
+class ImageCropper: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     var image: UIImage? {
         didSet {
@@ -20,6 +20,8 @@ class ImageCropper: UIView, UIScrollViewDelegate {
 
     private let imageView = UIImageView()
     private let scrollView = UIScrollView()
+    private let gridOverlay = GridOverlay()
+
     init() {
         super.init(frame: CGRect.zero)
         
@@ -30,8 +32,25 @@ class ImageCropper: UIView, UIScrollViewDelegate {
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.showsVerticalScrollIndicator = false
 
+        self.imageView.userInteractionEnabled = true
+
+        self.longPress.delegate = self
+        self.imageView.addGestureRecognizer(self.longPress)
+        
         self.addSubview(self.scrollView)
+        self.addSubview(self.gridOverlay)
+
         self.scrollView.addSubview(self.imageView)
+    }
+    lazy var longPress: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ImageCropper.handleLongPress))
+    
+    // MARK: - gestures
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return otherGestureRecognizer == self.longPress
+    }
+    
+    var panGestureRecognizer: UIPanGestureRecognizer {
+        return self.scrollView.panGestureRecognizer
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -45,7 +64,8 @@ class ImageCropper: UIView, UIScrollViewDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         guard let image = image else { return }
-        
+        self.gridOverlay.frame = self.bounds
+
         self.imageView.sizeToFit()
         self.imageView.origin = CGPoint.zero
         self.scrollView.frame = self.bounds
@@ -70,6 +90,81 @@ class ImageCropper: UIView, UIScrollViewDelegate {
         return UIImage.drawImage(size: self.scrollView.size) { (size, context) in
             CGContextTranslateCTM(context, -self.scrollView.contentOffset.x, -self.scrollView.contentOffset.y)
             self.scrollView.layer.renderInContext(context)
+        }
+    }
+    
+    func handleLongPress(gestureRecognizer: UIGestureRecognizer) {
+        if gestureRecognizer.state == .Began {
+            self.gridOverlay.fadeIn()
+        } else if gestureRecognizer.state == .Ended {
+            self.gridOverlay.fadeOut()
+        }
+    }
+    
+    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+        self.gridOverlay.fadeIn()
+    }
+    
+    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+        self.gridOverlay.fadeOut()
+    }
+    
+    // MARK: - scrolling
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        self.gridOverlay.fadeIn()
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.gridOverlay.fadeOut()
+    }
+    
+    class GridOverlay : UIView {
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.alpha = 0
+            self.backgroundColor = UIColor.clearColor()
+            self.userInteractionEnabled = false
+            self.layer.borderColor = UIColor.PDLightGray().CGColor
+            self.layer.borderWidth = 2
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func fadeIn() {
+            UIView.animateWithDuration(0.2) {
+                self.alpha = 1
+            }
+        }
+        
+        func fadeOut() {
+            UIView.animateWithDuration(0.2) {
+                self.alpha = 0
+            }
+        }
+        
+        override func drawRect(rect: CGRect) {
+            super.drawRect(rect)
+            let context = UIGraphicsGetCurrentContext()
+            CGContextBeginPath(context)
+            
+            for idx in 1...2 {
+                let linePos = self.bounds.width * CGFloat(idx) / 3.0
+                CGContextMoveToPoint(context, linePos, 0)
+                CGContextAddLineToPoint(context, linePos, self.bounds.height)
+            }
+            
+            for idx in 1...2 {
+                let linePos = self.bounds.height * CGFloat(idx) / 3.0
+                CGContextMoveToPoint(context, 0, linePos)
+                CGContextAddLineToPoint(context, self.bounds.width, linePos)
+            }
+            
+            UIColor.PDLightGray().setStroke()
+            CGContextStrokePath(context)
+            UIGraphicsPopContext()
         }
     }
     

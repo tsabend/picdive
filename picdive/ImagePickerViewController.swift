@@ -32,6 +32,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.collectionView.registerClass(ImageCell.self, forCellWithReuseIdentifier: String(ImageCell.self))
         
+        
         PhotoRetriever().queryPhotos { (images) in
             guard let images = images else { return }
             self.photos = images
@@ -57,17 +58,17 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.view.addSubview(self.noImagePlaceholder)
         self.view.addSubview(self.imageCropper)
         
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(ImagePickerViewController.viewWasPanned))
-        pan.delegate = self
-        self.view.addGestureRecognizer(pan)
+        self.pan.delegate = self
+        self.view.addGestureRecognizer(self.pan)
         
         self.imageCropper.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ImagePickerViewController.cropperWasTapped)))
-        
-        
     }
     
+    lazy var pan: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImagePickerViewController.viewWasPanned))
+    
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return (gestureRecognizer == self.pan && otherGestureRecognizer == self.collectionView.panGestureRecognizer)
+            || (gestureRecognizer == self.pan && otherGestureRecognizer == self.imageCropper.panGestureRecognizer && self.isCollapsed)
     }
     
     private lazy var animationYDiff: CGFloat = self.imageCropper.height - 44
@@ -80,25 +81,30 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     var beginningY: CGFloat?
-    var isExpanded: Bool = false
+    var isCollapsed: Bool = false
     var shouldComplete = false
     func viewWasPanned(pan: UIPanGestureRecognizer) {
-        let sign: CGFloat = self.isExpanded ? -1.0 : 1.0
-        let currentY = pan.locationInView(self.view).y
+        let sign: CGFloat = self.isCollapsed ? -1.0 : 1.0
+        let currentPoint = pan.locationInView(self.view)
+        let currentY = currentPoint.y
         let threshhold = UIScreen.mainScreen().bounds.width / 4
         let change = (self.beginningY ?? currentY) - currentY
-        self.shouldComplete = self.isExpanded ? change < 0 : change > 0
+        self.shouldComplete = self.isCollapsed ? change < 0 : change > 0
         let delta = ((self.beginningY ?? currentY) - currentY) * sign
         
         switch pan.state {
         case .Began:
+            let hitView = self.view.hitTest(currentPoint, withEvent: nil)
+            let beganInCropper = hitView?.closest(ImageCropper.self) != nil
+            guard (beganInCropper && self.isCollapsed) || (!beganInCropper && !self.isCollapsed) else { return }
+            
+
             self.beginningY = currentY
-            self.animatingViews.forEach { $0.layer.timeOffset = 0 ; self.animateYPositon(ofView: $0, byY: -self.animationYDiff * sign) }
+            self.animatingViews.forEach { $0.layer.timeOffset = 0 ; self.animateYPosition(ofView: $0, byY: -self.animationYDiff * sign) }
         case .Changed:
             
                 if delta > threshhold {
                     let timeOffset =  ((delta - threshhold) / 200.0).d
-                    print(timeOffset)
                     if timeOffset < 1 {
                         self.view.subviews.forEach { $0.layer.timeOffset = timeOffset }
                     }
@@ -106,11 +112,11 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             
         case .Ended, .Cancelled, .Failed:
             if delta > threshhold && self.shouldComplete {
-                self.isExpanded = !self.isExpanded
+                self.isCollapsed = !self.isCollapsed
                 let remainingY = self.animationYDiff - delta + (44 * -sign)
                 
                 self.animatingViews.forEach { view in
-                    self.animateYPositon(ofView: view, byY: -sign * remainingY)
+                    self.animateYPosition(ofView: view, byY: -sign * remainingY)
                     view.layer.timeOffset = 0
                     view.layer.position.y += -self.animationYDiff * sign
                     view.layer.speed = 4
@@ -127,15 +133,15 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     func cropperWasTapped(tap: UITapGestureRecognizer) {
-        if self.isExpanded {
+        if self.isCollapsed {
             self.shouldComplete = true
             self.animatingViews.forEach { view in
                 view.layer.timeOffset = 0;
-                self.animateYPositon(ofView: view, byY: self.animationYDiff)
+                self.animateYPosition(ofView: view, byY: self.animationYDiff)
                 view.layer.position.y = (view.layer.presentationLayer() as! CALayer).position.y + self.animationYDiff
                 view.layer.speed = 3
             }
-            self.isExpanded = false
+            self.isCollapsed = false
         }
     }
 
@@ -204,7 +210,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if !self.isExpanded {
+        if !self.isCollapsed {
             
             self.noImagePlaceholder.size = CGSize(width: 176, height: 89)
             self.noImagePlaceholder.center.x = self.view.center.x
@@ -233,7 +239,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         self.view.bringSubviewToFront(self.footerView)
     }
     
-    private func animateYPositon(ofView view: UIView, byY value: CGFloat, duration: Double = 1.0) {
+    private func animateYPosition(ofView view: UIView, byY value: CGFloat, duration: Double = 1.0) {
         let animation = CABasicAnimation(keyPath: "position.y")
         let position = (view.layer.presentationLayer() as! CALayer).position.y
         animation.fromValue = position
@@ -253,7 +259,7 @@ class ImagePickerFlowLayout: UICollectionViewFlowLayout {
         
         let interItemSpacing: CGFloat = 2
         self.minimumInteritemSpacing = interItemSpacing
-        self.minimumLineSpacing = 0
+        self.minimumLineSpacing = 2
         let itemSideLength = (UIScreen.mainScreen().bounds.width / 4) - interItemSpacing
         self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
         self.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
