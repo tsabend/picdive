@@ -11,10 +11,6 @@ import SwiftGifOrigin
 import CGRectExtensions
 import pop
 
-public func after(seconds seconds: Double, exec: ()->Void) {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * 1e9)), dispatch_get_main_queue(), exec)
-}
-
 class ScopeViewController: UIViewController, ImagePresenter, FlowViewController {
 
     typealias Next = CustomizeGifViewController

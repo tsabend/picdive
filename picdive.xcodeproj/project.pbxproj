@@ -28,6 +28,7 @@
 		48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */; };
 		48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */; };
 		48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */; };
+		48D123231D032E3E00622647 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D123221D032E3E00622647 /* Async.swift */; };
 		48EDFF521CD0593C00B879D3 /* CustomizeGifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */; };
 		48EDFF541CD05A2A00B879D3 /* PublishingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */; };
 		48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF551CD05ED700B879D3 /* NavigationController.swift */; };
@@ -77,6 +78,7 @@
 		48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
 		48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRetriever.swift; sourceTree = "<group>"; };
 		48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCell.swift; sourceTree = "<group>"; };
+		48D123221D032E3E00622647 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizeGifViewController.swift; sourceTree = "<group>"; };
 		48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishingViewController.swift; sourceTree = "<group>"; };
 		48EDFF551CD05ED700B879D3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
 				1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */,
 				48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */,
+				48D123221D032E3E00622647 /* Async.swift */,
 			);
 			name = "UIKit+Picdive";
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				48EDFF521CD0593C00B879D3 /* CustomizeGifViewController.swift in Sources */,
 				48A0C7DD1CFC8B4600ACD5A7 /* EasingCell.swift in Sources */,
 				1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */,
+				48D123231D032E3E00622647 /* Async.swift in Sources */,
 				149D31DE1C75480900866522 /* ScopeViewController.swift in Sources */,
 				48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */,
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,

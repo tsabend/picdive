@@ -23,6 +23,8 @@ class ImageCropper: UIView, UIScrollViewDelegate {
     init() {
         super.init(frame: CGRect.zero)
         
+        self.clipsToBounds = true
+        
         self.scrollView.delegate = self
         
         self.scrollView.showsHorizontalScrollIndicator = false
