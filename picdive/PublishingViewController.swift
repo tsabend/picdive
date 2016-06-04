@@ -33,13 +33,13 @@ class PublishingViewController : UIViewController, ImagePresenter {
         
         self.view.backgroundColor = UIColor.PDDarkGray()
 
-        self.gifButton.setTitle("Copy as Gif", forState: .Normal)
+        self.gifButton.setTitle("Share Gif", forState: .Normal)
         self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.gifButton.addTarget(self, action: #selector(PublishingViewController.copyGif), forControlEvents: .TouchUpInside)
+        self.gifButton.addTarget(self, action: #selector(PublishingViewController.shareGif), forControlEvents: .TouchUpInside)
         
-        self.stripButton.setTitle("Copy as Photo Strip", forState: .Normal)
+        self.stripButton.setTitle("Share Photo Strip", forState: .Normal)
         self.stripButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.stripButton.addTarget(self, action: #selector(PublishingViewController.copyStrip), forControlEvents: .TouchUpInside)
+        self.stripButton.addTarget(self, action: #selector(PublishingViewController.shareStrip), forControlEvents: .TouchUpInside)
         
         self.view.addSubview(self.shareButton)
         self.view.addSubview(self.gifButton)
@@ -60,23 +60,19 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.navigationController?.popViewControllerAnimated(false)
     }
     
-    func copyGif() {
+    func shareGif() {
         guard let gif = self.imageViewDataSource as? Gif else { return }
-        UIPasteboard.generalPasteboard().setData(gif.data, forPasteboardType: "com.compuserve.gif")
-        self.presentCopyConfirm()
+        self.share(gif.data)
     }
     
-    func copyStrip() {
-        guard let gif = self.imageViewDataSource as? Gif else { return }
-        let strip = UIImage.stitchImagesVertical(gif.images)
-        UIPasteboard.generalPasteboard().image = strip
-        self.presentCopyConfirm()
+    func shareStrip() {
+        guard let gif = self.imageViewDataSource as? Gif, strip = gif.horizontalStrip else { return }
+        self.share(strip)
     }
-
-    private func presentCopyConfirm(){
-        let vc = UIAlertController(title: "Copied!", message: nil, preferredStyle: .Alert)
-        vc.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(vc, animated: true, completion: nil)
+    
+    func share(object: AnyObject) {
+        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [object], applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {

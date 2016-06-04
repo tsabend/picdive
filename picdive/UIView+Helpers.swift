@@ -127,5 +127,11 @@ extension UIView {
     func centerVertically(toSiblingView view: UIView){
         self.center.y = view.frame.center.y
     }
+    
+    
+    func closest<T>(type: T.Type) -> T? {
+        if self is T { return self as? T }
+        return superview?.closest(T.self)
+    }
 
 }
