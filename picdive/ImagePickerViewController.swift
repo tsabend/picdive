@@ -16,7 +16,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
     private var photos: [(UIImage?, PHAsset)] = []
     private let cameraButton = UIButton()
-    private let headerView = UIView()
+    private let footerView = UIView()
     private let noImagePlaceholder = UIImageView()
     private let imageCropper = ImageCropper()
     
@@ -45,12 +45,14 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         }
         
         self.cameraButton.setTitle("Take a Photo 📸", forState: .Normal)
+        self.cameraButton.setTitleColor(UIColor.PDBlue(), forState: .Normal)
         self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
         
 //        self.noImagePlaceholder.image = UIImage(named: "enhance_icon")
+        self.footerView.backgroundColor = UIColor.PDLightGray()
         
-        self.view.addSubview(self.headerView)
-        self.headerView.addSubview(self.cameraButton)
+        self.view.addSubview(self.footerView)
+        self.footerView.addSubview(self.cameraButton)
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.noImagePlaceholder)
         self.view.addSubview(self.imageCropper)
@@ -69,6 +71,13 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     private lazy var animationYDiff: CGFloat = self.imageCropper.height - 44
+    private var animatingViews: [UIView] {
+        return [
+            self.imageCropper,
+            self.noImagePlaceholder,
+            self.collectionView
+        ]
+    }
     
     var beginningY: CGFloat?
     var isExpanded: Bool = false
@@ -84,7 +93,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         switch pan.state {
         case .Began:
             self.beginningY = currentY
-            self.view.subviews.forEach { $0.layer.timeOffset = 0 ; self.animateYPositon(ofView: $0, byY: -self.animationYDiff * sign) }
+            self.animatingViews.forEach { $0.layer.timeOffset = 0 ; self.animateYPositon(ofView: $0, byY: -self.animationYDiff * sign) }
         case .Changed:
             
                 if delta > threshhold {
@@ -100,7 +109,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
                 self.isExpanded = !self.isExpanded
                 let remainingY = self.animationYDiff - delta + (44 * -sign)
                 
-                self.view.subviews.forEach { view in
+                self.animatingViews.forEach { view in
                     self.animateYPositon(ofView: view, byY: -sign * remainingY)
                     view.layer.timeOffset = 0
                     view.layer.position.y += -self.animationYDiff * sign
@@ -108,7 +117,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
                 }
                 
             } else {
-                self.view.subviews.forEach {$0.layer.removeAllAnimations()}
+                self.animatingViews.forEach {$0.layer.removeAllAnimations()}
             }
             self.beginningY = nil
         default:
@@ -120,12 +129,12 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     func cropperWasTapped(tap: UITapGestureRecognizer) {
         if self.isExpanded {
             self.shouldComplete = true
-            self.view.subviews.forEach { view in
+            self.animatingViews.forEach { view in
                 view.layer.timeOffset = 0;
                 self.animateYPositon(ofView: view, byY: self.animationYDiff)
                 view.layer.position.y = (view.layer.presentationLayer() as! CALayer).position.y + self.animationYDiff
+                view.layer.speed = 3
             }
-            self.view.subviews.forEach { $0.layer.speed = 3 }
             self.isExpanded = false
         }
     }
@@ -206,7 +215,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
                 
             }
             
-            self.headerView.size = CGSize(width: self.view.width, height: 64)
+            self.footerView.size = CGSize(width: self.view.width, height: 44)
             self.arrangeViews()
             self.collectionView.size = self.view.size
             
@@ -218,9 +227,10 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     private func arrangeViews() {
         self.imageCropper.y = self.navigationController?.navigationBar.maxY ?? 0
         
-        self.headerView.moveBelow(siblingView: self.imageCropper, margin: 0)
+        self.collectionView.moveBelow(siblingView: self.imageCropper, margin: -64)
         
-        self.collectionView.moveBelow(siblingView: self.headerView, margin: 0)
+        self.footerView.alignBottom(0, toView: self.view)
+        self.view.bringSubviewToFront(self.footerView)
     }
     
     private func animateYPositon(ofView view: UIView, byY value: CGFloat, duration: Double = 1.0) {
