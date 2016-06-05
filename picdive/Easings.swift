@@ -9,23 +9,23 @@
 import UIKit
 
 protocol EasingType {
-    var label: String { get }
+    var text: String { get }
     var image: UIImage? { get }
 }
 
 /// The easing type for setting the duration of images within a gif.
 enum TimingEasing: EasingType {
     case Linear, FinalFrame, Reverse, ReverseFinalFrame
-    var label: String {
+    var text: String {
         switch self {
         case .Linear:
-            return "Lin"
+            return "Normal"
         case .FinalFrame:
-            return "Final"
+            return "Freeze Frame"
         case .Reverse:
-            return "Rev"
+            return "Reverse"
         case .ReverseFinalFrame:
-            return "Rev Final"
+            return "Reverse Freeze"
         }
     }
     

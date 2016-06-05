@@ -23,7 +23,7 @@ struct Gif {
     let images: [UIImage]
     
     init?(images: [UIImage], easing: TimingEasing, totalTime: Double) {
-        var images = images.map { $0.watermark() }
+        let images = images.map { $0.watermark() }
         let times = easing.times(framesCount: images.count, totalTime: totalTime)
         
 

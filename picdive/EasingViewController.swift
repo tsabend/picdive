@@ -40,8 +40,8 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(String(EasingCell.self), forIndexPath: indexPath) as? EasingCell {
             let easing = self.easings[indexPath.row]
-            cell.label.text = easing.label
-            cell.imageView.image = easing.image
+            cell.text = easing.text
+            cell.image = easing.image
             return cell
         }
         return UICollectionViewCell()
@@ -51,6 +51,25 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
         self.onClick?(self.easings[safe: indexPath.row])
     }
     
+    
+    func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? EasingCell {
+            UIView.animateWithDuration(0.1, animations: {
+                cell.transform = CGAffineTransformMakeScale(0.96, 0.96)
+            })
+        }
+        return true
+    }
+    
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? EasingCell {
+            UIView.animateWithDuration(0.2, animations: {
+                cell.transform = CGAffineTransformIdentity
+            })
+        }
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.collectionView.frame = self.view.bounds

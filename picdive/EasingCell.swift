@@ -9,21 +9,37 @@
 import UIKit
 
 class EasingCell: UICollectionViewCell {
-    static let size = CGSize(width: 108, height: 72)
+    static let size = CGSize(width: 124, height: 80)
     let container = UIView()
-    let imageView = UIImageView()
-    let label = UILabel()
+    
+    
+    var text : String? {
+        didSet {
+            self.label.text = text
+        }
+    }
+    
+    var image : UIImage? {
+        didSet {
+            if let image = self.image {
+                self.imageView.image = image.imageWithRenderingMode(.AlwaysTemplate)
+            }
+        }
+    }
+    
+    private let imageView = UIImageView()
+    private let label = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.label.textColor = UIColor.PDBlue()
+        self.label.textColor = UIColor.whiteColor()
         
         self.container.layer.cornerRadius = 4
         self.imageView.layer.cornerRadius = 4
         self.container.backgroundColor = UIColor.PDGray()
         self.container.clipsToBounds = true
         self.imageView.clipsToBounds = true
-        
+        self.imageView.tintColor = UIColor.whiteColor()
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.container)
         self.container.addSubview(self.imageView)
@@ -31,7 +47,9 @@ class EasingCell: UICollectionViewCell {
     
     override var selected: Bool {
         didSet {
-            self.label.textColor = self.selected ? UIColor.yellowColor() : UIColor.PDBlue()
+//            self.label.textColor = self.selected ? UIColor.PDBlue() : UIColor.whiteColor()
+//            self.container.backgroundColor = selected ? UIColor.PDDarkGray().colorWithAlphaComponent(0.66) : UIColor.PDGray()
+            self.imageView.tintColor = selected ? UIColor.PDBlue() : UIColor.whiteColor()
         }
     }
     
@@ -40,7 +58,7 @@ class EasingCell: UICollectionViewCell {
         self.container.origin = CGPoint.zero
         self.container.size = CGSize(self.width, self.height - 32)
         self.imageView.size = CGSize(100, 40)
-        self.imageView.moveToHorizontalCenterOfSuperview()
+        self.imageView.moveToCenterOfSuperview()
         
         self.label.sizeToFit()
         self.label.moveBelow(siblingView: self.container, margin: 8, alignment: .Center)
