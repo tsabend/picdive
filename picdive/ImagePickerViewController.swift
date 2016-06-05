@@ -53,12 +53,10 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             }
         }
         
-        self.cameraButton.setTitle("Take a Photo 📸", forState: .Normal)
-        self.cameraButton.setTitleColor(UIColor.PDBlue(), forState: .Normal)
+        self.cameraButton.setImage(UIImage(named: "camera")?.resized(toSize: CGSize(22, 22)), forState: .Normal)
         self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
         
-//        self.noImagePlaceholder.image = UIImage(named: "enhance_icon")
-        self.footerView.backgroundColor = UIColor.PDLightGray()
+        self.footerView.backgroundColor = UIColor.PDDarkGray()
         
         self.view.addSubview(self.footerView)
         self.footerView.addSubview(self.cameraButton)
@@ -233,7 +231,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             self.arrangeViews()
             self.collectionView.size = self.view.size
             
-            self.cameraButton.sizeToFit()
+            self.cameraButton.size = CGSize(44, 44)
             self.cameraButton.moveToCenterOfSuperview()
         }
     }
@@ -241,7 +239,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     private func arrangeViews() {
         self.imageCropper.y = self.navigationController?.navigationBar.maxY ?? 0
         
-        self.collectionView.moveBelow(siblingView: self.imageCropper, margin: -64)
+        self.collectionView.moveBelow(siblingView: self.imageCropper, margin: 0)
         
         self.footerView.alignBottom(0, toView: self.view)
         self.view.bringSubviewToFront(self.footerView)
@@ -270,7 +268,7 @@ class ImagePickerFlowLayout: UICollectionViewFlowLayout {
         self.minimumLineSpacing = 4
         let itemSideLength = (UIScreen.mainScreen().bounds.width / 4) - interItemSpacing
         self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
-        self.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.sectionInset = UIEdgeInsets(top: 1, left: 0, bottom: 4, right: 0)
         
     }
     
