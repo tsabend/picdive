@@ -35,10 +35,12 @@ class PublishingViewController : UIViewController, ImagePresenter {
 
         self.gifButton.setTitle("Share Gif", forState: .Normal)
         self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.gifButton.titleLabel?.font = UIFont.PDFont(withSize: 18)
         self.gifButton.addTarget(self, action: #selector(PublishingViewController.shareGif), forControlEvents: .TouchUpInside)
         
         self.stripButton.setTitle("Share Photo Strip", forState: .Normal)
         self.stripButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.stripButton.titleLabel?.font = UIFont.PDFont(withSize: 18)
         self.stripButton.addTarget(self, action: #selector(PublishingViewController.shareStrip), forControlEvents: .TouchUpInside)
         
         self.view.addSubview(self.shareButton)

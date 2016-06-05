@@ -23,8 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nav = NavigationController(rootViewController: vc)
         nav.navigationBar.barTintColor = UIColor.PDDarkGray()
         nav.navigationBar.tintColor = UIColor.PDLightGray()
-        nav.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor.PDLightGray()]
+        nav.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.PDLightGray(),
+            NSFontAttributeName: UIFont.PDFont(withSize: 21)
+        ]
         self.window?.rootViewController = nav
         self.window?.makeKeyAndVisible()
         

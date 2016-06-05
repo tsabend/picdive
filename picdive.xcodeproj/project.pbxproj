@@ -10,7 +10,6 @@
 		140D45CB1C8CBB640022A7F0 /* UIColor+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */; };
 		1425C7C91C7A2A9F0034B370 /* PicScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */; };
 		1426C1A01C8CC94600308155 /* UIFont+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */; };
-		1426C1A31C8CCAFB00308155 /* Quicksand-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */; };
 		1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437B7A91C7FDDDD004AF560 /* Gif.swift */; };
 		1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497E25D1CF5301D00A9E253 /* Slider.swift */; };
 		149D31DC1C75480900866522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DB1C75480900866522 /* AppDelegate.swift */; };
@@ -23,6 +22,7 @@
 		489277191D039AD400DEB9B3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489277181D039AD400DEB9B3 /* StoreKit.framework */; };
 		4892771B1D039BFA00DEB9B3 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */; };
 		4892771D1D039C0000DEB9B3 /* PicDiveProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */; };
+		489277211D04852400DEB9B3 /* Myriad Pro Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 489277201D0482FC00DEB9B3 /* Myriad Pro Regular.ttf */; };
 		48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */; };
 		48A0C7DB1CFC8B3000ACD5A7 /* Easings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */; };
 		48A0C7DD1CFC8B4600ACD5A7 /* EasingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */; };
@@ -58,7 +58,6 @@
 		140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+PicDive.swift"; sourceTree = "<group>"; };
 		1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicScopeView.swift; sourceTree = "<group>"; };
 		1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+PicDive.swift"; sourceTree = "<group>"; };
-		1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.otf"; sourceTree = "<group>"; };
 		1437B7A91C7FDDDD004AF560 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		1497E25D1CF5301D00A9E253 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +75,7 @@
 		489277181D039AD400DEB9B3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicDiveProducts.swift; sourceTree = "<group>"; };
+		489277201D0482FC00DEB9B3 /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
 		48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+PicDive.swift"; sourceTree = "<group>"; };
 		48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Easings.swift; sourceTree = "<group>"; };
 		48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingCell.swift; sourceTree = "<group>"; };
@@ -142,10 +142,10 @@
 				149D31DB1C75480900866522 /* AppDelegate.swift */,
 				4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */,
 				4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */,
+				489277201D0482FC00DEB9B3 /* Myriad Pro Regular.ttf */,
 				149D31E21C75480A00866522 /* Assets.xcassets */,
 				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
 				149D31E71C75480B00866522 /* Info.plist */,
-				1426C1A11C8CCAE100308155 /* Quicksand-Bold.otf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -345,7 +345,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1426C1A31C8CCAFB00308155 /* Quicksand-Bold.otf in Resources */,
+				489277211D04852400DEB9B3 /* Myriad Pro Regular.ttf in Resources */,
 				149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */,
 				149D31E31C75480A00866522 /* Assets.xcassets in Resources */,
 			);

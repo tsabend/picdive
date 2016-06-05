@@ -36,7 +36,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Enhance!"
+        self.title = "Zoom!"
         self.setupNavigationBar()
         
         self.view.backgroundColor = UIColor.PDDarkGray()

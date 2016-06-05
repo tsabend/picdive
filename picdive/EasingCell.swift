@@ -15,7 +15,7 @@ class EasingCell: UICollectionViewCell {
     
     var text : String? {
         didSet {
-            self.label.text = text
+            self.label.text = text?.uppercaseString
         }
     }
     
@@ -33,7 +33,7 @@ class EasingCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.label.textColor = UIColor.whiteColor()
-        
+        self.label.font = UIFont.PDFont(withSize: 14)
         self.container.layer.cornerRadius = 4
         self.imageView.layer.cornerRadius = 4
         self.container.backgroundColor = UIColor.PDGray()

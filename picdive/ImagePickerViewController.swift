@@ -23,7 +23,8 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Pick your image"
+        self.title = "Pick Your Image"
+
         let cancelButton = BarButtonItem(image: BarButtonItem.cancelImage) { [weak self] in self?.imageCropper.image = nil }
         let nextButton = BarButtonItem(image: BarButtonItem.nextImage) { [weak self] in self?.toNext() }
         self.navigationItem.leftBarButtonItem = cancelButton

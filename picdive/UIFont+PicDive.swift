@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIFont {
-    class func boldFont(withSize size: CGFloat) -> UIFont? {
-        return UIFont(name: "Quicksand-Bold", size: size)
+    class func PDFont(withSize size: CGFloat) -> UIFont {
+        return UIFont(name: "Myriad Pro", size: size)!
     }
 }

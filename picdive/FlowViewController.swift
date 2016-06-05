@@ -20,6 +20,7 @@ class BarButtonItem: UIBarButtonItem {
         self.completion = completion
         super.init()
         self.title = title
+        self.setTitleTextAttributes([NSFontAttributeName : UIFont.PDFont(withSize: 16) ], forState: .Normal)
         self.target = self
         self.action = #selector(BarButtonItem.perform)
         self.style = .Done
