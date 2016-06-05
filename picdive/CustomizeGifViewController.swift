@@ -14,7 +14,6 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     var imageViewDataSource: ImageViewDataSource? {
         didSet {
             if let gif = self.gif {
-                self.flash.flash()
                 self.gifView.image = gif.image
             }
         }
@@ -50,11 +49,10 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.easingsViewController.didMoveToParentViewController(self)
        
         self.easingsViewController.onClick = { [weak self] easing in
-            guard let easing = easing as? TimingEasing, gif = self?.gif, strongSelf = self else { return }
-            
-            strongSelf.easing = easing
-            
-            strongSelf.gif = Gif(images: gif.images, easing: easing, totalTime: Double(strongSelf.slider.value))            
+            if let easing = easing as? TimingEasing {
+                self?.easing = easing
+            }
+            self?.setGif()
         }
         
         self.flash.backgroundColor = UIColor.whiteColor()
@@ -75,9 +73,13 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     }
     
     func sliderDidSlide(slider: UISlider) {
+        self.setGif()
+    }
+    
+    func setGif() {
         guard let gif = self.gif else { return }
-        let value = Double(slider.value)
-        self.gif = Gif(images: gif.images, easing: self.easing, totalTime: value)
+        self.flash.flash()
+        self.gif = Gif(images: gif.images, easing: easing, totalTime: Double(self.slider.value))
     }
     
     override func viewDidLayoutSubviews() {
