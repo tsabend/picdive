@@ -23,6 +23,8 @@ class Slider : UISlider {
     }
     
     func setupImages(min min: UIImage?, max: UIImage?) {
+        let min = min?.resized(toSize: CGSize(22, 22))
+        let max = max?.resized(toSize: CGSize(22, 22))
         self.minimumValueImage = min
         self.maximumValueImage = max
     }

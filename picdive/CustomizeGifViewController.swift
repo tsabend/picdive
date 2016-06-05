@@ -41,7 +41,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.slider.continuous = false
         
         self.slider.setupValues(min: 2, max: 10, initial: Float(self.gif?.images.count ?? 4))
-        self.slider.setupImages(min: UIImage(named: "few-frames"), max: UIImage(named: "many-frames"))
+        self.slider.setupImages(min: UIImage(named: "time_empty"), max: UIImage(named: "time_full"))
         
         self.easingsViewController.easings = [TimingEasing.Linear,  TimingEasing.FinalFrame, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
         
