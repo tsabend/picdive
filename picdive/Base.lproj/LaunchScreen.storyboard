@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,17 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="bt7-3U-aEp">
-                                <rect key="frame" x="180" y="40" width="240" height="155"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Svx-pt-6R8">
+                                <rect key="frame" x="180" y="116" width="240" height="128"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="FrV-6p-EPc"/>
+                                    <constraint firstAttribute="width" secondItem="Svx-pt-6R8" secondAttribute="height" multiplier="15:8" id="Lgc-IP-DRK"/>
+                                    <constraint firstAttribute="width" constant="240" id="tbU-Aw-5Vb"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="bt7-3U-aEp" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="20" id="UGQ-HI-I1V"/>
-                            <constraint firstItem="bt7-3U-aEp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="yei-lL-1WR"/>
+                            <constraint firstItem="Svx-pt-6R8" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="96" id="Qv9-Cm-W8a"/>
+                            <constraint firstItem="Svx-pt-6R8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bFO-AR-LzR"/>
                         </constraints>
                     </view>
                 </viewController>
