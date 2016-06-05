@@ -50,8 +50,11 @@ class PublishingViewController : UIViewController, ImagePresenter {
     }
     
     func setupNavigationBar() {
+        
         let barButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self.navigationController, action: #selector(UINavigationController.popToRootViewControllerAnimated(_:)))
-        let backButton = UIBarButtonItem(title: "X", style: UIBarButtonItemStyle.Done, target: self, action: #selector(PublishingViewController.back))
+        let backButton = BarButtonItem(image: BarButtonItem.backImage) { [weak self] in
+            self?.back()
+        }
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.rightBarButtonItem = barButton
     }

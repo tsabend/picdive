@@ -24,6 +24,11 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         super.viewDidLoad()
         
         self.title = "Pick your image"
+        let cancelButton = BarButtonItem(image: BarButtonItem.cancelImage) { [weak self] in self?.imageCropper.image = nil }
+        let nextButton = BarButtonItem(image: BarButtonItem.nextImage) { [weak self] in self?.toNext() }
+        self.navigationItem.leftBarButtonItem = cancelButton
+        self.navigationItem.rightBarButtonItem = nextButton
+
         PicDiveProducts.store.requestProducts{success, products in
             if success {
              print(products)
@@ -55,6 +60,8 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.cameraButton.setImage(UIImage(named: "camera")?.resized(toSize: CGSize(22, 22)), forState: .Normal)
         self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
+        
+        self.noImagePlaceholder.image = UIImage(named: "logo")
         
         self.footerView.backgroundColor = UIColor.PDDarkGray()
         
@@ -199,8 +206,6 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     
     
     func selectImage(image: UIImage) {
-        let nextButton = BarButtonItem(title: "->") { [weak self] in self?.toNext() }
-        self.navigationItem.rightBarButtonItem = nextButton
         self.imageCropper.image = image
     }
     
@@ -218,14 +223,12 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
 
         if !self.isCollapsed {
             
-            self.noImagePlaceholder.size = CGSize(width: 176, height: 89)
-            self.noImagePlaceholder.center.x = self.view.center.x
-            self.noImagePlaceholder.y = (self.view.width - self.noImagePlaceholder.height) / 2
-            
             if self.imageCropper.size == CGSize.zero {
                 self.imageCropper.size = CGSize(self.view.width, self.view.width)
-                
             }
+            
+            self.noImagePlaceholder.size = CGSize(150, 78)
+            self.noImagePlaceholder.center = self.imageCropper.center
             
             self.footerView.size = CGSize(width: self.view.width, height: 44)
             self.arrangeViews()

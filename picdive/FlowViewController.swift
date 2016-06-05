@@ -10,6 +10,10 @@
 import UIKit
 
 class BarButtonItem: UIBarButtonItem {
+    static let nextImage = UIImage(named: "right")?.resized(toSize: CGSize(22, 22))
+    static let backImage = UIImage(named: "left")?.resized(toSize: CGSize(22, 22))
+    static let cancelImage = UIImage(named: "x")?.resized(toSize: CGSize(22, 22))
+    
     
     var completion: (Void -> Void)?
     init(title: String, completion: (Void -> Void)?) {
@@ -83,10 +87,10 @@ extension FlowViewController where Self: UIViewController, Self: ImagePresenter,
     func setupNavigationBar() {
         self.navigationItem.title = self.title
         
-        let backButton = BarButtonItem(title: "X") { [weak self] in self?.back() }
+        let backButton = BarButtonItem(image: BarButtonItem.backImage) { [weak self] in self?.back() }
         self.navigationItem.leftBarButtonItem = backButton
        
-        let nextButton = BarButtonItem(title: "->") { [weak self] in self?.toNext() }
+        let nextButton = BarButtonItem(image: BarButtonItem.nextImage) { [weak self] in self?.toNext() }
         self.navigationItem.rightBarButtonItem = nextButton
     }
 }
