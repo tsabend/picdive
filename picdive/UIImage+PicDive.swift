@@ -23,7 +23,17 @@ extension UIImage {
             self.drawInRect(drawRect)
         }
     }
+    
+    func watermark() -> UIImage {
+        return UIImage.drawImage(size: self.size) { (size, context) in
+            self.drawInRect(CGRect(origin: CGPoint.zero, size: size))
+            let image = UIImage(named: "PicDive_Logo")
+            let imageRect = CGRect(20, 20, 108, 40)
+            image?.drawInRect(imageRect)
+        }
+    }
    
+
     static func drawImage(size size: CGSize!, closure: (size: CGSize, context: CGContext) -> Void) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.mainScreen().scale)
         closure(size: size, context: UIGraphicsGetCurrentContext()!)
