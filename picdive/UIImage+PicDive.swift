@@ -27,7 +27,7 @@ extension UIImage {
     func watermark() -> UIImage {
         return UIImage.drawImage(size: self.size) { (size, context) in
             self.drawInRect(CGRect(origin: CGPoint.zero, size: size))
-            let image = UIImage(named: "logo")
+            let image = UIImage(named: "logo_wm")
             let imageRect = CGRect(4, 4, 100, 51)
             image?.drawInRect(imageRect)
         }
