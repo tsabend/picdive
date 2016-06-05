@@ -116,7 +116,7 @@ class PicScopeView: UIView {
     private class BoxView: UIView {
         override init(frame: CGRect) {
             super.init(frame: frame)
-            self.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
+            self.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.8).CGColor
             self.layer.borderWidth = 2
         }
         
