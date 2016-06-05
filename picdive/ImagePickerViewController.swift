@@ -24,7 +24,14 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         super.viewDidLoad()
         
         self.title = "Pick your image"
-        
+        PicDiveProducts.store.requestProducts{success, products in
+            if success {
+             print(products)
+            }
+            
+            
+        }
+    
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.backgroundColor = UIColor.PDDarkGray()
         self.collectionView.delegate = self

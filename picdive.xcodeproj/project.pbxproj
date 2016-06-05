@@ -20,6 +20,9 @@
 		1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */; };
 		4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */; };
 		4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4884BFE21CDFEE9C00761F30 /* EasingViewController.swift */; };
+		489277191D039AD400DEB9B3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489277181D039AD400DEB9B3 /* StoreKit.framework */; };
+		4892771B1D039BFA00DEB9B3 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */; };
+		4892771D1D039C0000DEB9B3 /* PicDiveProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */; };
 		48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */; };
 		48A0C7DB1CFC8B3000ACD5A7 /* Easings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */; };
 		48A0C7DD1CFC8B4600ACD5A7 /* EasingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */; };
@@ -70,6 +73,9 @@
 		4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.release.xcconfig"; sourceTree = "<group>"; };
 		4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		4884BFE21CDFEE9C00761F30 /* EasingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingViewController.swift; sourceTree = "<group>"; };
+		489277181D039AD400DEB9B3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicDiveProducts.swift; sourceTree = "<group>"; };
 		48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+PicDive.swift"; sourceTree = "<group>"; };
 		48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Easings.swift; sourceTree = "<group>"; };
 		48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingCell.swift; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				932EA90B75C1F5FAD99F9776 /* Pods_picdive.framework in Frameworks */,
+				489277191D039AD400DEB9B3 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				149D31DB1C75480900866522 /* AppDelegate.swift */,
+				4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */,
+				4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */,
 				149D31E21C75480A00866522 /* Assets.xcassets */,
 				149D31E41C75480B00866522 /* LaunchScreen.storyboard */,
 				149D31E71C75480B00866522 /* Info.plist */,
@@ -225,6 +234,7 @@
 		BF258069B23DC4DF63FE01B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				489277181D039AD400DEB9B3 /* StoreKit.framework */,
 				50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */,
 				E137DF1827F36C772BE40547 /* Pods_picdive.framework */,
 			);
@@ -299,6 +309,11 @@
 					149D31D71C75480800866522 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 7VU28Z8W3T;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					149D31EB1C75480D00866522 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -447,6 +462,7 @@
 				1425C7C91C7A2A9F0034B370 /* PicScopeView.swift in Sources */,
 				48EDFF541CD05A2A00B879D3 /* PublishingViewController.swift in Sources */,
 				48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */,
+				4892771D1D039C0000DEB9B3 /* PicDiveProducts.swift in Sources */,
 				48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */,
 				48EDFF521CD0593C00B879D3 /* CustomizeGifViewController.swift in Sources */,
 				48A0C7DD1CFC8B4600ACD5A7 /* EasingCell.swift in Sources */,
@@ -457,6 +473,7 @@
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */,
+				4892771B1D039BFA00DEB9B3 /* IAPHelper.swift in Sources */,
 				48A0C7E11CFD062B00ACD5A7 /* UIView+Animations.swift in Sources */,
 				48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */,
 				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,
