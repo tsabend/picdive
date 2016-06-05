@@ -21,6 +21,15 @@ class BarButtonItem: UIBarButtonItem {
         self.style = .Done
     }
     
+    init(image: UIImage?, completion: (Void -> Void)?) {
+        self.completion = completion
+        super.init()
+        self.image = image
+        self.target = self
+        self.action = #selector(BarButtonItem.perform)
+        self.style = .Done
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -73,6 +82,7 @@ extension FlowViewController where Self: UIViewController, Self: ImagePresenter,
     
     func setupNavigationBar() {
         self.navigationItem.title = self.title
+        
         let backButton = BarButtonItem(title: "X") { [weak self] in self?.back() }
         self.navigationItem.leftBarButtonItem = backButton
        

@@ -32,7 +32,8 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.automaticallyAdjustsScrollViewInsets = false
+
         self.title = "Customize your Gif"
         self.setupNavigationBar()
         
@@ -43,7 +44,6 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.slider.setupImages(min: UIImage(named: "few-frames"), max: UIImage(named: "many-frames"))
         
         self.easingsViewController.easings = [TimingEasing.Linear,  TimingEasing.FinalFrame, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
-        self.easingsViewController.label.text = "Timing"
         
         self.addChildViewController(self.easingsViewController)
         self.view.addSubview(self.easingsViewController.view)

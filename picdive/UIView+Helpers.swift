@@ -75,6 +75,18 @@ extension UIView {
         }
     }
 
+    func moveToVerticalCenterOfSuperview() {
+        if let superview = self.superview {
+            self.moveToVerticalCenter(ofView: superview)
+        }
+    }
+    
+    func moveToHorizontalCenterOfSuperview() {
+        if let superview = self.superview {
+            self.moveToHorizontalCenter(ofView: superview)
+        }
+    }
+    
     func moveBelow(siblingView view: UIView, margin: CGFloat) {
         self.moveBelow(siblingView: view, margin: margin, alignment: .None)
     }

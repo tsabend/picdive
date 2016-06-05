@@ -9,17 +9,24 @@
 import UIKit
 
 class EasingCell: UICollectionViewCell {
+    static let size = CGSize(width: 108, height: 72)
+    let container = UIView()
     let imageView = UIImageView()
     let label = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.label.textColor = UIColor.PDBlue()
-        self.contentView.backgroundColor = UIColor.PDGray()
-        self.contentView.addSubview(self.imageView)
+        
+        self.container.layer.cornerRadius = 4
+        self.imageView.layer.cornerRadius = 4
+        self.container.backgroundColor = UIColor.PDGray()
+        self.container.clipsToBounds = true
+        self.imageView.clipsToBounds = true
+        
         self.contentView.addSubview(self.label)
-        self.layer.borderColor = UIColor.blackColor().CGColor
-        self.layer.borderWidth = 2
+        self.contentView.addSubview(self.container)
+        self.container.addSubview(self.imageView)
     }
     
     override var selected: Bool {
@@ -30,9 +37,13 @@ class EasingCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.container.origin = CGPoint.zero
+        self.container.size = CGSize(self.width, self.height - 32)
+        self.imageView.size = CGSize(100, 40)
+        self.imageView.moveToHorizontalCenterOfSuperview()
         
         self.label.sizeToFit()
-        self.label.moveToCenterOfSuperview()
+        self.label.moveBelow(siblingView: self.container, margin: 8, alignment: .Center)
     }
     
     required init?(coder aDecoder: NSCoder) {
