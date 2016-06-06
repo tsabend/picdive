@@ -85,7 +85,6 @@ class PicScopeView: UIView {
     
     func boxWasPinched(pinch: UIPinchGestureRecognizer) {
         self.boxWasScaled(pinch.scale)
-        print(pinch.scale)
         pinch.scale = 1
     }
     

@@ -23,6 +23,7 @@
 		4892771B1D039BFA00DEB9B3 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */; };
 		4892771D1D039C0000DEB9B3 /* PicDiveProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */; };
 		489277211D04852400DEB9B3 /* Myriad Pro Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 489277201D0482FC00DEB9B3 /* Myriad Pro Regular.ttf */; };
+		489277231D059DFB00DEB9B3 /* SubtitledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489277221D059DFB00DEB9B3 /* SubtitledButton.swift */; };
 		48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */; };
 		48A0C7DB1CFC8B3000ACD5A7 /* Easings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */; };
 		48A0C7DD1CFC8B4600ACD5A7 /* EasingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */; };
@@ -76,6 +77,7 @@
 		4892771A1D039BFA00DEB9B3 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		4892771C1D039C0000DEB9B3 /* PicDiveProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicDiveProducts.swift; sourceTree = "<group>"; };
 		489277201D0482FC00DEB9B3 /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
+		489277221D059DFB00DEB9B3 /* SubtitledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitledButton.swift; sourceTree = "<group>"; };
 		48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+PicDive.swift"; sourceTree = "<group>"; };
 		48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Easings.swift; sourceTree = "<group>"; };
 		48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingCell.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			children = (
 				1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */,
 				48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */,
+				489277221D059DFB00DEB9B3 /* SubtitledButton.swift */,
 				48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */,
 				48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */,
 				1497E25D1CF5301D00A9E253 /* Slider.swift */,
@@ -474,6 +477,7 @@
 				1437B7AA1C7FDDDD004AF560 /* Gif.swift in Sources */,
 				4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */,
 				4892771B1D039BFA00DEB9B3 /* IAPHelper.swift in Sources */,
+				489277231D059DFB00DEB9B3 /* SubtitledButton.swift in Sources */,
 				48A0C7E11CFD062B00ACD5A7 /* UIView+Animations.swift in Sources */,
 				48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */,
 				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,

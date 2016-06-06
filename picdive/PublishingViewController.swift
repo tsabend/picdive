@@ -21,8 +21,8 @@ class PublishingViewController : UIViewController, ImagePresenter {
 
     private let gifView = UIImageView()
     private let shareButton = UIButton()
-    private let gifButton = UIButton()
-    private let stripButton = UIButton()
+    private let gifButton = SubtitledButton()
+    private let stripButton = SubtitledButton()
     private let stripView = UIScrollView()
     private let stripImageView = UIImageView()
     
@@ -33,15 +33,17 @@ class PublishingViewController : UIViewController, ImagePresenter {
         
         self.view.backgroundColor = UIColor.PDDarkGray()
 
-        self.gifButton.setTitle("Share Gif", forState: .Normal)
+        self.gifButton.setTitle("Gif", forState: .Normal)
         self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.gifButton.setImage(UIImage(named: "share")?.resized(toSize: CGSize(28, 28)), forState: .Normal)
         self.gifButton.titleLabel?.font = UIFont.PDFont(withSize: 18)
         self.gifButton.addTarget(self, action: #selector(PublishingViewController.shareGif), forControlEvents: .TouchUpInside)
         
-        self.stripButton.setTitle("Share Photo Strip", forState: .Normal)
+        self.stripButton.setTitle("Photo Strip", forState: .Normal)
         self.stripButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.stripButton.titleLabel?.font = UIFont.PDFont(withSize: 18)
         self.stripButton.addTarget(self, action: #selector(PublishingViewController.shareStrip), forControlEvents: .TouchUpInside)
+        self.stripButton.setImage(UIImage(named: "share")?.resized(toSize: CGSize(28, 28)), forState: .Normal)
         
         self.view.addSubview(self.shareButton)
         self.view.addSubview(self.gifButton)
