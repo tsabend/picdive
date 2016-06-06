@@ -84,12 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-picdive/CGRectExtensions.framework"
-  install_framework "Pods-picdive/SwiftGifOrigin.framework"
-  install_framework "Pods-picdive/pop.framework"
+  install_framework "Pods-PictoGifTests/Nimble.framework"
+  install_framework "Pods-PictoGifTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-picdive/CGRectExtensions.framework"
-  install_framework "Pods-picdive/SwiftGifOrigin.framework"
-  install_framework "Pods-picdive/pop.framework"
+  install_framework "Pods-PictoGifTests/Nimble.framework"
+  install_framework "Pods-PictoGifTests/Quick.framework"
 fi

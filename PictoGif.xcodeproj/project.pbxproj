@@ -16,7 +16,6 @@
 		149D31DE1C75480900866522 /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D31DD1C75480900866522 /* ScopeViewController.swift */; };
 		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
 		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
-		1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */; };
 		4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */; };
 		4884BFE31CDFEE9C00761F30 /* EasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4884BFE21CDFEE9C00761F30 /* EasingViewController.swift */; };
 		489277191D039AD400DEB9B3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489277181D039AD400DEB9B3 /* StoreKit.framework */; };
@@ -42,7 +41,8 @@
 		48FFB2271C78B3E3002340D7 /* UIImage+PicDive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PicDive.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
 		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
-		932EA90B75C1F5FAD99F9776 /* Pods_picdive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E137DF1827F36C772BE40547 /* Pods_picdive.framework */; };
+		72CF52D14CA6702ECD47F4D8 /* Pods_PictoGif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A13A15069899C7A123A2621 /* Pods_PictoGif.framework */; };
+		9F80487ADA52E8FD1C7EDEA3 /* Pods_PictoGifTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750CDBB47B2FB47624FEB46A /* Pods_PictoGifTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,21 +56,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A13A15069899C7A123A2621 /* Pods_PictoGif.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PictoGif.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+PicDive.swift"; sourceTree = "<group>"; };
 		1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicScopeView.swift; sourceTree = "<group>"; };
 		1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+PicDive.swift"; sourceTree = "<group>"; };
 		1437B7A91C7FDDDD004AF560 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		1497E25D1CF5301D00A9E253 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
-		149D31D81C75480900866522 /* picdive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picdive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		149D31D81C75480900866522 /* PictoGif.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PictoGif.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31DB1C75480900866522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149D31DD1C75480900866522 /* ScopeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeViewController.swift; sourceTree = "<group>"; };
 		149D31E21C75480A00866522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149D31E51C75480B00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149D31E71C75480B00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		149D31EC1C75480D00866522 /* picdiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = picdiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		149D31EC1C75480D00866522 /* PictoGif.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PictoGif.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44C68FC6A7BA52A2F1544D15 /* Pods-picdive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdive.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdive/Pods-picdive.release.xcconfig"; sourceTree = "<group>"; };
-		4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.release.xcconfig"; sourceTree = "<group>"; };
 		4877D2C71CB73A7F007FBB07 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		4884BFE21CDFEE9C00761F30 /* EasingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingViewController.swift; sourceTree = "<group>"; };
 		489277181D039AD400DEB9B3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -97,10 +96,11 @@
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDiveSpec.swift"; sourceTree = "<group>"; };
-		50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_picdiveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9BA02B2A276AC6B671F34E32 /* Pods-picdiveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdiveTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A9AE8AEA1AC3F967538AB03D /* Pods-picdive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picdive.debug.xcconfig"; path = "Pods/Target Support Files/Pods-picdive/Pods-picdive.debug.xcconfig"; sourceTree = "<group>"; };
-		E137DF1827F36C772BE40547 /* Pods_picdive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_picdive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		750CDBB47B2FB47624FEB46A /* Pods_PictoGifTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PictoGifTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		761351558EDB0512EC83897A /* Pods-PictoGifTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictoGifTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests.release.xcconfig"; sourceTree = "<group>"; };
+		C3CF531742D2F17ED11CF656 /* Pods-PictoGifTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictoGifTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F03DD0FA526987D3FE8F43EE /* Pods-PictoGif.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictoGif.release.xcconfig"; path = "Pods/Target Support Files/Pods-PictoGif/Pods-PictoGif.release.xcconfig"; sourceTree = "<group>"; };
+		FA16D0879F3EB6D66754A2AB /* Pods-PictoGif.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictoGif.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PictoGif/Pods-PictoGif.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932EA90B75C1F5FAD99F9776 /* Pods_picdive.framework in Frameworks */,
 				489277191D039AD400DEB9B3 /* StoreKit.framework in Frameworks */,
+				72CF52D14CA6702ECD47F4D8 /* Pods_PictoGif.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,13 +117,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF858C01DAC648F509288EE /* Pods_picdiveTests.framework in Frameworks */,
+				9F80487ADA52E8FD1C7EDEA3 /* Pods_PictoGifTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07A4365C38C4D7240F19DB53 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FA16D0879F3EB6D66754A2AB /* Pods-PictoGif.debug.xcconfig */,
+				F03DD0FA526987D3FE8F43EE /* Pods-PictoGif.release.xcconfig */,
+				C3CF531742D2F17ED11CF656 /* Pods-PictoGifTests.debug.xcconfig */,
+				761351558EDB0512EC83897A /* Pods-PictoGifTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		1426C19C1C8CC50F00308155 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,24 +205,24 @@
 		149D31CF1C75480700866522 = {
 			isa = PBXGroup;
 			children = (
-				149D31DA1C75480900866522 /* picdive */,
-				149D31EF1C75480D00866522 /* picdiveTests */,
+				149D31DA1C75480900866522 /* PictoGif */,
+				149D31EF1C75480D00866522 /* PictoGifTests */,
 				149D31D91C75480900866522 /* Products */,
-				E78F29AAA2B2E908448FA1A3 /* Pods */,
 				BF258069B23DC4DF63FE01B3 /* Frameworks */,
+				07A4365C38C4D7240F19DB53 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		149D31D91C75480900866522 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				149D31D81C75480900866522 /* picdive.app */,
-				149D31EC1C75480D00866522 /* picdiveTests.xctest */,
+				149D31D81C75480900866522 /* PictoGif.app */,
+				149D31EC1C75480D00866522 /* PictoGif.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		149D31DA1C75480900866522 /* picdive */ = {
+		149D31DA1C75480900866522 /* PictoGif */ = {
 			isa = PBXGroup;
 			children = (
 				1426C1A61C8CCFBC00308155 /* Models */,
@@ -220,10 +231,10 @@
 				1426C1A41C8CCF9900308155 /* UIKit+Picdive */,
 				1426C1A21C8CCAE900308155 /* Supporting Files */,
 			);
-			path = picdive;
+			path = PictoGif;
 			sourceTree = "<group>";
 		};
-		149D31EF1C75480D00866522 /* picdiveTests */ = {
+		149D31EF1C75480D00866522 /* PictoGifTests */ = {
 			isa = PBXGroup;
 			children = (
 				149D31F21C75480D00866522 /* Info.plist */,
@@ -231,72 +242,61 @@
 				48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */,
 				48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */,
 			);
-			path = picdiveTests;
+			path = PictoGifTests;
 			sourceTree = "<group>";
 		};
 		BF258069B23DC4DF63FE01B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				489277181D039AD400DEB9B3 /* StoreKit.framework */,
-				50CF522E8F64E0E321981EE3 /* Pods_picdiveTests.framework */,
-				E137DF1827F36C772BE40547 /* Pods_picdive.framework */,
+				0A13A15069899C7A123A2621 /* Pods_PictoGif.framework */,
+				750CDBB47B2FB47624FEB46A /* Pods_PictoGifTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E78F29AAA2B2E908448FA1A3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9BA02B2A276AC6B671F34E32 /* Pods-picdiveTests.debug.xcconfig */,
-				4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */,
-				A9AE8AEA1AC3F967538AB03D /* Pods-picdive.debug.xcconfig */,
-				44C68FC6A7BA52A2F1544D15 /* Pods-picdive.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		149D31D71C75480800866522 /* picdive */ = {
+		149D31D71C75480800866522 /* PictoGif */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 149D31F51C75480D00866522 /* Build configuration list for PBXNativeTarget "picdive" */;
+			buildConfigurationList = 149D31F51C75480D00866522 /* Build configuration list for PBXNativeTarget "PictoGif" */;
 			buildPhases = (
-				5EE3BA97FC855E9367121E03 /* Check Pods Manifest.lock */,
+				E1F34B195C6B7422958DFC80 /* Check Pods Manifest.lock */,
 				149D31D41C75480800866522 /* Sources */,
 				149D31D51C75480800866522 /* Frameworks */,
 				149D31D61C75480800866522 /* Resources */,
-				A5810AF91322143C6C8DC891 /* Embed Pods Frameworks */,
-				AA5F25A58D0D644A7E6CE0C1 /* Copy Pods Resources */,
+				D9136ED375BA2D409DED5160 /* Embed Pods Frameworks */,
+				AD6F26EA791F5BB5B2362C58 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = picdive;
+			name = PictoGif;
 			productName = picdive;
-			productReference = 149D31D81C75480900866522 /* picdive.app */;
+			productReference = 149D31D81C75480900866522 /* PictoGif.app */;
 			productType = "com.apple.product-type.application";
 		};
-		149D31EB1C75480D00866522 /* picdiveTests */ = {
+		149D31EB1C75480D00866522 /* PictoGifTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "picdiveTests" */;
+			buildConfigurationList = 149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "PictoGifTests" */;
 			buildPhases = (
-				08F8A26C9B715D9AE2F028CD /* Check Pods Manifest.lock */,
+				B1252F4F63511BBA5444C45F /* Check Pods Manifest.lock */,
 				149D31E81C75480D00866522 /* Sources */,
 				149D31E91C75480D00866522 /* Frameworks */,
 				149D31EA1C75480D00866522 /* Resources */,
-				D2618D6F052D67614AFE7112 /* Embed Pods Frameworks */,
-				0F1D42F5893E268815E6C1EA /* Copy Pods Resources */,
+				730D529F777D84F19D1D9D15 /* Embed Pods Frameworks */,
+				1F17B80FF6CFEF60F25662D3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				149D31EE1C75480D00866522 /* PBXTargetDependency */,
 			);
-			name = picdiveTests;
+			name = PictoGifTests;
 			productName = picdiveTests;
-			productReference = 149D31EC1C75480D00866522 /* picdiveTests.xctest */;
+			productReference = 149D31EC1C75480D00866522 /* PictoGif.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -324,7 +324,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 149D31D31C75480700866522 /* Build configuration list for PBXProject "picdive" */;
+			buildConfigurationList = 149D31D31C75480700866522 /* Build configuration list for PBXProject "PictoGif" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -337,8 +337,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				149D31D71C75480800866522 /* picdive */,
-				149D31EB1C75480D00866522 /* picdiveTests */,
+				149D31D71C75480800866522 /* PictoGif */,
+				149D31EB1C75480D00866522 /* PictoGifTests */,
 			);
 		};
 /* End PBXProject section */
@@ -364,7 +364,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08F8A26C9B715D9AE2F028CD /* Check Pods Manifest.lock */ = {
+		1F17B80FF6CFEF60F25662D3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		730D529F777D84F19D1D9D15 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD6F26EA791F5BB5B2362C58 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PictoGif/Pods-PictoGif-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1252F4F63511BBA5444C45F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -379,22 +424,22 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		0F1D42F5893E268815E6C1EA /* Copy Pods Resources */ = {
+		D9136ED375BA2D409DED5160 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PictoGif/Pods-PictoGif-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5EE3BA97FC855E9367121E03 /* Check Pods Manifest.lock */ = {
+		E1F34B195C6B7422958DFC80 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,51 +452,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		A5810AF91322143C6C8DC891 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-picdive/Pods-picdive-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AA5F25A58D0D644A7E6CE0C1 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-picdive/Pods-picdive-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D2618D6F052D67614AFE7112 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-picdiveTests/Pods-picdiveTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -506,7 +506,7 @@
 /* Begin PBXTargetDependency section */
 		149D31EE1C75480D00866522 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 149D31D71C75480800866522 /* picdive */;
+			target = 149D31D71C75480800866522 /* PictoGif */;
 			targetProxy = 149D31ED1C75480D00866522 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -608,67 +608,67 @@
 		};
 		149D31F61C75480D00866522 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9AE8AEA1AC3F967538AB03D /* Pods-picdive.debug.xcconfig */;
+			baseConfigurationReference = FA16D0879F3EB6D66754A2AB /* Pods-PictoGif.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = picdive/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PictoGif/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sellistsabend.picdive;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PictoGif;
 			};
 			name = Debug;
 		};
 		149D31F71C75480D00866522 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44C68FC6A7BA52A2F1544D15 /* Pods-picdive.release.xcconfig */;
+			baseConfigurationReference = F03DD0FA526987D3FE8F43EE /* Pods-PictoGif.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = picdive/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PictoGif/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sellistsabend.picdive;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PictoGif;
 			};
 			name = Release;
 		};
 		149D31F91C75480D00866522 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BA02B2A276AC6B671F34E32 /* Pods-picdiveTests.debug.xcconfig */;
+			baseConfigurationReference = C3CF531742D2F17ED11CF656 /* Pods-PictoGifTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = picdiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PictoGif;
 				SWIFT_OBJC_BRIDGING_HEADER = "picdiveTests/picdiveTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/picdive.app/picdive";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PictoGif.app/PictoGif";
 			};
 			name = Debug;
 		};
 		149D31FA1C75480D00866522 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4669ED52AADF0CBA308B1DC1 /* Pods-picdiveTests.release.xcconfig */;
+			baseConfigurationReference = 761351558EDB0512EC83897A /* Pods-PictoGifTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = picdiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PictoGif;
 				SWIFT_OBJC_BRIDGING_HEADER = "picdiveTests/picdiveTests-Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/picdive.app/picdive";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PictoGif.app/PictoGif";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		149D31D31C75480700866522 /* Build configuration list for PBXProject "picdive" */ = {
+		149D31D31C75480700866522 /* Build configuration list for PBXProject "PictoGif" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				149D31F31C75480D00866522 /* Debug */,
@@ -677,7 +677,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		149D31F51C75480D00866522 /* Build configuration list for PBXNativeTarget "picdive" */ = {
+		149D31F51C75480D00866522 /* Build configuration list for PBXNativeTarget "PictoGif" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				149D31F61C75480D00866522 /* Debug */,
@@ -686,7 +686,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "picdiveTests" */ = {
+		149D31F81C75480D00866522 /* Build configuration list for PBXNativeTarget "PictoGifTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				149D31F91C75480D00866522 /* Debug */,
