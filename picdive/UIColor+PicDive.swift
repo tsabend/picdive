@@ -29,5 +29,9 @@ extension UIColor {
     class func PDGray() -> UIColor {
         return UIColor(red: 56/255, green: 56/255, blue: 56/255, alpha: 1)
     }
+    
+    class func PictoPink() -> UIColor {
+        return UIColor(red: 255/255, green: 57/255, blue: 118/255, alpha: 1)
+    }
 
 }

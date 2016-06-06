@@ -49,7 +49,7 @@ class EasingCell: UICollectionViewCell {
         didSet {
 //            self.label.textColor = self.selected ? UIColor.PDBlue() : UIColor.whiteColor()
 //            self.container.backgroundColor = selected ? UIColor.PDDarkGray().colorWithAlphaComponent(0.66) : UIColor.PDGray()
-            self.imageView.tintColor = selected ? UIColor.PDBlue() : UIColor.whiteColor()
+            self.imageView.tintColor = selected ? UIColor.PictoPink() : UIColor.whiteColor()
         }
     }
     

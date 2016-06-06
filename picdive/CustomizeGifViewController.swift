@@ -38,6 +38,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
         self.slider.addTarget(self, action: #selector(CustomizeGifViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.continuous = false
+        self.slider.minimumTrackTintColor = UIColor.PictoPink()
         
         self.slider.setupValues(min: 2, max: 10, initial: Float(self.gif?.images.count ?? 4))
         self.slider.setupImages(min: UIImage(named: "time_empty"), max: UIImage(named: "time_full"))
