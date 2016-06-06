@@ -2,7 +2,7 @@
 # platform :ios, '8.0'
 
 use_frameworks!
-
+xcodeproj 'PictoGif.xcodeproj'
 target 'PictoGif' do
  pod "CGRectExtensions"
  pod "SwiftGifOrigin"
