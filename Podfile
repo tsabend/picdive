@@ -3,7 +3,7 @@
 
 use_frameworks!
 
-target 'picdive' do
+target 'PictoGif' do
  pod "CGRectExtensions"
  pod "SwiftGifOrigin"
  pod "Reveal-iOS-SDK", :configurations => ['Debug']
@@ -11,7 +11,7 @@ target 'picdive' do
 end
 
 
-target 'picdiveTests' do
+target 'PictoGifTests' do
   pod "Quick"
   pod "Nimble"
 end
