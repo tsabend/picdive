@@ -11,7 +11,7 @@ import UIKit
 import Photos
 import pop
 
-class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
+class ImagePickerViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
     private var photos: [(UIImage?, PHAsset)] = []
@@ -20,6 +20,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
     private let noImagePlaceholder = UIImageView()
     private let imageCropper = ImageCropper()
     
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,8 +35,6 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             if success {
              print(products)
             }
-            
-            
         }
     
         self.view.backgroundColor = UIColor.PDDarkGray()
@@ -77,7 +76,51 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.imageCropper.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ImagePickerViewController.cropperWasTapped)))
     }
+
+    lazy var cropperYOrigin: CGFloat = self.navigationController?.navigationBar.maxY ?? 0
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        let originalY = self.isCollapsed ? -self.view.width + 96 : self.cropperYOrigin
+        self.imageCropper.darkness = self.isCollapsed ? 1 : 0
+        
+        self.imageCropper.y = originalY
+        if self.imageCropper.size == CGSize.zero {
+            self.imageCropper.size = CGSize(self.view.width, self.view.width)
+        }
+        
+        self.noImagePlaceholder.size = CGSize(150, 78)
+        self.noImagePlaceholder.center = self.imageCropper.center
+        
+        
+        self.collectionView.size = self.view.size
+        self.collectionView.moveBelow(siblingView: self.imageCropper, margin: 0)
+        
+        self.cameraButton.size = CGSize(44, 44)
+        self.cameraButton.moveToCenterOfSuperview()
+        
+        self.footerView.size = CGSize(width: self.view.width, height: 44)
+        self.footerView.alignBottom(0, toView: self.view)
+        self.view.bringSubviewToFront(self.footerView)
+        
+    }
     
+    
+    // MARK: - Actions
+    func selectImage(image: UIImage) {
+        self.imageCropper.image = image
+    }
+    
+    func toNext() {
+        if let image = self.imageCropper.crop() {
+            let vc = ScopeViewController()
+            vc.imageViewDataSource = image
+            self.navigationController?.pushViewController(vc, animated: false)
+            vc.animateIn()
+        }
+    }
+    
+    // MARK: - Gestures
     lazy var pan: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImagePickerViewController.viewWasPanned))
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -85,100 +128,70 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             || (gestureRecognizer == self.pan && otherGestureRecognizer == self.imageCropper.panGestureRecognizer && self.isCollapsed)
     }
     
-    private lazy var animationYDiff: CGFloat = self.imageCropper.height - 44
-    private var animatingViews: [UIView] {
-        return [
-            self.imageCropper,
-            self.noImagePlaceholder,
-            self.collectionView
-        ]
-    }
-    
-    var beginningY: CGFloat?
     var isCollapsed: Bool = false
-    var shouldComplete = false
+    var beginningY: CGFloat?, previousY: CGFloat?
+    /// Manages transitions of the view between collapsed and expanded states
     func viewWasPanned(pan: UIPanGestureRecognizer) {
-        let sign: CGFloat = self.isCollapsed ? -1.0 : 1.0
         let currentPoint = pan.locationInView(self.view)
-        let currentY = currentPoint.y
-        let threshhold = UIScreen.mainScreen().bounds.width / 4
-        let change = (self.beginningY ?? currentY) - currentY
-        self.shouldComplete = self.isCollapsed ? change < 0 : change > 0
-        let delta = ((self.beginningY ?? currentY) - currentY) * sign
+        let hitInCropper = self.view.hitTest(currentPoint, withEvent: nil)?.closest(ImageCropper.self) != nil
         
         switch pan.state {
         case .Began:
-            let hitView = self.view.hitTest(currentPoint, withEvent: nil)
-            let beganInCropper = hitView?.closest(ImageCropper.self) != nil
-            guard (beganInCropper && self.isCollapsed) || (!beganInCropper && !self.isCollapsed) else { return }
-            
-
-            self.beginningY = currentY
-            self.animatingViews.forEach { $0.layer.timeOffset = 0 ; self.animateYPosition(ofView: $0, byY: -self.animationYDiff * sign) }
+            // Collapsed must begin in cropper and vice-versa
+            guard hitInCropper == self.isCollapsed else { return }
+            self.beginningY = currentPoint.y
+            self.previousY = currentPoint.y
         case .Changed:
+            // The gesture had a valid beginning
+            guard let previousY = self.previousY else { return }
             
-                if delta > threshhold {
-                    let timeOffset =  ((delta - threshhold) / 200.0).d
-                    if timeOffset < 1 {
-                        self.view.subviews.forEach { $0.layer.timeOffset = timeOffset }
-                    }
-                }
+            if hitInCropper || self.isCollapsed {
+                let delta = currentPoint.y - previousY
+                // Bail if you're dragging the cropper too far down
+                if self.imageCropper.y + delta > self.cropperYOrigin { return }
+                // Darken/Lighten the image
+                self.imageCropper.darkness -= delta/1000
+                // Move the views up
+                let animatingViews = [self.imageCropper, self.noImagePlaceholder, self.collectionView]
+                animatingViews.forEach({$0.y += delta})
+            }
+            
+            self.previousY = currentPoint.y
             
         case .Ended, .Cancelled, .Failed:
-            if delta > threshhold && self.shouldComplete {
+            // Toggle collapsed
+            let sign: CGFloat = self.isCollapsed ? -1 : 1
+            let totalDelta = ((self.beginningY ?? currentPoint.y) - currentPoint.y)
+            let threshhold = 0.3 * UIScreen.mainScreen().bounds.width
+            if totalDelta * sign > (threshhold) {
                 self.isCollapsed = !self.isCollapsed
-                let remainingY = self.animationYDiff - delta + (44 * -sign)
-                
-                self.animatingViews.forEach { view in
-                    self.animateYPosition(ofView: view, byY: -sign * remainingY)
-                    view.layer.timeOffset = 0
-                    view.layer.position.y += -self.animationYDiff * sign
-                    view.layer.speed = 4
-                }
-                
-            } else {
-                self.animatingViews.forEach {$0.layer.removeAllAnimations()}
             }
+            // Animate the view
+            UIView.animateWithDuration(0.33) {
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+            // Clear the state
             self.beginningY = nil
+            self.previousY = nil
+            
         default:
             break
         }
-
     }
     
     func cropperWasTapped(tap: UITapGestureRecognizer) {
-        if self.isCollapsed {
-            self.shouldComplete = true
-            self.animatingViews.forEach { view in
-                view.layer.timeOffset = 0;
-                self.animateYPosition(ofView: view, byY: self.animationYDiff)
-                view.layer.position.y = (view.layer.presentationLayer() as! CALayer).position.y + self.animationYDiff
-                view.layer.speed = 3
-            }
-            self.isCollapsed = false
+        guard self.isCollapsed else { return }
+        self.isCollapsed = false
+        UIView.animateWithDuration(0.33) {
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
         }
     }
+}
 
-    // MARK: - Camera
-    func cameraWasPressed() {
-        let vc = UIImagePickerController()
-        vc.sourceType = .Camera
-        vc.delegate = self
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.dismissViewControllerAnimated(true, completion: nil)
-            self.selectImage(image)
-        }
-    }
-    
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // MARK: - CollectionView
+// MARK: - CollectionView
+extension ImagePickerViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -204,61 +217,26 @@ class ImagePickerViewController: UIViewController, UICollectionViewDelegateFlowL
             }
         }
     }
-    
-    
-    func selectImage(image: UIImage) {
-        self.imageCropper.image = image
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension ImagePickerViewController: UIImagePickerControllerDelegate {
+    func cameraWasPressed() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .Camera
+        vc.delegate = self
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
-    func toNext() {
-        if let image = self.imageCropper.crop() {
-            let vc = ScopeViewController()
-            vc.imageViewDataSource = image
-            self.navigationController?.pushViewController(vc, animated: false)
-            vc.animateIn()
-        }
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        if !self.isCollapsed {
-            
-            if self.imageCropper.size == CGSize.zero {
-                self.imageCropper.size = CGSize(self.view.width, self.view.width)
-            }
-            
-            self.noImagePlaceholder.size = CGSize(150, 78)
-            self.noImagePlaceholder.center = self.imageCropper.center
-            
-            self.footerView.size = CGSize(width: self.view.width, height: 44)
-            self.arrangeViews()
-            self.collectionView.size = self.view.size
-            
-            self.cameraButton.size = CGSize(44, 44)
-            self.cameraButton.moveToCenterOfSuperview()
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.selectImage(image)
         }
     }
     
-    private func arrangeViews() {
-        self.imageCropper.y = self.navigationController?.navigationBar.maxY ?? 0
-        
-        self.collectionView.moveBelow(siblingView: self.imageCropper, margin: 0)
-        
-        self.footerView.alignBottom(0, toView: self.view)
-        self.view.bringSubviewToFront(self.footerView)
-    }
-    
-    private func animateYPosition(ofView view: UIView, byY value: CGFloat, duration: Double = 1.0) {
-        let animation = CABasicAnimation(keyPath: "position.y")
-        let position = (view.layer.presentationLayer() as! CALayer).position.y
-        animation.fromValue = position
-        animation.toValue = position + value
-        animation.duration = duration
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        view.layer.speed = 0
-        let key = NSUUID().UUIDString
-        view.layer.addAnimation(animation, forKey: key)
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }

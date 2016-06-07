@@ -17,7 +17,14 @@ class ImageCropper: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate {
             self.setNeedsLayout()
         }
     }
+    
+    var darkness: CGFloat = 0 {
+        didSet {
+            self.darknessMask.alpha = min(darkness, 0.44)
+        }
+    }
 
+    private let darknessMask = UIView()
     private let imageView = UIImageView()
     private let scrollView = UIScrollView()
     private let gridOverlay = GridOverlay()
@@ -37,10 +44,13 @@ class ImageCropper: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate {
         self.longPress.delegate = self
         self.imageView.addGestureRecognizer(self.longPress)
         
+        self.darknessMask.backgroundColor = UIColor.blackColor()
+        self.darknessMask.alpha = 0
+        
         self.addSubview(self.scrollView)
         self.addSubview(self.gridOverlay)
-
         self.scrollView.addSubview(self.imageView)
+        self.addSubview(self.darknessMask)
     }
     lazy var longPress: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ImageCropper.handleLongPress))
     
@@ -63,6 +73,7 @@ class ImageCropper: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.darknessMask.frame = self.bounds
         guard let image = image else { return }
         self.gridOverlay.frame = self.bounds
 
