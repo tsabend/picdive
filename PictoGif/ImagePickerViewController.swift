@@ -45,18 +45,9 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         self.automaticallyAdjustsScrollViewInsets = false
         self.collectionView.registerClass(ImageCell.self, forCellWithReuseIdentifier: String(ImageCell.self))
         
-        
-        PhotoRetriever().queryPhotos { (images) in
-            guard let images = images else { return }
-            self.photos = images
-            if let first = images.first {
-                PhotoRetriever().getImage(first.1) { (image) in
-                    if let image = image {
-                        self.selectImage(image)
-                    }
-                }
-            }
-        }
+        self.queryPhotos()
+       
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
         
         self.cameraButton.setImage(UIImage(named: "camera")?.resized(toSize: CGSize(22, 22)), forState: .Normal)
         self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
@@ -239,6 +230,36 @@ extension ImagePickerViewController: UIImagePickerControllerDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+}
+
+extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(changeInstance: PHChange) {
+        self.queryPhotos()
+    }
+    
+    func queryPhotos() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == PHAuthorizationStatus.Denied {
+            let vc = UIAlertController(title: "Oh no!", message: "You have not given us access to your photos. Go to your settings and enable photo access to get the most out of PictoGif", preferredStyle: .Alert)
+            vc.addAction(UIAlertAction(title: "Go to settings", style: .Default, handler: { (_) in
+                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+            }))
+            vc.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+            self.presentViewController(vc, animated: true, completion: nil)
+
+        }
+        PhotoRetriever().queryPhotos { (images) in
+            guard let images = images else { return }
+            self.photos = images
+            if let first = images.first {
+                PhotoRetriever().getImage(first.1) { (image) in
+                    if let image = image {
+                        self.selectImage(image)
+                    }
+                }
+            }
+        }
+    }
 }
 
 class ImagePickerFlowLayout: UICollectionViewFlowLayout {
