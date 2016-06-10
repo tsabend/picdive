@@ -72,7 +72,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let originalY = self.isCollapsed ? -self.view.width + 96 : self.cropperYOrigin
+        let originalY = self.isCollapsed ? -self.view.width + 112 : self.cropperYOrigin
         self.imageCropper.darkness = self.isCollapsed ? 1 : 0
         
         self.imageCropper.y = originalY
@@ -125,6 +125,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     func viewWasPanned(pan: UIPanGestureRecognizer) {
         let currentPoint = pan.locationInView(self.view)
         let hitInCropper = self.view.hitTest(currentPoint, withEvent: nil)?.closest(ImageCropper.self) != nil
+        let sign: CGFloat = self.isCollapsed ? -1 : 1
         
         switch pan.state {
         case .Began:
@@ -135,13 +136,13 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         case .Changed:
             // The gesture had a valid beginning
             guard let previousY = self.previousY else { return }
+            let delta = currentPoint.y - previousY
             
-            if hitInCropper || self.isCollapsed {
-                let delta = currentPoint.y - previousY
-                // Bail if you're dragging the cropper too far down
+            if hitInCropper || self.isCollapsed || delta > 0 {
+            // Bail if you're dragging the cropper too far down
                 if self.imageCropper.y + delta > self.cropperYOrigin { return }
                 // Darken/Lighten the image
-                self.imageCropper.darkness -= delta/1000
+                self.imageCropper.darkness -= delta/400
                 // Move the views up
                 let animatingViews = [self.imageCropper, self.noImagePlaceholder, self.collectionView]
                 animatingViews.forEach({$0.y += delta})
@@ -151,7 +152,6 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
             
         case .Ended, .Cancelled, .Failed:
             // Toggle collapsed
-            let sign: CGFloat = self.isCollapsed ? -1 : 1
             let totalDelta = ((self.beginningY ?? currentPoint.y) - currentPoint.y)
             let threshhold = 0.3 * UIScreen.mainScreen().bounds.width
             if totalDelta * sign > (threshhold) {
