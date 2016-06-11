@@ -6,6 +6,8 @@
 //  Copyright © 2016 Sean. All rights reserved.
 //
 
+import AVKit
+import AVFoundation
 import UIKit
 
 class PublishingViewController : UIViewController, ImagePresenter {
@@ -20,7 +22,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
     }
 
     private let gifView = UIImageView()
-    private let shareButton = UIButton()
+    private let videoButton = SubtitledButton()
     private let gifButton = SubtitledButton()
     private let stripButton = SubtitledButton()
     private let stripView = UIScrollView()
@@ -33,24 +35,23 @@ class PublishingViewController : UIViewController, ImagePresenter {
         
         self.view.backgroundColor = UIColor.PDDarkGray()
 
-        self.gifButton.setTitle("Gif", forState: .Normal)
-        self.gifButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.gifButton.setImage(UIImage(named: "share")?.resized(toSize: CGSize(28, 28)), forState: .Normal)
-        self.gifButton.titleLabel?.font = UIFont.PDFont(withSize: 18)
-        self.gifButton.addTarget(self, action: #selector(PublishingViewController.shareGif), forControlEvents: .TouchUpInside)
+        self.setupButton(self.videoButton, title: "Video", selector: #selector(PublishingViewController.shareVideo))
+        self.setupButton(self.gifButton, title: "Gif", selector: #selector(PublishingViewController.shareGif))
+        self.setupButton(self.stripButton, title: "Photo Strip", selector: #selector(PublishingViewController.shareStrip))
         
-        self.stripButton.setTitle("Photo Strip", forState: .Normal)
-        self.stripButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.stripButton.titleLabel?.font = UIFont.PDFont(withSize: 18)
-        self.stripButton.addTarget(self, action: #selector(PublishingViewController.shareStrip), forControlEvents: .TouchUpInside)
-        self.stripButton.setImage(UIImage(named: "share")?.resized(toSize: CGSize(28, 28)), forState: .Normal)
         
-        self.view.addSubview(self.shareButton)
-        self.view.addSubview(self.gifButton)
-        self.view.addSubview(self.stripButton)
         self.view.addSubview(self.gifView)
         self.stripView.addSubview(self.stripImageView)
         self.view.addSubview(self.stripView)
+    }
+    
+    private func setupButton(button: UIButton, title: String, selector: Selector) {
+        button.setTitle(title, forState: .Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.titleLabel?.font = UIFont.PDFont(withSize: 18)
+        button.setImage(UIImage(named: "share")?.resized(toSize: CGSize(28, 28)), forState: .Normal)
+        button.addTarget(self, action: selector, forControlEvents: .TouchUpInside)
+        self.view.addSubview(button)
     }
     
     func setupNavigationBar() {
@@ -72,6 +73,15 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.share(gif.data)
     }
     
+    func shareVideo() {
+        guard let gif = self.imageViewDataSource as? Gif else { return }
+        gif.asVideo { (url) in
+            if let url = url {
+                self.share(url)
+            }
+        }
+    }
+    
     func shareStrip() {
         guard let gif = self.imageViewDataSource as? Gif, strip = gif.horizontalStrip else { return }
         self.share(strip)
@@ -81,17 +91,22 @@ class PublishingViewController : UIViewController, ImagePresenter {
         let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [object], applicationActivities: nil)
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
 
         self.gifView.size = CGSize(self.view.width, self.view.width)
         self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
         
         self.gifButton.sizeToFit()
         self.stripButton.sizeToFit()
+        self.videoButton.sizeToFit()
         
         self.gifButton.moveBelow(siblingView: self.gifView, margin: 16, alignment: .Center)
+        let buttonSpacing: CGFloat = 64
+        self.gifButton.x -= (buttonSpacing + self.gifButton.width) / 2
+        self.videoButton.moveRight(siblingView: self.gifButton, margin: 64, alignVertically: true)
         
         self.stripView.width = self.view.width
         self.stripView.height = 64

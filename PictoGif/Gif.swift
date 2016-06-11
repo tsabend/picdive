@@ -21,6 +21,8 @@ struct Gif {
     let data: NSData
     let image: UIImage
     let images: [UIImage]
+    let times: [Double]
+    let reversed: Bool
     
     init?(images: [UIImage], easing: TimingEasing, totalTime: Double) {
         let images = images.map { $0.watermark() }
@@ -50,9 +52,19 @@ struct Gif {
         guard let image = UIImage.gifWithData(data) else { return nil }
         self.image = image
         self.images = images
+        self.times = times
+        self.reversed = easing.reversed
     }
     
     var horizontalStrip: UIImage? {
         return UIImage.stitchImagesHorizontal(self.images)
+    }
+    
+    func asVideo(completion: (NSURL?) -> Void) {
+        guard let first = self.images.first else { completion(nil); return }
+        let settings = RenderSettings(size: first.size)
+        let images = self.reversed ? self.images.reverse() : self.images
+        let imageTimes: [(image: UIImage, time: Double)] = Array(zip(images, self.times))
+        ImageAnimator(imageTimes: imageTimes, renderSettings: settings).render(completion)
     }
 }
