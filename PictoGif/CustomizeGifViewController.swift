@@ -26,7 +26,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     private let gifView = UIImageView()
     let easingsViewController = EasingViewController()
     let slider = Slider()
-    var easing = TimingEasing.Linear
+    var easing = TimingEasing.FinalFrame
     private let flash = UIView()
     
     override func viewDidLoad() {
