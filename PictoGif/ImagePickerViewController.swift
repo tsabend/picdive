@@ -65,7 +65,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         self.pan.delegate = self
         self.view.addGestureRecognizer(self.pan)
         
-        self.imageCropper.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ImagePickerViewController.cropperWasTapped)))
+        self.imageCropper.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ImagePickerViewController.expandView)))
     }
 
     lazy var cropperYOrigin: CGFloat = self.navigationController?.navigationBar.maxY ?? 0
@@ -99,6 +99,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     
     // MARK: - Actions
     func selectImage(image: UIImage) {
+        self.expandView()
         self.imageCropper.image = image
     }
     
@@ -166,7 +167,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         }
     }
     
-    func cropperWasTapped(tap: UITapGestureRecognizer) {
+    func expandView() {
         guard self.isCollapsed else { return }
         self.isCollapsed = false
         UIView.animateWithDuration(0.33) {
