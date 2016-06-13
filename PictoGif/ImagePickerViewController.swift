@@ -26,11 +26,6 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         
         self.title = "Pick Your Image"
 
-        let cancelButton = BarButtonItem(image: BarButtonItem.cancelImage) { [weak self] in self?.imageCropper.image = nil }
-        let nextButton = BarButtonItem(image: BarButtonItem.nextImage) { [weak self] in self?.toNext() }
-        self.navigationItem.leftBarButtonItem = cancelButton
-        self.navigationItem.rightBarButtonItem = nextButton
-
         PicDiveProducts.store.requestProducts{success, products in
             if success {
              print(products)
@@ -67,6 +62,25 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         
         self.imageCropper.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ImagePickerViewController.expandView)))
     }
+    
+    lazy var cancelButton: BarButtonItem = {
+        return BarButtonItem(image: BarButtonItem.cancelImage) { [weak self] in
+            self?.imageCropper.image = nil
+            self?.setupNavigationBar()
+        }
+    }()
+    
+    lazy var nextButton: BarButtonItem = BarButtonItem(image: BarButtonItem.nextImage) { [weak self] in self?.toNext() }
+    
+    func setupNavigationBar() {
+        if self.imageCropper.image != nil {
+            self.navigationItem.leftBarButtonItem = self.cancelButton
+            self.navigationItem.rightBarButtonItem = self.nextButton
+        } else {
+            self.navigationItem.leftBarButtonItem = nil
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
 
     lazy var cropperYOrigin: CGFloat = self.navigationController?.navigationBar.maxY ?? 0
     override func viewDidLayoutSubviews() {
@@ -101,6 +115,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     func selectImage(image: UIImage) {
         self.expandView()
         self.imageCropper.image = image
+        self.setupNavigationBar()
     }
     
     func toNext() {
