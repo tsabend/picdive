@@ -637,6 +637,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sellistsabend.picdive;
 				PRODUCT_NAME = PictoGif;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -651,6 +652,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sellistsabend.picdive;
 				PRODUCT_NAME = PictoGif;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
