@@ -61,7 +61,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         let offscreen = self.view.height + self.slider.height
         self.slider.y = offscreen
         after(seconds: 0.01) {
-            let originalPos = self.imageView.maxY + 64
+            let originalPos = self.imageView.maxY + 32
             let animation = POPSpringAnimation(propertyNamed: kPOPLayerPositionY)
             animation.toValue = originalPos
             animation.velocity = 8

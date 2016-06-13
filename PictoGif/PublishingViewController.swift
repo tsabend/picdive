@@ -103,21 +103,22 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.stripButton.sizeToFit()
         self.videoButton.sizeToFit()
         
-        self.gifButton.moveBelow(siblingView: self.gifView, margin: 16, alignment: .Center)
+        self.gifButton.moveBelow(siblingView: self.gifView, margin: 8, alignment: .Center)
         let buttonSpacing: CGFloat = 64
         self.gifButton.x -= (buttonSpacing + self.gifButton.width) / 2
         self.videoButton.moveRight(siblingView: self.gifButton, margin: 64, alignVertically: true)
         
+        let stripHeight = self.view.height * 0.09
         self.stripView.width = self.view.width
-        self.stripView.height = 64
-        self.stripImageView.size.height = 64
-        self.stripImageView.size.width = 64 * (self.imageViewDataSource as! Gif).images.count.f
+        self.stripView.height = stripHeight
+        self.stripImageView.size.height = stripHeight
+        self.stripImageView.size.width = stripHeight * (self.imageViewDataSource as! Gif).images.count.f
         self.stripView.contentSize.width = self.stripImageView.width
         if self.stripImageView.width < self.view.width {
             self.stripImageView.moveToCenterOfSuperview()
         }
         
-        self.stripView.moveBelow(siblingView: self.gifButton, margin: 16)
-        self.stripButton.moveBelow(siblingView: self.stripView, margin: 16, alignment: .Center)
+        self.stripView.moveBelow(siblingView: self.gifButton, margin: 8)
+        self.stripButton.moveBelow(siblingView: self.stripView, margin: 8, alignment: .Center)
     }
 }
