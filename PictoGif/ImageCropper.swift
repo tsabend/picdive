@@ -15,6 +15,7 @@ class ImageCropper: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate {
             self.imageView.image = image
             self.imageView.frame = CGRect.zero
             self.setNeedsLayout()
+            self.gridOverlay.setNeedsDisplay()
         }
     }
     
