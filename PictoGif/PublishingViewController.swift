@@ -27,7 +27,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
     private let stripButton = SubtitledButton()
     private let stripView = UIScrollView()
     private let stripImageView = UIImageView()
-    
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Share"
@@ -39,6 +39,8 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.setupButton(self.gifButton, title: "Gif", selector: #selector(PublishingViewController.shareGif))
         self.setupButton(self.stripButton, title: "Photo Strip", selector: #selector(PublishingViewController.shareStrip))
         
+        self.spinner.hidesWhenStopped = true
+        self.view.addSubview(self.spinner)
         
         self.view.addSubview(self.gifView)
         self.stripView.addSubview(self.stripImageView)
@@ -80,9 +82,14 @@ class PublishingViewController : UIViewController, ImagePresenter {
         if let url = self.cachedVideoURL {
           self.share(url)
         } else {
+            self.spinner.center = self.videoButton.center
+            self.videoButton.hidden = true
+            self.spinner.startAnimating()
             gif.asVideo { (url) in
                 if let url = url {
                     self.cachedVideoURL = url
+                    self.spinner.stopAnimating()
+                    self.videoButton.hidden = false
                     self.share(url)
                 }
             }
@@ -128,5 +135,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
         
         self.stripView.moveBelow(siblingView: self.gifButton, margin: 8)
         self.stripButton.moveBelow(siblingView: self.stripView, margin: 8, alignment: .Center)
+        
+        self.spinner.sizeToFit()
     }
 }
