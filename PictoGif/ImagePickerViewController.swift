@@ -251,10 +251,11 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
         PhotoRetriever().queryPhotos { (images) in
             guard let images = images else { return }
             self.photos = images
+            immediately { self.collectionView.reloadData() }
             if let first = images.first {
                 PhotoRetriever().getImage(first.1) { (image) in
                     if let image = image {
-                        self.selectImage(image)
+                        immediately { self.selectImage(image) }
                     }
                 }
             }
