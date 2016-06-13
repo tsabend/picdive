@@ -149,6 +149,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
             guard hitInCropper == self.isCollapsed else { return }
             self.beginningY = currentPoint.y
         case .Changed:
+            guard self.beginningY != nil else { return }
             // The gesture had a valid beginning
             let delta = pan.translationInView(self.view).y
             if hitInCropper || self.isCollapsed || delta > 0 {
