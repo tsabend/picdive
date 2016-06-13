@@ -73,12 +73,20 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.share(gif.data)
     }
     
+    private var cachedVideoURL: NSURL?
     func shareVideo() {
         guard let gif = self.imageViewDataSource as? Gif else { return }
-        gif.asVideo { (url) in
-            if let url = url {
-                self.share(url)
+        
+        if let url = self.cachedVideoURL {
+          self.share(url)
+        } else {
+            gif.asVideo { (url) in
+                if let url = url {
+                    self.cachedVideoURL = url
+                    self.share(url)
+                }
             }
+            
         }
     }
     
