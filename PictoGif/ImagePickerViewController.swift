@@ -120,7 +120,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     }
     
     var isCollapsed: Bool = false
-    var beginningY: CGFloat?, previousY: CGFloat?
+    var beginningY: CGFloat?
     /// Manages transitions of the view between collapsed and expanded states
     func viewWasPanned(pan: UIPanGestureRecognizer) {
         let currentPoint = pan.locationInView(self.view)
@@ -132,12 +132,9 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
             // Collapsed must begin in cropper and vice-versa
             guard hitInCropper == self.isCollapsed else { return }
             self.beginningY = currentPoint.y
-            self.previousY = currentPoint.y
         case .Changed:
             // The gesture had a valid beginning
-            guard let previousY = self.previousY else { return }
-            let delta = currentPoint.y - previousY
-            
+            let delta = pan.translationInView(self.view).y
             if hitInCropper || self.isCollapsed || delta > 0 {
             // Bail if you're dragging the cropper too far down
                 if self.imageCropper.y + delta > self.cropperYOrigin { return }
@@ -148,7 +145,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
                 animatingViews.forEach({$0.y += delta})
             }
             
-            self.previousY = currentPoint.y
+            pan.setTranslation(CGPoint.zero, inView: self.view)
             
         case .Ended, .Cancelled, .Failed:
             // Toggle collapsed
@@ -164,8 +161,6 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
             }
             // Clear the state
             self.beginningY = nil
-            self.previousY = nil
-            
         default:
             break
         }
