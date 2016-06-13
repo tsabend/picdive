@@ -26,6 +26,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     private let gifView = UIImageView()
     let easingsViewController = EasingViewController()
     let slider = Slider()
+    private let watermarkButton = UIButton()
     var easing = TimingEasing.FinalFrame
     private let flash = UIView()
     
@@ -59,10 +60,14 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.flash.backgroundColor = UIColor.whiteColor()
         self.flash.alpha = 0
         
+        self.watermarkButton.setTitle("Remove Watermark", forState: .Normal)
+        self.watermarkButton.addTarget(self, action: #selector(CustomizeGifViewController.removeWatermark), forControlEvents: .TouchUpInside)
+        
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.view.addSubview(self.gifView)
         self.view.addSubview(self.slider)
         self.gifView.addSubview(self.flash)
+        self.view.addSubview(self.watermarkButton)
         
     }
     
@@ -80,7 +85,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     func setGif() {
         guard let gif = self.gif else { return }
         self.flash.flash()
-        self.gif = Gif(images: gif.images, easing: easing, totalTime: Double(self.slider.value))
+        self.gif = Gif(images: gif.images, easing: self.easing, totalTime: Double(self.slider.value))
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,6 +102,24 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.easingsViewController.view.size = CGSize(width: self.gifView.width, height: 100)
         self.easingsViewController.view.moveBelow(siblingView: self.slider, margin: 8, alignment: .Center)
         
+        self.watermarkButton.sizeToFit()
+        self.watermarkButton.alignRight(8, toView: self.view)
+        self.watermarkButton.alignBottom(8, toView: self.view)
+        
+    }
+    
+    func removeWatermark() {
+        let vc = UIAlertController(title: "Remove watermark", message: "Tired of seeing our logo on your PictoGifs? Pay once and remove it forever.", preferredStyle: .Alert)
+        vc.addAction(UIAlertAction(title: "Yaaaaas", style: .Default) { (_) in
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasPaid")
+            self.setGif()
+        })
+        
+        vc.addAction(UIAlertAction(title: "Not now", style: .Cancel, handler: { _ in NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasPaid")
+            self.setGif()
+        }))
+        
+        self.presentViewController(vc, animated: true, completion: nil)
     }
 
 }

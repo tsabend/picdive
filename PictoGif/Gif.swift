@@ -25,7 +25,9 @@ struct Gif {
     let reversed: Bool
     
     init?(images: [UIImage], easing: TimingEasing, totalTime: Double) {
-        let images = images.map { $0.watermark() }
+        self.images = images
+        let images = NSUserDefaults.standardUserDefaults().boolForKey("hasPaid") ? images : images.map { $0.watermark() }
+        
         let times = easing.times(framesCount: images.count, totalTime: totalTime)
         
 
@@ -51,7 +53,6 @@ struct Gif {
         self.data = data
         guard let image = UIImage.gifWithData(data) else { return nil }
         self.image = image
-        self.images = images
         self.times = times
         self.reversed = easing.reversed
     }
