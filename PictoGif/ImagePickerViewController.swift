@@ -86,12 +86,13 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let originalY = self.isCollapsed ? -self.view.width + 112 : self.cropperYOrigin
+        let originalY = self.isCollapsed ? -Config.imageViewWidth + 112 : self.cropperYOrigin
         self.imageCropper.darkness = self.isCollapsed ? 1 : 0
         
         self.imageCropper.y = originalY
         if self.imageCropper.size == CGSize.zero {
-            self.imageCropper.size = CGSize(self.view.width, self.view.width)
+            self.imageCropper.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
+            self.imageCropper.moveToHorizontalCenterOfSuperview()
         }
         
         self.noImagePlaceholder.size = CGSize(150, 78)

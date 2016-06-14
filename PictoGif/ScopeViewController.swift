@@ -103,6 +103,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         let scrollViewSideLength = self.view.width - margin
         
         self.imageView.size = CGSize(self.view.width, self.view.width)
+        self.imageView.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
+        self.imageView.moveToHorizontalCenterOfSuperview()
         self.imageView.y = self.navigationController?.navigationBar.maxY ?? 0
         
         self.slider.sizeToFit()
@@ -113,7 +115,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         self.scope.frame = self.imageView.frame
         
         if self.scope.innerRect == CGRect.zero {
-            self.scope.innerRect = CGRect(150, 150, 100, 100)
+            let x = self.view.width / 2 - 100
+            self.scope.innerRect = CGRect(x, x, 100, 100)
         }
         
     }

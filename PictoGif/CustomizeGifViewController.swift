@@ -90,7 +90,9 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.gifView.size = CGSize(self.view.width, self.view.width)
+        self.gifView.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
+        self.gifView.moveToHorizontalCenterOfSuperview()
+        
         self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
         self.flash.frame = self.gifView.bounds
         
