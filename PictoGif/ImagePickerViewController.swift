@@ -257,7 +257,7 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
             vc.addAction(UIAlertAction(title: "Go to settings", style: .Default, handler: { (_) in
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             }))
-            vc.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+            vc.addAction(UIAlertAction(title: "Not now", style: .Default, handler: nil))
             self.presentViewController(vc, animated: true, completion: nil)
 
         }

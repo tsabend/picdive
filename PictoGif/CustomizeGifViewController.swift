@@ -61,6 +61,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
         self.watermarkButton.setTitle("Remove Watermark", forState: .Normal)
         self.watermarkButton.addTarget(self, action: #selector(CustomizeGifViewController.removeWatermark), forControlEvents: .TouchUpInside)
+        self.watermarkButton.hidden = PicDiveProducts.store.isProductPurchased(PicDiveProducts.RemoveWatermark)
         
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.view.addSubview(self.gifView)
@@ -112,8 +113,10 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     func removeWatermark() {
         let vc = UIAlertController(title: "Remove watermark", message: "Tired of seeing our logo on your PictoGifs? Pay once and remove it forever.", preferredStyle: .Alert)
         vc.addAction(UIAlertAction(title: "Yaaaaas", style: .Default) { (_) in
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasPaid")
-            self.setGif()
+            if let watermark = PicDiveProducts.store.products.find({$0.productIdentifier == PicDiveProducts.RemoveWatermark}) {
+                PicDiveProducts.store.buyProduct(watermark)
+                self.setGif()
+            }
         })
         
         vc.addAction(UIAlertAction(title: "Not now", style: .Cancel, handler: { _ in NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasPaid")

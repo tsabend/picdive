@@ -26,7 +26,7 @@ struct Gif {
     
     init?(images: [UIImage], easing: TimingEasing, totalTime: Double) {
         self.images = images
-        let images = NSUserDefaults.standardUserDefaults().boolForKey("hasPaid") ? images : images.map { $0.watermark() }
+        let images = PicDiveProducts.store.isProductPurchased(PicDiveProducts.RemoveWatermark) ? images : images.map { $0.watermark() }
         
         let times = easing.times(framesCount: images.count, totalTime: totalTime)
         

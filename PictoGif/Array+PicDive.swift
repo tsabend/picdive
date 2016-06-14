@@ -19,3 +19,14 @@ public extension CollectionType where Index: Comparable {
         return self[index]
     }
 }
+
+extension SequenceType {
+    func find(@noescape predicate: (Self.Generator.Element) throws -> Bool) rethrows -> Self.Generator.Element? {
+        for element in self {
+            if try predicate(element) {
+                return element
+            }
+        }
+        return nil
+    }
+}
