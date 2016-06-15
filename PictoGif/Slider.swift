@@ -16,8 +16,10 @@ class Slider : ASValueTrackingSlider {
         self.maximumTrackTintColor = UIColor.PDLightGray()
         self.thumbTintColor = UIColor.whiteColor()
         self.popUpViewColor = UIColor.PictoPink()
-        self.font = UIFont.PDFont(withSize: 24)
-        self.popUpViewArrowLength = 22
+        self.font = UIFont.PDFont(withSize: 18)
+        self.popUpViewArrowLength = 18
+        self.setThumbImage(UIImage(named: "slider_thumb")?.resized(toSize: CGSize(44,22)), forState: .Normal)
+        self.setThumbImage(UIImage(named: "slider_thumb_highlighted")?.resized(toSize: CGSize(44,22)), forState: .Highlighted)
     }
     
     func setupValues(min min: Float, max: Float, initial: Float) {
