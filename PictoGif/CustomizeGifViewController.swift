@@ -120,8 +120,12 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         let vc = UIAlertController(title: "Remove watermark", message: "Tired of seeing our logo on your PictoGifs? Pay once and remove it forever.", preferredStyle: .Alert)
         vc.addAction(UIAlertAction(title: "Yaaaaas", style: .Default) { (_) in
             if let watermark = PicDiveProducts.store.products.find({$0.productIdentifier == PicDiveProducts.RemoveWatermark}) {
-                PicDiveProducts.store.buyProduct(watermark)
-                self.setGif()
+                PicDiveProducts.store.buyProduct(watermark) { [weak self] success in
+                    if success {
+                        self?.watermarkButton.hidden = true
+                        self?.setGif()
+                    }
+                }
             }
         })
         

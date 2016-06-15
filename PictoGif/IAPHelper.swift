@@ -28,8 +28,8 @@ public typealias ProductIdentifier = String
 public typealias ProductsRequestCompletionHandler = (success: Bool, products: [SKProduct]?) -> ()
 
 public class IAPHelper : NSObject  {
-  
-  static let IAPHelperPurchaseNotification = "IAPHelperPurchaseNotification"
+    
+    static let IAPHelperPurchaseNotification = "IAPHelperPurchaseNotification"
     private let productIdentifiers: Set<ProductIdentifier>
     private var purchasedProductIdentifiers = Set<ProductIdentifier>()
     
@@ -41,6 +41,8 @@ public class IAPHelper : NSObject  {
         super.init()
         SKPaymentQueue.defaultQueue().addTransactionObserver(self)
     }
+    
+    private var purchaseCompletion: (Bool -> Void)?
 }
 
 // MARK: - StoreKit API
@@ -56,11 +58,11 @@ extension IAPHelper {
         productsRequest!.start()
     }
 
-  public func buyProduct(product: SKProduct) {
-    print("Buying \(product.productIdentifier)...")
-    let payment = SKPayment(product: product)
-    SKPaymentQueue.defaultQueue().addPayment(payment)
-  }
+    public func buyProduct(product: SKProduct, completion: (Bool -> Void)?) {
+        print("Buying \(product.productIdentifier)...")
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.defaultQueue().addPayment(payment)
+    }
 
   public func isProductPurchased(productIdentifier: ProductIdentifier) -> Bool {
     return self.purchasedProductIdentifiers.contains(productIdentifier)
@@ -111,14 +113,18 @@ extension IAPHelper: SKPaymentTransactionObserver {
             switch (transaction.transactionState) {
             case .Purchased:
                 completeTransaction(transaction)
+                self.purchaseCompletion?(true)
                 break
             case .Failed:
                 failedTransaction(transaction)
+                self.purchaseCompletion?(false)
                 break
             case .Restored:
                 restoreTransaction(transaction)
+                self.purchaseCompletion?(true)
                 break
             case .Deferred:
+                self.purchaseCompletion?(false)
                 break
             case .Purchasing:
                 break
