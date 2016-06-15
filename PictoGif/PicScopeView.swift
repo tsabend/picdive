@@ -30,7 +30,7 @@ class PicScopeView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasMoved))
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasPanned(_:)))
         self.addGestureRecognizer(pan)
         
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(PicScopeView.boxWasPinched))
@@ -51,34 +51,35 @@ class PicScopeView: UIView {
             .squaresBetween(rect: self.innerRect, steps: self.numberOfSteps)
     }
     
-    // MARK: - Gestures
-    func boxWasMoved(pan: UIPanGestureRecognizer) {
+    func boxWasMoved(translation: CGPoint) {
         let innerRect = self.innerRect
-
+        let viewSize = innerRect.size
+        var center = CGPoint(x: innerRect.center.x + translation.x, y: innerRect.center.y + translation.y)
+        var resetTranslation = CGPoint(x: translation.x, y: translation.y)
+        if center.x - viewSize.width / 2 < 0 {
+            center.x = viewSize.width / 2
+        } else if center.x + viewSize.width / 2 > self.width{
+            center.x = self.width - viewSize.width / 2
+        } else {
+            resetTranslation.x = 0
+        }
+        
+        if center.y - viewSize.height / 2 < 0 {
+            center.y = viewSize.height / 2
+        } else if center.y + viewSize.height / 2 > self.height {
+            center.y = self.height - viewSize.height / 2
+        } else {
+            resetTranslation.y = 0
+        }
+        self.innerRect.center = center
+        self.resetBoxes()
+    
+    }
+    // MARK: - Gestures
+    func boxWasPanned(pan: UIPanGestureRecognizer) {
         if pan.state == .Changed {
-            
-            let viewSize = innerRect.size
-            let translation = pan.translationInView(self)
-            var center = CGPoint(x: innerRect.center.x + translation.x, y: innerRect.center.y + translation.y)
-            var resetTranslation = CGPoint(x: translation.x, y: translation.y)
-            if center.x - viewSize.width / 2 < 0 {
-                center.x = viewSize.width / 2
-            } else if center.x + viewSize.width / 2 > self.width{
-                center.x = self.width - viewSize.width / 2
-            } else {
-                resetTranslation.x = 0
-            }
-            
-            if center.y - viewSize.height / 2 < 0 {
-                center.y = viewSize.height / 2
-            } else if center.y + viewSize.height / 2 > self.height {
-                center.y = self.height - viewSize.height / 2
-            } else {
-                resetTranslation.y = 0
-            }
-            self.innerRect.center = center
+            self.boxWasMoved(pan.translationInView(self))
             pan.setTranslation(CGPoint.zero, inView: self)
-            self.resetBoxes()
         }
     }
     
@@ -101,13 +102,15 @@ class PicScopeView: UIView {
     
     // MARK: - animations
     func animate() {
-        let total = 400
+        let total = 250
         (0...total).forEach { (idx) in
             let scale: CGFloat = idx >= total/2 ? 1.005 : 0.995
             after(seconds: 0.00125 * idx.d, exec: {
+                self.boxWasMoved(CGPoint(0.3, 0.3))
+            })
+            after(seconds: 0.00125 * (idx.d + total.d), exec: {
                 self.boxWasScaled(scale)
             })
-          
         }
     }
 
