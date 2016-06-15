@@ -8,6 +8,7 @@ target 'PictoGif' do
  pod "SwiftGifOrigin"
  pod "Reveal-iOS-SDK", :configurations => ['Debug']
  pod "pop", "~> 1.0"
+ pod 'ASValueTrackingSlider'
 end
 
 

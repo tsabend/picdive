@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ASValueTrackingSlider
 
-class CustomizeGifViewController: UIViewController, FlowViewController, ImagePresenter {
+class CustomizeGifViewController: UIViewController, FlowViewController, ImagePresenter, ASValueTrackingSliderDataSource {
     typealias Next = PublishingViewController
     var imageViewDataSource: ImageViewDataSource? {
         didSet {
@@ -42,6 +43,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
         self.slider.setupValues(min: 2, max: 10, initial: Float(self.gif?.images.count ?? 4))
         self.slider.setupImages(min: UIImage(named: "time_empty"), max: UIImage(named: "time_full"))
+        self.slider.dataSource = self
         
         self.easingsViewController.easings = [TimingEasing.FinalFrame,  TimingEasing.Linear, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
         
@@ -80,6 +82,10 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     
     func sliderDidSlide(slider: UISlider) {
         self.setGif()
+    }
+    
+    func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
+        return "\(value.format(".2")) seconds"
     }
     
     func setGif() {

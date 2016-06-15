@@ -1,4 +1,5 @@
 PODS:
+  - ASValueTrackingSlider (0.11.2)
   - CGRectExtensions (2.0)
   - Nimble (4.0.1)
   - pop (1.0.9)
@@ -7,6 +8,7 @@ PODS:
   - SwiftGifOrigin (1.5.2)
 
 DEPENDENCIES:
+  - ASValueTrackingSlider
   - CGRectExtensions
   - Nimble
   - pop (~> 1.0)
@@ -15,6 +17,7 @@ DEPENDENCIES:
   - SwiftGifOrigin
 
 SPEC CHECKSUMS:
+  ASValueTrackingSlider: 45c9f78252da60de01d8f2afe869aaf90dd978d9
   CGRectExtensions: 67fa367a91d537bc2fcdd97069a66262777d1412
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce

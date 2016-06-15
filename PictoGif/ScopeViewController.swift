@@ -10,8 +10,9 @@ import UIKit
 import SwiftGifOrigin
 import CGRectExtensions
 import pop
+import ASValueTrackingSlider
 
-class ScopeViewController: UIViewController, ImagePresenter, FlowViewController {
+class ScopeViewController: UIViewController, ImagePresenter, FlowViewController, ASValueTrackingSliderDataSource {
 
     typealias Next = CustomizeGifViewController
     var imageViewDataSource: ImageViewDataSource? {
@@ -47,6 +48,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         self.slider.setupValues(min: 2, max: 7, initial: 4)
         self.slider.setupImages(min: UIImage(named: "few"), max: UIImage(named: "many"))
         self.slider.minimumTrackTintColor = UIColor.PictoPink()
+        self.slider.dataSource = self
         
         self.modalTransitionStyle = .CoverVertical
         
@@ -77,6 +79,10 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController 
         let roundedValue = round(slider.value)
         slider.setValue(roundedValue, animated: false)
         self.scope.numberOfSteps = Int(roundedValue)
+    }
+    
+    func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
+        return "\(Int(value)) frames"
     }
     
     private func snapshotImages() -> [UIImage]? {

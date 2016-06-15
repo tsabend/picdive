@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import ASValueTrackingSlider
 
-class Slider : UISlider {
+class Slider : ASValueTrackingSlider {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.minimumTrackTintColor = UIColor.PDBlue()
         self.maximumTrackTintColor = UIColor.PDLightGray()
         self.thumbTintColor = UIColor.whiteColor()
+        self.popUpViewColor = UIColor.PictoPink()
+        self.font = UIFont.PDFont(withSize: 24)
+        self.popUpViewArrowLength = 22
     }
     
     func setupValues(min min: Float, max: Float, initial: Float) {
