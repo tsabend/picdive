@@ -10,9 +10,9 @@
 import UIKit
 
 class BarButtonItem: UIBarButtonItem {
-    static let nextImage = UIImage(named: "right")?.resized(toSize: CGSize(22, 22))
-    static let backImage = UIImage(named: "left")?.resized(toSize: CGSize(22, 22))
-    static let cancelImage = UIImage(named: "x")?.resized(toSize: CGSize(22, 22))
+    static let nextImage = UIImage(named: "right")?.resized(toSize: CGSize(28, 28))
+    static let backImage = UIImage(named: "left")?.resized(toSize: CGSize(28, 28))
+    static let cancelImage = UIImage(named: "x")?.resized(toSize: CGSize(28, 28))
     
     
     var completion: (Void -> Void)?
