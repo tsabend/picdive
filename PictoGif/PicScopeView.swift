@@ -109,13 +109,13 @@ class PicScopeView: UIView {
     
     // MARK: - animations
     func animate() {
-        let total = 250
+        let total = 270
         (0...total).forEach { (idx) in
             let scale: CGFloat = idx >= total/2 ? 1.005 : 0.995
             after(seconds: 0.00125 * idx.d, exec: {
-                self.boxWasMoved(CGPoint(0.3, 0.3))
+                self.boxWasMoved(CGPoint(0.2, 0.00125 * idx.f))
             })
-            after(seconds: 0.00125 * (idx.d + total.d), exec: {
+            after(seconds: (0.001 * idx.d + 0.00125 * total.d) + 0.15, exec: {
                 self.boxWasScaled(scale)
             })
         }

@@ -9,7 +9,6 @@
 import UIKit
 import SwiftGifOrigin
 import CGRectExtensions
-import pop
 import ASValueTrackingSlider
 
 
@@ -63,21 +62,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
     }
     
     func animateIn() {
-        
-        let offscreen = self.view.height + self.slider.height
-        self.slider.y = offscreen
-        after(seconds: 0.01) {
-            let originalPos = self.imageView.maxY + 32
-            let animation = POPSpringAnimation(propertyNamed: kPOPLayerPositionY)
-            animation.toValue = originalPos
-            animation.velocity = 8
-            animation.springBounciness = 4
-            animation.springSpeed = 4
-            self.slider.layer.pop_addAnimation(animation, forKey: "slider")
-            self.scope.animate()
-        }
+        immediately { self.scope.animate() }
     }
-    
     
     func sliderDidSlide(slider: UISlider) {
         let roundedValue = round(slider.value)
@@ -119,9 +105,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         
         self.slider.sizeToFit()
         self.slider.width = scrollViewSideLength
-        self.slider.centerHorizontally(self.imageView)
-        
-        
+        self.slider.moveBelow(siblingView: self.imageView, margin: 32, alignment: .Center)
+
         self.scope.frame = self.imageView.frame
         
         if self.scope.innerRect == CGRect.zero {
