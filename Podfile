@@ -4,16 +4,15 @@ platform :ios, '8.0'
 use_frameworks!
 xcodeproj 'PictoGif.xcodeproj'
 target 'PictoGif' do
- pod "CGRectExtensions"
- pod "SwiftGifOrigin"
- pod "Reveal-iOS-SDK", :configurations => ['Debug']
- pod "pop", "~> 1.0"
+ pod 'CGRectExtensions'
+ pod 'SwiftGifOrigin'
  pod 'ASValueTrackingSlider'
+ pod 'Reveal-iOS-SDK', :configurations => ['Debug']
 end
 
 
 target 'PictoGifTests' do
-  pod "Quick"
-  pod "Nimble"
+  pod 'Quick'
+  pod 'Nimble'
 end
 

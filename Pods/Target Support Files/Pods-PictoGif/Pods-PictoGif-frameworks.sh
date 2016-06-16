@@ -87,11 +87,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-PictoGif/ASValueTrackingSlider.framework"
   install_framework "Pods-PictoGif/CGRectExtensions.framework"
   install_framework "Pods-PictoGif/SwiftGifOrigin.framework"
-  install_framework "Pods-PictoGif/pop.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-PictoGif/ASValueTrackingSlider.framework"
   install_framework "Pods-PictoGif/CGRectExtensions.framework"
   install_framework "Pods-PictoGif/SwiftGifOrigin.framework"
-  install_framework "Pods-PictoGif/pop.framework"
 fi
