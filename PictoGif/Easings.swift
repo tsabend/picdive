@@ -61,7 +61,7 @@ enum TimingEasing: EasingType {
         case .Linear, .Reverse:
             return (0..<count).map {_ in duration/count.d}
         case .FinalFrame, .ReverseFinalFrame:
-            let finalFrameTax = 0.15
+            let finalFrameTax = 0.2
             let normalFrameDuration = duration/count.d * (1.0 - finalFrameTax)
             let finalFrameDuration = duration/count.d + ((duration/count.d) * finalFrameTax * (count.d - 1.0))
             var norms = (0..<count - 1).map { _ in normalFrameDuration }
