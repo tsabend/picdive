@@ -14,11 +14,11 @@ import pop
 class ImagePickerViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
-    private var photos: [(UIImage?, PHAsset)] = []
     private let cameraButton = UIButton()
     private let footerView = UIView()
     private let noImagePlaceholder = UIImageView()
     private let imageCropper = ImageCropper()
+    private var photoRetriever = PhotoRetriever()
     
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -173,7 +173,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
                 self.isCollapsed = !self.isCollapsed
             }
             // Animate the view
-            UIView.animateWithDuration(0.33) {
+            UIView.animateWithDuration(0.25) {
                 self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
             }
@@ -187,7 +187,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     func expandView() {
         guard self.isCollapsed else { return }
         self.isCollapsed = false
-        UIView.animateWithDuration(0.33) {
+        UIView.animateWithDuration(0.25) {
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         }
@@ -201,20 +201,21 @@ extension ImagePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photos.count
+        return self.photoRetriever.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(String(ImageCell.self), forIndexPath: indexPath) as? ImageCell {
-            cell.imageView.image = self.photos[indexPath.item].0
-            cell.backgroundColor = UIColor.redColor()
+            self.photoRetriever.getThumb(atIndex: indexPath.item) { (image) in
+                cell.imageView.image = image
+            }
             return cell
         }
         return UICollectionViewCell()
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let asset = self.photos[indexPath.item].1
+        guard let asset = self.photoRetriever[indexPath.item] else { return }
         PhotoRetriever().getImage(asset) { image in
             if let image = image {
                 self.selectImage(image)
@@ -261,15 +262,11 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
             self.presentViewController(vc, animated: true, completion: nil)
 
         }
-        PhotoRetriever().queryPhotos { (images) in
-            guard let images = images else { return }
-            self.photos = images
-            immediately { self.collectionView.reloadData() }
-            if let first = images.first {
-                PhotoRetriever().getImage(first.1) { (image) in
-                    if let image = image {
-                        immediately { self.selectImage(image) }
-                    }
+        self.photoRetriever.reloadData()
+        if let first = self.photoRetriever[0] where self.imageCropper.image == nil {
+            self.photoRetriever.getImage(first) { (image) in
+                if let image = image {
+                    immediately { self.selectImage(image) }
                 }
             }
         }
@@ -285,7 +282,7 @@ class ImagePickerFlowLayout: UICollectionViewFlowLayout {
         self.minimumLineSpacing = 4
         let itemSideLength = (UIScreen.mainScreen().bounds.width / 4) - interItemSpacing
         self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
-        self.sectionInset = UIEdgeInsets(top: 1, left: 0, bottom: 4, right: 0)
+        self.sectionInset = UIEdgeInsets(top: 1, left: 0, bottom: itemSideLength * 2, right: 0)
         
     }
     
