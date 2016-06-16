@@ -48,7 +48,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         self.scope.delegate = self
 
         self.slider.addTarget(self, action: #selector(ScopeViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.slider.setupValues(min: 2, max: 7, initial: 4)
+        self.slider.setupValues(min: 2, max: 8, initial: 4)
         self.slider.setupImages(min: UIImage(named: "few"), max: UIImage(named: "many"))
         self.slider.minimumTrackTintColor = UIColor.PictoPink()
         self.slider.dataSource = self
