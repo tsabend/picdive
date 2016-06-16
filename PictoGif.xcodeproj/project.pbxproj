@@ -17,6 +17,7 @@
 		149D31E31C75480A00866522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E21C75480A00866522 /* Assets.xcassets */; };
 		149D31E61C75480B00866522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149D31E41C75480B00866522 /* LaunchScreen.storyboard */; };
 		484BBF1A1D10378600C74482 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484BBF191D10378600C74482 /* Configuration.swift */; };
+		484BBF2F1D12E62C00C74482 /* ZoomingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484BBF2E1D12E62C00C74482 /* ZoomingImageView.swift */; };
 		4869BBE41D0BBFB9006F68E5 /* ImageAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4869BBE31D0BBFB9006F68E5 /* ImageAnimator.swift */; };
 		4869BBE61D0C9362006F68E5 /* RenderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4869BBE51D0C9362006F68E5 /* RenderSettings.swift */; };
 		4869BBE81D0C9382006F68E5 /* VideoWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4869BBE71D0C9382006F68E5 /* VideoWriter.swift */; };
@@ -75,6 +76,7 @@
 		149D31EC1C75480D00866522 /* PictoGif.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PictoGif.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		484BBF191D10378600C74482 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		484BBF2E1D12E62C00C74482 /* ZoomingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomingImageView.swift; sourceTree = "<group>"; };
 		4869BBE31D0BBFB9006F68E5 /* ImageAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAnimator.swift; sourceTree = "<group>"; };
 		4869BBE51D0C9362006F68E5 /* RenderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderSettings.swift; sourceTree = "<group>"; };
 		4869BBE71D0C9382006F68E5 /* VideoWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoWriter.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			children = (
 				1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */,
 				48A0C7DC1CFC8B4600ACD5A7 /* EasingCell.swift */,
+				484BBF2E1D12E62C00C74482 /* ZoomingImageView.swift */,
 				489277221D059DFB00DEB9B3 /* SubtitledButton.swift */,
 				48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */,
 				48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */,
@@ -506,6 +509,7 @@
 				4869BBE61D0C9362006F68E5 /* RenderSettings.swift in Sources */,
 				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,
+				484BBF2F1D12E62C00C74482 /* ZoomingImageView.swift in Sources */,
 				48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */,
 				48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */,
 				48A0C7DF1CFD006500ACD5A7 /* NumberConversions+PicDive.swift in Sources */,

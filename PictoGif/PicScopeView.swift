@@ -9,6 +9,10 @@
 import UIKit
 import CGRectExtensions
 
+protocol PicScopeViewDelegate {
+    func scopeWasMoved(toFrame frame: CGRect)
+}
+
 class PicScopeView: UIView {
     
     /// The number of frames to generate between the outer and inner box
@@ -22,8 +26,11 @@ class PicScopeView: UIView {
     var innerRect: CGRect = CGRect.zero {
         didSet {
             self.resetBoxes()
+            self.delegate?.scopeWasMoved(toFrame: self.innerRect)
         }
     }
+    
+    var delegate: PicScopeViewDelegate?
     
     private var boxes: [UIView] = []
     

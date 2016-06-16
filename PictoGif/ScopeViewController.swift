@@ -12,13 +12,15 @@ import CGRectExtensions
 import pop
 import ASValueTrackingSlider
 
-class ScopeViewController: UIViewController, ImagePresenter, FlowViewController, ASValueTrackingSliderDataSource {
+
+class ScopeViewController: UIViewController, ImagePresenter, FlowViewController, ASValueTrackingSliderDataSource, PicScopeViewDelegate {
 
     typealias Next = CustomizeGifViewController
     var imageViewDataSource: ImageViewDataSource? {
         didSet {
             if let image = self.imageViewDataSource as? UIImage {
                 self.imageView.image = image
+                self.zoomingImageView.image = image
             }
         }
     }
@@ -28,8 +30,8 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
     }
     
     
-    private let imageView: UIImageView = UIImageView()
-
+    private let imageView = UIImageView()
+    private let zoomingImageView = ZoomingImageView()
     let slider: Slider = Slider()
     var numFrames: Int = 1
 
@@ -43,6 +45,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         self.view.backgroundColor = UIColor.PDDarkGray()
         
         self.scope = PicScopeView()
+        self.scope.delegate = self
 
         self.slider.addTarget(self, action: #selector(ScopeViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.slider.setupValues(min: 2, max: 7, initial: 4)
@@ -55,6 +58,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         self.view.addSubview(self.imageView)
         self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
+        self.view.addSubview(self.zoomingImageView)
     
     }
     
@@ -125,5 +129,15 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
             self.scope.innerRect = CGRect(x, x, 100, 100)
         }
         
+        self.zoomingImageView.size = CGSize(100,100)
+        self.zoomingImageView.moveToHorizontalCenterOfSuperview()
+        self.zoomingImageView.alignBottom(44, toView: self.view)
+    }
+    
+    func scopeWasMoved(toFrame frame: CGRect) {
+        let origin = frame.origin * self.zoomingImageView.width / self.view.width
+        let size = frame.size * self.zoomingImageView.width / self.view.width
+        let rect  = CGRect(origin, size)
+        self.zoomingImageView.zoom(toRect: rect)
     }
 }
