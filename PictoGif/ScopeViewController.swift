@@ -62,7 +62,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
     }
     
     func animateIn() {
-        immediately { self.scope.animate() }
+        after(seconds: 0.1) { self.scope.animate() }
     }
     
     func sliderDidSlide(slider: UISlider) {

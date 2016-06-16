@@ -102,10 +102,10 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         self.collectionView.size = self.view.size
         self.collectionView.moveBelow(siblingView: self.imageCropper, margin: 0)
         
-        self.cameraButton.size = CGSize(44, 44)
+        self.cameraButton.size = CGSize(32, 32)
         self.cameraButton.moveToCenterOfSuperview()
         
-        self.footerView.size = CGSize(width: self.view.width, height: 44)
+        self.footerView.size = CGSize(width: self.view.width, height: 32)
         self.footerView.alignBottom(0, toView: self.view)
         self.view.bringSubviewToFront(self.footerView)
         
@@ -277,9 +277,9 @@ class ImagePickerFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         
-        let interItemSpacing: CGFloat = 4
+        let interItemSpacing: CGFloat = 1
         self.minimumInteritemSpacing = interItemSpacing
-        self.minimumLineSpacing = 4
+        self.minimumLineSpacing = interItemSpacing
         let itemSideLength = (UIScreen.mainScreen().bounds.width / 4) - interItemSpacing
         self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
         self.sectionInset = UIEdgeInsets(top: 1, left: 0, bottom: itemSideLength * 2, right: 0)
