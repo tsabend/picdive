@@ -9,7 +9,7 @@
 
 import UIKit
 import Photos
-import pop
+
 
 class ImagePickerViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
