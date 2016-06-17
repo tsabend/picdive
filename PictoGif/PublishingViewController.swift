@@ -16,7 +16,6 @@ class PublishingViewController : UIViewController, ImagePresenter {
         didSet {
             if let gif = self.imageViewDataSource as? Gif {
                 self.gifView.image = gif.image
-                self.stripImageView.image = gif.horizontalStrip
             }
         }
     }
@@ -25,33 +24,37 @@ class PublishingViewController : UIViewController, ImagePresenter {
     private let videoButton = SubtitledButton()
     private let gifButton = SubtitledButton()
     private let stripButton = SubtitledButton()
-    private let stripView = UIScrollView()
-    private let stripImageView = UIImageView()
+    private let instagramExplanationLabel = UILabel()
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Share"
+        self.navigationItem.title = "Export and Share"
         self.setupNavigationBar()
         
         self.view.backgroundColor = UIColor.PDDarkGray()
 
-        self.setupButton(self.videoButton, title: "Video", selector: #selector(PublishingViewController.shareVideo))
-        self.setupButton(self.gifButton, title: "Gif", selector: #selector(PublishingViewController.shareGif))
-        self.setupButton(self.stripButton, title: "Photo Strip", selector: #selector(PublishingViewController.shareStrip))
+        self.setupButton(self.videoButton, title: "Video", imageName: "movie_p", selector: #selector(PublishingViewController.shareVideo))
+        self.setupButton(self.gifButton, title: "Gif", imageName: "many", selector: #selector(PublishingViewController.shareGif))
+        self.setupButton(self.stripButton, title: "Photo", imageName: "strip_p", selector: #selector(PublishingViewController.shareStrip))
+        
+        self.instagramExplanationLabel.text = "*Use videos for sharing on Instagram, since they do not animate gifs."
+        self.instagramExplanationLabel.font = UIFont.PDFont(withSize: 12)
+        self.instagramExplanationLabel.textColor = UIColor.whiteColor()
         
         self.spinner.hidesWhenStopped = true
         self.view.addSubview(self.spinner)
-        
         self.view.addSubview(self.gifView)
-        self.stripView.addSubview(self.stripImageView)
-        self.view.addSubview(self.stripView)
+        self.view.addSubview(self.instagramExplanationLabel)
+        
     }
     
-    private func setupButton(button: UIButton, title: String, selector: Selector) {
+    private func setupButton(button: UIButton, title: String, imageName: String, selector: Selector) {
         button.setTitle(title, forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.titleLabel?.font = UIFont.PDFont(withSize: 18)
-        button.setImage(UIImage(named: "share")?.resized(toSize: CGSize(28, 28)), forState: .Normal)
+        
+        button.imageView?.tintColor = UIColor.PictoPink()
+        button.setImage(UIImage(named: imageName)?.resized(toSize: CGSize(28, 28)).imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
         button.addTarget(self, action: selector, forControlEvents: .TouchUpInside)
         self.view.addSubview(button)
     }
@@ -118,24 +121,15 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.stripButton.sizeToFit()
         self.videoButton.sizeToFit()
         
-        self.gifButton.moveBelow(siblingView: self.gifView, margin: 8, alignment: .Center)
         let buttonSpacing: CGFloat = 64
-        self.gifButton.x -= (buttonSpacing + self.gifButton.width) / 2
-        self.videoButton.moveRight(siblingView: self.gifButton, margin: 64, alignVertically: true)
-        
-        let stripHeight = self.view.height * 0.09
-        self.stripView.width = self.view.width
-        self.stripView.height = stripHeight
-        self.stripImageView.size.height = stripHeight
-        self.stripImageView.size.width = stripHeight * (self.imageViewDataSource as! Gif).images.count.f
-        self.stripView.contentSize.width = self.stripImageView.width
-        if self.stripImageView.width < self.view.width {
-            self.stripImageView.moveToCenterOfSuperview()
-        }
-        
-        self.stripView.moveBelow(siblingView: self.gifButton, margin: 8)
-        self.stripButton.moveBelow(siblingView: self.stripView, margin: 8, alignment: .Center)
-        
+        self.videoButton.moveBelow(siblingView: self.gifView, margin: buttonSpacing, alignment: .Center)
+        self.gifButton.moveLeft(siblingView: self.videoButton, margin: buttonSpacing, alignVertically: true)
+        self.stripButton.moveRight(siblingView: self.videoButton, margin: buttonSpacing, alignVertically: true)
+     
         self.spinner.sizeToFit()
+        
+        self.instagramExplanationLabel.sizeToFit()
+        self.instagramExplanationLabel.moveToHorizontalCenterOfSuperview()
+        self.instagramExplanationLabel.alignBottom(8, toView: self.view)
     }
 }
