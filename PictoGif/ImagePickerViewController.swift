@@ -44,7 +44,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
        
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
         
-        self.cameraButton.setImage(UIImage(named: "camera")?.resized(toSize: CGSize(22, 22)), forState: .Normal)
+        self.cameraButton.setImage(UIImage(named: "camera"), forState: .Normal)
         self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
         
         self.noImagePlaceholder.image = UIImage(named: "logo")
