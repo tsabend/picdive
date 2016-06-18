@@ -17,7 +17,7 @@ class Slider : ASValueTrackingSlider {
         self.thumbTintColor = UIColor.whiteColor()
         self.popUpViewColor = UIColor.PictoPink()
         self.font = UIFont.PDFont(withSize: 18)
-        self.popUpViewArrowLength = 18
+        self.popUpViewArrowLength = 12
         self.setThumbImage(UIImage(named: "slider_thumb")?.resized(toSize: CGSize(44,22)), forState: .Normal)
         self.setThumbImage(UIImage(named: "slider_thumb_highlighted")?.resized(toSize: CGSize(44,22)), forState: .Highlighted)
     }
