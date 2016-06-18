@@ -61,17 +61,19 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.flash.backgroundColor = UIColor.whiteColor()
         self.flash.alpha = 0
         
-        self.watermarkButton.addTarget(self, action: #selector(CustomizeGifViewController.removeWatermark), forControlEvents: .TouchUpInside)
+        self.watermarkButton.addTarget(self, action: #selector(CustomizeGifViewController.buyRemoveWatermark), forControlEvents: .TouchUpInside)
         self.watermarkButton.setTitle("REMOVE WATERMARK", forState: .Normal)
         self.watermarkButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
-        self.watermarkButton.hidden = PicDiveProducts.store.isProductPurchased(PicDiveProducts.RemoveWatermark)
         self.watermarkButton.backgroundColor = UIColor.PictoPink()
-        
+        self.watermarkButton.hidden = PicDiveProducts.hasPurchasedWatermark
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.view.addSubview(self.gifView)
         self.view.addSubview(self.slider)
         self.gifView.addSubview(self.flash)
         self.view.addSubview(self.watermarkButton)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomizeGifViewController.removeWatermark), name: IAPHelper.IAPHelperPurchaseNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomizeGifViewController.reportFailure), name: IAPHelper.IAPHelperPurchaseFailedNotification, object: nil)
         
     }
     
@@ -100,6 +102,18 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.gif = Gif(images: gif.images, easing: self.easing, totalTime: Double(self.translatedSliderValue))
     }
     
+    func removeWatermark() {
+        self.setGif()
+        self.watermarkButton.hidden = true
+    }
+    
+    func reportFailure(notification: NSNotification) {
+        let message = notification.object as? String ?? "The purchase failed. Check your connection or try again later."
+        let vc = UIAlertController(title: "Womp", message: message, preferredStyle: .Alert)
+        vc.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -116,24 +130,20 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.easingsViewController.view.size = CGSize(width: self.gifView.width, height: 100)
         self.easingsViewController.view.moveBelow(siblingView: self.slider, margin: 16, alignment: .Center)
         
-        self.watermarkButton.sizeToFit()
-        self.watermarkButton.width = self.view.width
+        self.watermarkButton.size = CGSize(self.view.width, 44)
         self.watermarkButton.alignBottom(0, toView: self.view)
         
     }
     
-    func removeWatermark() {
+    func buyRemoveWatermark() {
         let vc = UIAlertController(title: "Remove watermark", message: "Tired of seeing our logo on your PictoGifs? Pay once and remove it forever.", preferredStyle: .Alert)
-        vc.addAction(UIAlertAction(title: "Yaaaaas", style: .Default) { (_) in
-            if let watermark = PicDiveProducts.store.products.find({$0.productIdentifier == PicDiveProducts.RemoveWatermark}) {
-                PicDiveProducts.store.buyProduct(watermark) { [weak self] success in
-                    if success {
-                        self?.watermarkButton.hidden = true
-                        self?.setGif()
-                    }
-                }
-            }
+        vc.addAction(UIAlertAction(title: "🙌 Yaaaaas 🙌", style: .Default) { (_) in
+            PicDiveProducts.store.buyProduct(withIdentifier: PicDiveProducts.RemoveWatermark)
         })
+        
+        vc.addAction(UIAlertAction(title: "Restore Previous Purchase", style: .Default) { (_) in
+            PicDiveProducts.store.restorePurchases()
+            })
         
         vc.addAction(UIAlertAction(title: "Not now", style: .Cancel, handler: { _ in NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasPaid")
             self.setGif()

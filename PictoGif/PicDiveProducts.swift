@@ -23,14 +23,19 @@
 import Foundation
 
 public struct PicDiveProducts {
-  
-  private static let Prefix = "com.sellistsabend.picdive."
-  
-  public static let RemoveWatermark = Prefix + "Watermark"
-  
-  private static let productIdentifiers: Set<ProductIdentifier> = [PicDiveProducts.RemoveWatermark]
-
-  public static let store = IAPHelper(productIds: PicDiveProducts.productIdentifiers)
+    
+    private static let Prefix = "com.sellistsabend.picdive."
+    
+    public static let RemoveWatermark = Prefix + "Watermark"
+    
+    private static let productIdentifiers: Set<ProductIdentifier> = [PicDiveProducts.RemoveWatermark]
+    
+    public static let store = IAPHelper(productIds: PicDiveProducts.productIdentifiers)
+    
+    public static var hasPurchasedWatermark: Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(PicDiveProducts.RemoveWatermark) ||
+        PicDiveProducts.store.isProductPurchased(PicDiveProducts.RemoveWatermark)
+    }
 }
 
 func resourceNameForProductIdentifier(productIdentifier: String) -> String? {
