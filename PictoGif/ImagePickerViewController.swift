@@ -280,6 +280,7 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
 
         }
         self.photoRetriever.reloadData()
+        immediately { self.collectionView.reloadData() }        
         if let first = self.photoRetriever[0] where self.imageCropper.image == nil {
             self.photoRetriever.getImage(first) { (image) in
                 if let image = image {
