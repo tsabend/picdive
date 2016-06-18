@@ -34,7 +34,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.view.backgroundColor = UIColor.PDDarkGray()
 
         self.setupButton(self.videoButton, title: "Video", imageName: "movie_p", selector: #selector(PublishingViewController.shareVideo))
-        self.setupButton(self.gifButton, title: "Gif", imageName: "many", selector: #selector(PublishingViewController.shareGif))
+        self.setupButton(self.gifButton, title: "Gif", imageName: "frames_many", selector: #selector(PublishingViewController.shareGif))
         self.setupButton(self.stripButton, title: "Photo", imageName: "strip_p", selector: #selector(PublishingViewController.shareStrip))
         
         self.instagramExplanationLabel.text = "*Use videos for sharing on Instagram, since they do not animate gifs."
