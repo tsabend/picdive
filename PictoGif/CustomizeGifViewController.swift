@@ -61,9 +61,11 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.flash.backgroundColor = UIColor.whiteColor()
         self.flash.alpha = 0
         
-        self.watermarkButton.setImage(UIImage(named: "remove_wm"), forState: .Normal)
         self.watermarkButton.addTarget(self, action: #selector(CustomizeGifViewController.removeWatermark), forControlEvents: .TouchUpInside)
+        self.watermarkButton.setTitle("REMOVE WATERMARK", forState: .Normal)
+        self.watermarkButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
         self.watermarkButton.hidden = PicDiveProducts.store.isProductPurchased(PicDiveProducts.RemoveWatermark)
+        self.watermarkButton.backgroundColor = UIColor.PictoPink()
         
         self.view.backgroundColor = UIColor.PDDarkGray()
         self.view.addSubview(self.gifView)
@@ -114,9 +116,9 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.easingsViewController.view.size = CGSize(width: self.gifView.width, height: 100)
         self.easingsViewController.view.moveBelow(siblingView: self.slider, margin: 16, alignment: .Center)
         
-        self.watermarkButton.size = CGSize(64, 64)
-        self.watermarkButton.alignRight(8, toView: self.view)
-        self.watermarkButton.alignBottom(8, toView: self.view)
+        self.watermarkButton.sizeToFit()
+        self.watermarkButton.width = self.view.width
+        self.watermarkButton.alignBottom(0, toView: self.view)
         
     }
     
