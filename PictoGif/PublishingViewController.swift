@@ -54,7 +54,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
         button.titleLabel?.font = UIFont.PDFont(withSize: 18)
         
         button.imageView?.tintColor = UIColor.PictoPink()
-        button.setImage(UIImage(named: imageName)?.resized(toSize: CGSize(28, 28)).imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        button.setImage(UIImage(named: imageName)?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
         button.addTarget(self, action: selector, forControlEvents: .TouchUpInside)
         self.view.addSubview(button)
     }

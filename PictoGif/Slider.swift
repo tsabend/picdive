@@ -18,8 +18,8 @@ class Slider : ASValueTrackingSlider {
         self.popUpViewColor = UIColor.PictoPink()
         self.font = UIFont.PDFont(withSize: 18)
         self.popUpViewArrowLength = 12
-        self.setThumbImage(UIImage(named: "slider_thumb")?.resized(toSize: CGSize(44,22)), forState: .Normal)
-        self.setThumbImage(UIImage(named: "slider_thumb_highlighted")?.resized(toSize: CGSize(44,22)), forState: .Highlighted)
+        self.setThumbImage(UIImage(named: "slider_thumb"), forState: .Normal)
+        self.setThumbImage(UIImage(named: "slider_thumb_highlighted"), forState: .Highlighted)
     }
     
     func setupValues(min min: Float, max: Float, initial: Float) {
@@ -29,8 +29,8 @@ class Slider : ASValueTrackingSlider {
     }
     
     func setupImages(min min: UIImage?, max: UIImage?) {
-        let min = min?.resized(toSize: CGSize(22, 22))
-        let max = max?.resized(toSize: CGSize(22, 22))
+        let min = min
+        let max = max
         self.minimumValueImage = min
         self.maximumValueImage = max
     }
