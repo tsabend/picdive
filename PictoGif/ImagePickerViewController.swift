@@ -15,6 +15,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
 
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
     private let cameraButton = UIButton()
+    private let cameraRollButton = UIButton()
     private let footerView = UIView()
     private let noImagePlaceholder = UIImageView()
     private let imageCropper = ImageCropper()
@@ -47,12 +48,17 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         self.cameraButton.setImage(UIImage(named: "camera"), forState: .Normal)
         self.cameraButton.addTarget(self, action: #selector(ImagePickerViewController.cameraWasPressed), forControlEvents: .TouchUpInside)
         
+        self.cameraRollButton.setTitle("Camera Roll", forState: .Normal)
+        self.cameraRollButton.titleLabel?.font = UIFont.PDFont(withSize: 17)
+        self.cameraRollButton.addTarget(self, action: #selector(ImagePickerViewController.cameraRollWasPressed), forControlEvents: .TouchUpInside)
+        
         self.noImagePlaceholder.image = UIImage(named: "logo")
         
         self.footerView.backgroundColor = UIColor.PDDarkGray()
         
         self.view.addSubview(self.footerView)
         self.footerView.addSubview(self.cameraButton)
+        self.footerView.addSubview(self.cameraRollButton)
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.noImagePlaceholder)
         self.view.addSubview(self.imageCropper)
@@ -104,6 +110,9 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         
         self.cameraButton.size = CGSize(32, 32)
         self.cameraButton.moveToCenterOfSuperview()
+        
+        self.cameraRollButton.sizeToFit()
+        self.cameraRollButton.origin = CGPoint(16, 4)
         
         self.footerView.size = CGSize(width: self.view.width, height: 32)
         self.footerView.alignBottom(0, toView: self.view)
@@ -227,8 +236,16 @@ extension ImagePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
 // MARK: - UIImagePickerControllerDelegate
 extension ImagePickerViewController: UIImagePickerControllerDelegate {
     func cameraWasPressed() {
+        self.presentImagePicker(withSourceType: .Camera)
+    }
+    
+    func cameraRollWasPressed() {
+        self.presentImagePicker(withSourceType: .PhotoLibrary)
+    }
+    
+    private func presentImagePicker(withSourceType sourceType: UIImagePickerControllerSourceType) {
         let vc = UIImagePickerController()
-        vc.sourceType = .Camera
+        vc.sourceType = sourceType
         vc.delegate = self
         self.presentViewController(vc, animated: true, completion: nil)
     }
@@ -263,6 +280,7 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
 
         }
         self.photoRetriever.reloadData()
+        immediately { self.collectionView.reloadData() }        
         if let first = self.photoRetriever[0] where self.imageCropper.image == nil {
             self.photoRetriever.getImage(first) { (image) in
                 if let image = image {
