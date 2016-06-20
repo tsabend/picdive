@@ -40,6 +40,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.instagramExplanationLabel.text = "*Use videos for sharing on Instagram, since they do not animate gifs."
         self.instagramExplanationLabel.font = UIFont.PDFont(withSize: 12)
         self.instagramExplanationLabel.textColor = UIColor.whiteColor()
+        self.instagramExplanationLabel.numberOfLines = 0
         
         self.spinner.hidesWhenStopped = true
         self.view.addSubview(self.spinner)
@@ -129,6 +130,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.spinner.sizeToFit()
         
         self.instagramExplanationLabel.sizeToFit()
+        self.instagramExplanationLabel.width = self.view.width - 32
         self.instagramExplanationLabel.moveToHorizontalCenterOfSuperview()
         self.instagramExplanationLabel.alignBottom(8, toView: self.view)
     }

@@ -125,12 +125,12 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
         self.slider.sizeToFit()
         self.slider.width = self.view.width - 22
-        self.slider.moveBelow(siblingView: self.gifView, margin: 32, alignment: .Center)
+        self.slider.moveBelow(siblingView: self.gifView, margin: Config.baseMargin * 2, alignment: .Center)
 
         self.easingsViewController.view.size = CGSize(width: self.gifView.width, height: 100)
-        self.easingsViewController.view.moveBelow(siblingView: self.slider, margin: 16, alignment: .Center)
+        self.easingsViewController.view.moveBelow(siblingView: self.slider, margin: Config.baseMargin, alignment: .Center)
         
-        self.watermarkButton.size = CGSize(self.view.width, 44)
+        self.watermarkButton.size = CGSize(self.view.width, 32)
         self.watermarkButton.alignBottom(0, toView: self.view)
         
     }

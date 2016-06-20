@@ -57,7 +57,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         self.view.addSubview(self.imageView)
         self.view.addSubview(self.scope)
         self.view.addSubview(self.slider)
-        self.view.addSubview(self.zoomingImageView)
+        if UIDevice.currentDevice().type != .iPhone4S { self.view.addSubview(self.zoomingImageView) }
     
     }
     
@@ -105,7 +105,7 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         
         self.slider.sizeToFit()
         self.slider.width = scrollViewSideLength
-        self.slider.moveBelow(siblingView: self.imageView, margin: 32, alignment: .Center)
+        self.slider.moveBelow(siblingView: self.imageView, margin: Config.baseMargin * 2, alignment: .Center)
 
         self.scope.frame = self.imageView.frame
         
@@ -114,9 +114,9 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
             self.scope.innerRect = CGRect(x, x, 100, 100)
         }
         
-        self.zoomingImageView.size = CGSize(100,100)
+        self.zoomingImageView.size = CGSize(self.view.width / 3.5, self.view.width / 3.5)
         self.zoomingImageView.moveToHorizontalCenterOfSuperview()
-        self.zoomingImageView.alignBottom(44, toView: self.view)
+        self.zoomingImageView.alignBottom(Config.baseMargin * 2, toView: self.view)
     }
     
     func scopeWasMoved(toFrame frame: CGRect) {

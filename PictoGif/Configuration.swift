@@ -11,6 +11,14 @@ import UIKit
 
 struct Config {
     static let imageViewWidth = UIDevice.currentDevice().type == Model.iPhone4S ? 240 : UIScreen.mainScreen().bounds.width
+    
+    static let baseMargin: CGFloat = {
+        let type = UIDevice.currentDevice().type
+        if type == .iPhone4S || type == .iPhone5 || type == .iPhone5S {
+            return 8
+        }
+        return 16
+    }()
 }
 
 
