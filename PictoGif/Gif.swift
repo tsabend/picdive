@@ -57,8 +57,10 @@ struct Gif {
         self.reversed = easing.reversed
     }
     
-    var horizontalStrip: UIImage? {
-        return UIImage.stitchImagesHorizontal(self.images)
+    var verticalStrip: UIImage? {
+        var images = PicDiveProducts.hasPurchasedWatermark ? self.images : self.images.map { $0.watermark() }
+        images = self.reversed ? images.reverse() : images
+        return UIImage.stitchImagesVertical(images)
     }
     
     func asVideo(completion: (NSURL?) -> Void) {

@@ -102,7 +102,7 @@ class PublishingViewController : UIViewController, ImagePresenter {
     }
     
     func shareStrip() {
-        guard let gif = self.imageViewDataSource as? Gif, strip = gif.horizontalStrip else { return }
+        guard let gif = self.imageViewDataSource as? Gif, strip = gif.verticalStrip else { return }
         self.share(strip)
     }
     
