@@ -41,7 +41,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.slider.continuous = false
         self.slider.minimumTrackTintColor = UIColor.PictoPink()
         
-        self.slider.setupValues(min: 3, max: 10, initial: Float(self.gif?.images.count ?? 4))
+        self.slider.setupValues(min: 2, max: 10, initial: 8)
         self.slider.setupImages(min: UIImage(named: "time_slow"), max: UIImage(named: "time_fast"))
         self.slider.dataSource = self
         
@@ -93,7 +93,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     }
     
     private var translatedSliderValue: Float {
-        return 13.0 - self.slider.value
+        return 12.0 - self.slider.value
     }
     
     func setGif() {
