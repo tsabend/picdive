@@ -109,7 +109,7 @@ class PicScopeView: UIView {
     
     // MARK: - animations
     func animate() {
-        let total = 270
+        let total = 300
         (0...total).forEach { (idx) in
             let scale: CGFloat = idx >= total/2 ? 1.005 : 0.995
             after(seconds: 0.00125 * idx.d, exec: {
