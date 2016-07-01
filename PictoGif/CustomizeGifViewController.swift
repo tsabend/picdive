@@ -42,7 +42,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.slider.minimumTrackTintColor = UIColor.PictoPink()
         
         self.slider.setupValues(min: 2, max: 10, initial: 8)
-        self.slider.setupImages(min: UIImage(named: "time_slow"), max: UIImage(named: "time_fast"))
+        self.slider.setupImages(min: UIImage(named: "time_turtle"), max: UIImage(named: "time_fast"))
         self.slider.dataSource = self
         
         self.easingsViewController.easings = [TimingEasing.FinalFrame,  TimingEasing.Linear, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
