@@ -95,10 +95,17 @@ extension IAPHelper {
     public func restorePurchases() {
         SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
     }
+
+    public func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue) {
+        if !NSUserDefaults.standardUserDefaults().boolForKey(PicDiveProducts.RemoveWatermark) {
+            deliverFailureNotification(withErrorMessage: "Sorry, no previous purchases could be restored. You need to buy it first.")
+        }
+    }
     
     public func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError) {
         deliverFailureNotification(withErrorMessage: error.localizedDescription)
     }
+    
 }
 
 // MARK: - SKProductsRequestDelegate
@@ -172,8 +179,12 @@ extension IAPHelper: SKPaymentTransactionObserver {
         print("failedTransaction...")
         
         var errorMessage: String?
-        if let error = transaction.error where error.code != SKErrorCode.PaymentCancelled.rawValue {
-            errorMessage = error.localizedDescription
+        if let error = transaction.error {
+            if error.code == SKErrorCode.PaymentCancelled.rawValue {
+                errorMessage = "We understand, the PictoGif logo is pretty sweet. If you change your mind you can always buy this later."
+            } else {
+                errorMessage = error.localizedDescription
+            }
         }
         deliverFailureNotification(withErrorMessage: errorMessage)
         SKPaymentQueue.defaultQueue().finishTransaction(transaction)
