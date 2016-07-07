@@ -57,17 +57,20 @@ struct Gif {
         self.reversed = easing.reversed
     }
     
+    var orderedAndWatermarkedImages: [UIImage] {
+        let images = PicDiveProducts.hasPurchasedWatermark ? self.images : self.images.map { $0.watermark() }
+        return self.reversed ? images.reverse() : images
+    }
+    
     var verticalStrip: UIImage? {
-        var images = PicDiveProducts.hasPurchasedWatermark ? self.images : self.images.map { $0.watermark() }
-        images = self.reversed ? images.reverse() : images
-        return UIImage.stitchImagesVertical(images)
+        return UIImage.stitchImagesVertical(self.orderedAndWatermarkedImages)
     }
     
     func asVideo(completion: (NSURL?) -> Void) {
         guard let first = self.images.first else { completion(nil); return }
         let settings = RenderSettings(size: first.size)
-        let images = self.reversed ? self.images.reverse() : self.images
-        let imageTimes: [(image: UIImage, time: Double)] = Array(zip(images, self.times))
+        
+        let imageTimes: [(image: UIImage, time: Double)] = Array(zip(self.orderedAndWatermarkedImages, self.times))
         ImageAnimator(imageTimes: imageTimes, renderSettings: settings).render(completion)
     }
 }
