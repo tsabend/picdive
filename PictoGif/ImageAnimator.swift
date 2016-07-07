@@ -24,10 +24,14 @@ import Photos
         do { try NSFileManager.defaultManager().removeItemAtPath(fileURL.path!) } catch {}
     }
     
-    init(imageTimes: [(image: UIImage, time: Double)], renderSettings: RenderSettings) {
+    init?(imageTimes: [(image: UIImage, time: Double)], renderSettings: RenderSettings) {
+        guard imageTimes.count > 0 else { return nil }
         self.settings = renderSettings
         self.videoWriter = VideoWriter(renderSettings: settings)
-        self.imageTimes = imageTimes
+        
+        let firstImage = imageTimes.first!.image
+        let wrapAroundImageTime = (image: firstImage, time: 1/ImageAnimator.kTimescale)
+        self.imageTimes = imageTimes + [wrapAroundImageTime]
     }
     
     func render(completion: (NSURL?)->Void) {

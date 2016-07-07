@@ -71,6 +71,6 @@ struct Gif {
         let settings = RenderSettings(size: first.size)
         
         let imageTimes: [(image: UIImage, time: Double)] = Array(zip(self.orderedAndWatermarkedImages, self.times))
-        ImageAnimator(imageTimes: imageTimes, renderSettings: settings).render(completion)
+        ImageAnimator(imageTimes: imageTimes, renderSettings: settings)?.render(completion)
     }
 }
