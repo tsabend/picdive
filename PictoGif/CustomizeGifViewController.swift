@@ -8,6 +8,7 @@
 
 import UIKit
 import ASValueTrackingSlider
+import Crashlytics
 
 class CustomizeGifViewController: UIViewController, FlowViewController, ImagePresenter, ASValueTrackingSliderDataSource {
     typealias Next = PublishingViewController
@@ -148,7 +149,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         vc.addAction(UIAlertAction(title: "Not now", style: .Cancel, handler: { _ in NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasPaid")
             self.setGif()
         }))
-        
+        Answers.logCustomEventWithName("Remove watermark button pressed", customAttributes: [:])
         self.presentViewController(vc, animated: true, completion: nil)
     }
 

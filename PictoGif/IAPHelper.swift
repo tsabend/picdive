@@ -164,6 +164,13 @@ extension IAPHelper: SKPaymentTransactionObserver {
     
     private func completeTransaction(transaction: SKPaymentTransaction) {
         print("completeTransaction...")
+        Answers.logPurchaseWithPrice(2.99,
+                                     currency: "USD",
+                                     success: true,
+                                     itemName: PicDiveProducts.RemoveWatermark,
+                                     itemType: "Non-Consumable",
+                                     itemId: "com.sellistsabend.picdive.Watermark",
+                                     customAttributes: [:])
         deliverPurchaseNotificationForIdentifier(transaction.payment.productIdentifier)
         SKPaymentQueue.defaultQueue().finishTransaction(transaction)
     }

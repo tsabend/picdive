@@ -9,6 +9,7 @@
 import AVKit
 import AVFoundation
 import UIKit
+import Crashlytics
 
 class PublishingViewController : UIViewController, ImagePresenter {
     
@@ -76,12 +77,16 @@ class PublishingViewController : UIViewController, ImagePresenter {
     
     func shareGif() {
         guard let gif = self.imageViewDataSource as? Gif else { return }
+        Answers.logCustomEventWithName("Share began",
+                                       customAttributes: ["withType": "gif"])
         self.share(gif.data)
     }
     
     private var cachedVideoURL: NSURL?
     func shareVideo() {
         guard let gif = self.imageViewDataSource as? Gif else { return }
+        Answers.logCustomEventWithName("Share began",
+                                       customAttributes: ["withType": "video"])
         
         if let url = self.cachedVideoURL {
           self.share(url)
@@ -102,12 +107,24 @@ class PublishingViewController : UIViewController, ImagePresenter {
     }
     
     func shareStrip() {
+        Answers.logCustomEventWithName("Share began",
+                                       customAttributes: ["withType": "strip"])
         guard let gif = self.imageViewDataSource as? Gif, strip = gif.verticalStrip else { return }
         self.share(strip)
     }
     
     func share(object: AnyObject) {
         let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [object], applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = { [weak self] (activityType: String?, _, _, _) -> Void in
+            guard let gif = self?.imageViewDataSource as? Gif else { return }
+            if let type = activityType {
+                Answers.logCustomEventWithName("Share succeeded",
+                                               customAttributes: ["to platform": type, "number of frames" : gif.images.count, "total time" : gif.times.reduce(0, combine: +), "reversed" : gif.reversed ? "yes" : "no"])
+            } else {
+                Answers.logCustomEventWithName("Share cancelled",
+                                               customAttributes: [:])
+            }
+        }
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
 
