@@ -21,6 +21,7 @@
  */
 
 import StoreKit
+import Crashlytics
 
 public typealias ProductIdentifier = String
 public typealias ProductsRequestCompletionHandler = (success: Bool, products: [SKProduct]?) -> ()

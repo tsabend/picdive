@@ -291,6 +291,7 @@
 				149D31D61C75480800866522 /* Resources */,
 				D9136ED375BA2D409DED5160 /* Embed Pods Frameworks */,
 				AD6F26EA791F5BB5B2362C58 /* Copy Pods Resources */,
+				48D1B2F41D2DEF1E00CFA7F3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -401,6 +402,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		48D1B2F41D2DEF1E00CFA7F3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2b2061866e776581d2312160e9ddc7fa464fed90 7b0a68389936c817147e95af368559c8c776f38107b91ba489297d27be220181\n";
 		};
 		730D529F777D84F19D1D9D15 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -640,6 +654,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = "$(SRCROOT)/PictoGif/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -1,10 +1,10 @@
 EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Reveal-iOS-SDK/Reveal-Framework-iOS-1.6.2"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Crashlytics/iOS" "${PODS_ROOT}/Fabric/iOS" "${PODS_ROOT}/Reveal-iOS-SDK/Reveal-Framework-iOS-1.6.2"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Crashlytics" "${PODS_ROOT}/Headers/Public/Fabric" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/ASValueTrackingSlider.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/CGRectExtensions.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SwiftGifOrigin.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"z" -framework "ASValueTrackingSlider" -framework "CFNetwork" -framework "CGRectExtensions" -framework "CoreGraphics" -framework "QuartzCore" -framework "Reveal" -framework "SwiftGifOrigin"
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/ASValueTrackingSlider.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/CGRectExtensions.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SwiftGifOrigin.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Crashlytics" -isystem "${PODS_ROOT}/Headers/Public/Fabric" -isystem "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"z" -framework "ASValueTrackingSlider" -framework "CFNetwork" -framework "CGRectExtensions" -framework "CoreGraphics" -framework "Crashlytics" -framework "Fabric" -framework "QuartzCore" -framework "Reveal" -framework "Security" -framework "SwiftGifOrigin" -framework "SystemConfiguration" -framework "UIKit"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-PictoGif
 PODS_ROOT = ${SRCROOT}/Pods

@@ -8,6 +8,8 @@ target 'PictoGif' do
  pod 'SwiftGifOrigin'
  pod 'ASValueTrackingSlider'
  pod 'Reveal-iOS-SDK', :configurations => ['Debug']
+ pod 'Fabric'
+ pod 'Crashlytics'
 end
 
 
