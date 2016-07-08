@@ -31,20 +31,25 @@ import Photos
         self.imageTimes = imageTimes
     }
     
-    func render(completion: (NSURL?)->Void) {
+    func render(completion: (Result<NSURL?>) -> Void) {
         
         // The VideoWriter will fail if a file exists at the URL, so clear it out first.
         ImageAnimator.removeFileAtURL(self.settings.outputURL)
+            
         self.videoWriter.start()
         let totalDuration = self.imageTimes.map{$0.time}.reduce(0, combine: +)
-        self.videoWriter.render(self.appendPixelBuffers, totalDuration: totalDuration) {
-            completion(self.settings.outputURL)
+        self.videoWriter.render(self.appendPixelBuffers, totalDuration: totalDuration) { (result: Result<Void>) in
+            do {
+                try result.unwrap()
+                completion(Result { _ in self.settings.outputURL })
+            } catch let error {
+                completion(Result { throw error})
+            }
         }
-        
     }
-    
+
     // This is the callback function for VideoWriter.render()
-    func appendPixelBuffers(writer: VideoWriter) -> Bool {
+    func appendPixelBuffers(writer: VideoWriter) throws -> Bool {
         
         var elapsed: CMTime = CMTimeMake(0, Int32(ImageAnimator.kTimescale))
 
@@ -55,15 +60,12 @@ import Photos
             }
 
             let frameDuration = CMTimeMake(Int64(ImageAnimator.kTimescale * imageTime.time), Int32(ImageAnimator.kTimescale))
-            let success = writer.addImage(imageTime.image, withPresentationTime: elapsed)
-            if success == false {  fatalError("addImage() failed \(frameDuration, elapsed)") }
+            try writer.addImage(imageTime.image, withPresentationTime: elapsed)
             elapsed = CMTimeAdd(elapsed, frameDuration)
 
         }
         
-        let success = writer.addImage(self.imageTimes.last!.image, withPresentationTime: elapsed)
-        if success == false {  fatalError("addImage() failed") }
-        
+        try writer.addImage(self.imageTimes.last!.image, withPresentationTime: elapsed)
         // Inform writer all buffers have been written.
         return true
     }

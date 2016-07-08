@@ -113,35 +113,43 @@ class VideoWriter {
         precondition(pixelBufferAdaptor.pixelBufferPool != nil, "nil pixelBufferPool")
     }
     
-    func render(appendPixelBuffers: (VideoWriter)->Bool, totalDuration: Double,  completion: ()->Void) {
-    
+    func render(appendPixelBuffers: (VideoWriter) throws -> Bool, totalDuration: Double,  completion: (Result<Void>) -> Void) {
         precondition(videoWriter != nil, "Call start() to initialze the writer")
         
         let queue = dispatch_queue_create("mediaInputQueue", nil)
         videoWriterInput.requestMediaDataWhenReadyOnQueue(queue) {
-            let isFinished = appendPixelBuffers(self)
-            if isFinished {
-                self.videoWriterInput.markAsFinished()
-                let endTime = CMTimeMake(Int64(ImageAnimator.kTimescale * totalDuration), Int32(ImageAnimator.kTimescale))
-                self.videoWriter.endSessionAtSourceTime(endTime)
-                self.videoWriter.finishWritingWithCompletionHandler() {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        completion()
+            do {
+                let isFinished = try appendPixelBuffers(self)
+                if isFinished {
+                    self.videoWriterInput.markAsFinished()
+                    let endTime = CMTimeMake(Int64(ImageAnimator.kTimescale * totalDuration), Int32(ImageAnimator.kTimescale))
+                    self.videoWriter.endSessionAtSourceTime(endTime)
+                    self.videoWriter.finishWritingWithCompletionHandler() {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            completion(Result {})
+                        }
                     }
+                } else {
+                    // continue processing
                 }
-            }
-            else {
-                // Fall through. The closure will be called again when the writer is ready.
+            } catch let error {
+                completion(Result { throw error})
             }
         }
     }
     
-    func addImage(image: UIImage, withPresentationTime presentationTime: CMTime) -> Bool {
+    func addImage(image: UIImage, withPresentationTime presentationTime: CMTime) throws {
         
         precondition(pixelBufferAdaptor != nil, "Call start() to initialze the writer")
         
         let pixelBuffer = VideoWriter.pixelBufferFromImage(image, pixelBufferPool: pixelBufferAdaptor.pixelBufferPool!, size: renderSettings.size)
-        return pixelBufferAdaptor.appendPixelBuffer(pixelBuffer, withPresentationTime: presentationTime)
+        let success = pixelBufferAdaptor.appendPixelBuffer(pixelBuffer, withPresentationTime: presentationTime)
+        if !success { throw(VideoWritingError.TimingError) }
     }
-    
+}
+
+
+enum VideoWritingError : ErrorType {
+    case TimingError
+    case InvalidImages
 }

@@ -66,8 +66,8 @@ struct Gif {
         return UIImage.stitchImagesVertical(self.orderedAndWatermarkedImages)
     }
     
-    func asVideo(completion: (NSURL?) -> Void) {
-        guard let first = self.images.first else { completion(nil); return }
+    func asVideo(completion: (Result<NSURL?>)-> Void) {
+        guard let first = self.images.first else { completion(Result { throw VideoWritingError.InvalidImages }); return }
         let settings = RenderSettings(size: first.size)
         
         let imageTimes: [(image: UIImage, time: Double)] = Array(zip(self.orderedAndWatermarkedImages, self.times))

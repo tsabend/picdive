@@ -94,16 +94,31 @@ class PublishingViewController : UIViewController, ImagePresenter {
             self.spinner.center = self.videoButton.center
             self.videoButton.hidden = true
             self.spinner.startAnimating()
-            gif.asVideo { (url) in
-                if let url = url {
-                    self.cachedVideoURL = url
+            gif.asVideo { (result: Result<NSURL?>) -> Void in
+                immediately {
                     self.spinner.stopAnimating()
                     self.videoButton.hidden = false
-                    self.share(url)
+                }
+                
+                do {
+                    if let url = try result.unwrap() {
+                        
+                        self.cachedVideoURL = url
+                        self.share(url)
+                    }
+                } catch {
+                    immediately {
+                        self.showError(message: "Looks like something went wrong under the hood...try that again.")
+                    }
                 }
             }
-            
         }
+    }
+
+    func showError(message message: String) {
+        let vc = UIAlertController(title: "Yikes", message: message, preferredStyle: .Alert)
+        vc.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func shareStrip() {
