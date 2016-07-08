@@ -113,8 +113,8 @@ class VideoWriter {
         precondition(pixelBufferAdaptor.pixelBufferPool != nil, "nil pixelBufferPool")
     }
     
-    func render(appendPixelBuffers: (VideoWriter)->Bool, completion: ()->Void) {
-        
+    func render(appendPixelBuffers: (VideoWriter)->Bool, totalDuration: Double,  completion: ()->Void) {
+    
         precondition(videoWriter != nil, "Call start() to initialze the writer")
         
         let queue = dispatch_queue_create("mediaInputQueue", nil)
@@ -122,6 +122,8 @@ class VideoWriter {
             let isFinished = appendPixelBuffers(self)
             if isFinished {
                 self.videoWriterInput.markAsFinished()
+                let endTime = CMTimeMake(Int64(ImageAnimator.kTimescale * totalDuration), Int32(ImageAnimator.kTimescale))
+                self.videoWriter.endSessionAtSourceTime(endTime)
                 self.videoWriter.finishWritingWithCompletionHandler() {
                     dispatch_async(dispatch_get_main_queue()) {
                         completion()

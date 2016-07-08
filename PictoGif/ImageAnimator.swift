@@ -28,10 +28,7 @@ import Photos
         guard imageTimes.count > 0 else { return nil }
         self.settings = renderSettings
         self.videoWriter = VideoWriter(renderSettings: settings)
-        
-        let firstImage = imageTimes.first!.image
-        let wrapAroundImageTime = (image: firstImage, time: 1/ImageAnimator.kTimescale)
-        self.imageTimes = imageTimes + [wrapAroundImageTime]
+        self.imageTimes = imageTimes
     }
     
     func render(completion: (NSURL?)->Void) {
@@ -39,7 +36,8 @@ import Photos
         // The VideoWriter will fail if a file exists at the URL, so clear it out first.
         ImageAnimator.removeFileAtURL(self.settings.outputURL)
         self.videoWriter.start()
-        self.videoWriter.render(self.appendPixelBuffers) {
+        let totalDuration = self.imageTimes.map{$0.time}.reduce(0, combine: +)
+        self.videoWriter.render(self.appendPixelBuffers, totalDuration: totalDuration) {
             completion(self.settings.outputURL)
         }
         
@@ -49,6 +47,7 @@ import Photos
     func appendPixelBuffers(writer: VideoWriter) -> Bool {
         
         var elapsed: CMTime = CMTimeMake(0, Int32(ImageAnimator.kTimescale))
+
         for imageTime in self.imageTimes {
             if writer.isReadyForData == false {
                 // Inform writer we have more buffers to write.
@@ -56,14 +55,17 @@ import Photos
             }
 
             let frameDuration = CMTimeMake(Int64(ImageAnimator.kTimescale * imageTime.time), Int32(ImageAnimator.kTimescale))
-            let success = videoWriter.addImage(imageTime.image, withPresentationTime: elapsed)
+            let success = writer.addImage(imageTime.image, withPresentationTime: elapsed)
             if success == false {  fatalError("addImage() failed \(frameDuration, elapsed)") }
             elapsed = CMTimeAdd(elapsed, frameDuration)
 
         }
         
+        let success = writer.addImage(self.imageTimes.last!.image, withPresentationTime: elapsed)
+        if success == false {  fatalError("addImage() failed") }
+        
         // Inform writer all buffers have been written.
         return true
     }
-    
+        
 }
