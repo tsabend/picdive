@@ -14,10 +14,6 @@ func >(lhs: CGSize, rhs: CGSize) -> Bool {
 
 extension CGRect {
     
-    enum Easing {
-        case In, Out, Linear
-    }
-    
     var square: Bool { return self.width == self.height }
 
     func squaresBetween(rect otherRect: CGRect, steps: Int) -> [CGRect] {

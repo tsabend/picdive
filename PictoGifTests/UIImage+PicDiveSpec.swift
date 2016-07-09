@@ -7,12 +7,12 @@
 //
 
 @testable
-import picdive
+import PictoGif
 import Quick
 import Nimble
 
 class UIImagePicDiveSpec: QuickSpec {
-    static let testImageName = "bee-test-image"
+    static let testImageName = "logo"
     
     override func spec() {
         describe("resized") {
@@ -35,5 +35,34 @@ class UIImagePicDiveSpec: QuickSpec {
             
         }
         
+        describe("stitchImagesHorizontal") {
+            let image = UIImage(named: UIImagePicDiveSpec.testImageName)!
+            let resized = image.resized(toSize: CGSize(100, 100))
+            let smaller = image.resized(toSize: CGSize(20, 20))
+            let images = [resized, smaller]
+            let stitched = UIImage.stitchImagesHorizontal(images)
+            it("returns an image with a height of the tallest image") {
+                expect(stitched.size.height) == 100
+            }
+            
+            it("returns an image with a width of the widest image * number of images") {
+                expect(stitched.size.width) == 200
+            }
+        }
+
+        describe("stitchImagesVertical") {
+            let image = UIImage(named: UIImagePicDiveSpec.testImageName)!
+            let resized = image.resized(toSize: CGSize(100, 100))
+            let smaller = image.resized(toSize: CGSize(20, 20))
+            let images = [resized, smaller]
+            let stitched = UIImage.stitchImagesHorizontal(images)
+            it("returns an image with a width of the widest image") {
+                expect(stitched.size.height) == 200
+            }
+            
+            it("returns an image with a height of the tallest image * number of images") {
+                expect(stitched.size.width) == 100
+            }
+        }
     }
 }

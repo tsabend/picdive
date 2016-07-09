@@ -114,7 +114,7 @@
 		48EDFF5B1CD6411A00B879D3 /* CGRect+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+PictoGif.swift"; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PictoGif.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
-		48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "picdiveTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		48FFB22A1C78B83F002340D7 /* PictoGifTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PictoGifTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDiveSpec.swift"; sourceTree = "<group>"; };
 		750CDBB47B2FB47624FEB46A /* Pods_PictoGifTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PictoGifTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		761351558EDB0512EC83897A /* Pods-PictoGifTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictoGifTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 				149D31F21C75480D00866522 /* Info.plist */,
 				48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */,
 				48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */,
-				48FFB22A1C78B83F002340D7 /* picdiveTests-Bridging-Header.h */,
+				48FFB22A1C78B83F002340D7 /* PictoGifTests-Bridging-Header.h */,
 			);
 			path = PictoGifTests;
 			sourceTree = "<group>";
@@ -723,11 +723,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = picdiveTests/Info.plist;
+				INFOPLIST_FILE = PictoGifTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
 				PRODUCT_NAME = PictoGif;
-				SWIFT_OBJC_BRIDGING_HEADER = "picdiveTests/picdiveTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PictoGifTests/PictoGifTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PictoGif.app/PictoGif";
 			};
@@ -739,11 +739,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = picdiveTests/Info.plist;
+				INFOPLIST_FILE = PictoGifTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
 				PRODUCT_NAME = PictoGif;
-				SWIFT_OBJC_BRIDGING_HEADER = "picdiveTests/picdiveTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PictoGifTests/PictoGifTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PictoGif.app/PictoGif";
 			};
 			name = Release;

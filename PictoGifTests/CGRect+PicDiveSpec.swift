@@ -6,8 +6,8 @@
 //  Copyright © 2016 Sean. All rights reserved.
 //
 
+import PictoGif
 @testable
-import picdive
 import Quick
 import Nimble
 import CGRectExtensions
@@ -15,6 +15,18 @@ import CGRectExtensions
 
 class CGRectPicDiveSpec: QuickSpec {
     override func spec() {
+        describe("square") {
+            it("returns true if the width == height") {
+                let rect = CGRect(0, 0, 100, 100)
+                expect(rect.square) == true
+            }
+            
+            it("returns false if width != height") {
+                let rect = CGRect(0, 0, 100, 101)
+                expect(rect.square) == false
+            }
+        }
+        
         describe("squaresBetween") {
             let rect = CGRect(0, 0, 100, 100)
             let other = CGRect(12, 9, 25, 25)
