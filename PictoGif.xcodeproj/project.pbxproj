@@ -38,6 +38,7 @@
 		48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */; };
 		48D123231D032E3E00622647 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D123221D032E3E00622647 /* Async.swift */; };
 		48D1B2F61D2FC2EA00CFA7F3 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */; };
+		48EDF58F1D3085AC00CA0D46 /* Dictionary+PictoGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */; };
 		48EDFF521CD0593C00B879D3 /* CustomizeGifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */; };
 		48EDFF541CD05A2A00B879D3 /* PublishingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */; };
 		48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF551CD05ED700B879D3 /* NavigationController.swift */; };
@@ -98,6 +99,7 @@
 		48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCell.swift; sourceTree = "<group>"; };
 		48D123221D032E3E00622647 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+PictoGif.swift"; sourceTree = "<group>"; };
 		48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizeGifViewController.swift; sourceTree = "<group>"; };
 		48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishingViewController.swift; sourceTree = "<group>"; };
 		48EDFF551CD05ED700B879D3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				140D45CA1C8CBB640022A7F0 /* UIColor+PicDive.swift */,
 				1426C19F1C8CC94600308155 /* UIFont+PicDive.swift */,
 				48A0C7D61CEC904300ACD5A7 /* Array+PicDive.swift */,
+				48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */,
 				48D123221D032E3E00622647 /* Async.swift */,
 			);
 			name = "UIKit+Picdive";
@@ -208,9 +211,9 @@
 		1426C1A61C8CCFBC00308155 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4869BBE91D0C940E006F68E5 /* VideoExporting */,
 				1437B7A91C7FDDDD004AF560 /* Gif.swift */,
 				48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */,
-				4869BBE91D0C940E006F68E5 /* VideoExporting */,
 				48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */,
 				48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */,
 				484BBF191D10378600C74482 /* Configuration.swift */,
@@ -524,6 +527,7 @@
 				489277231D059DFB00DEB9B3 /* SubtitledButton.swift in Sources */,
 				48A0C7E11CFD062B00ACD5A7 /* UIView+Animations.swift in Sources */,
 				48A0C7D71CEC904300ACD5A7 /* Array+PicDive.swift in Sources */,
+				48EDF58F1D3085AC00CA0D46 /* Dictionary+PictoGif.swift in Sources */,
 				4869BBE61D0C9362006F68E5 /* RenderSettings.swift in Sources */,
 				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,

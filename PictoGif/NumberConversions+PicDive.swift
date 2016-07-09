@@ -36,3 +36,9 @@ extension Double {
         return String(format: "%\(f)f", self)
     }
 }
+
+extension CFString {
+    var s: String {
+        return String(self)
+    }
+}

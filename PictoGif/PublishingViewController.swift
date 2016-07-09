@@ -76,10 +76,10 @@ class PublishingViewController : UIViewController, ImagePresenter {
     }
     
     func shareGif() {
-        guard let gif = self.imageViewDataSource as? Gif else { return }
+        guard let data = (self.imageViewDataSource as? Gif)?.data else { return }
         Answers.logCustomEventWithName("Share began",
                                        customAttributes: ["withType": "gif"])
-        self.share(gif.data)
+        self.share(data)
     }
     
     private var cachedVideoURL: NSURL?
@@ -133,8 +133,10 @@ class PublishingViewController : UIViewController, ImagePresenter {
         activityViewController.completionWithItemsHandler = { [weak self] (activityType: String?, _, _, _) -> Void in
             guard let gif = self?.imageViewDataSource as? Gif else { return }
             if let type = activityType {
+                var attrs = gif.analyticsDictionary
+                attrs += ["to platform": type]
                 Answers.logCustomEventWithName("Share succeeded",
-                                               customAttributes: ["to platform": type, "number of frames" : gif.images.count, "total time" : gif.times.reduce(0, combine: +), "reversed" : gif.reversed ? "yes" : "no"])
+                                               customAttributes: attrs)
             } else {
                 Answers.logCustomEventWithName("Share cancelled",
                                                customAttributes: [:])
