@@ -11,9 +11,10 @@ import SwiftGifOrigin
 import CGRectExtensions
 import ASValueTrackingSlider
 
-
+/// View controller for selecting your gif zoom
 class ScopeViewController: UIViewController, ImagePresenter, FlowViewController, ASValueTrackingSliderDataSource, PicScopeViewDelegate {
 
+    
     typealias Next = CustomizeGifViewController
     var imageViewDataSource: ImageViewDataSource? {
         didSet {
@@ -24,18 +25,14 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         }
     }
     
-    var nextImageViewDataSource: ImageViewDataSource? {
-        return self.makeGif()
-    }
-    
-    
+    var nextImageViewDataSource: ImageViewDataSource? { return self.makeGif() }
     private let imageView = UIImageView()
     private let zoomingImageView = ZoomingImageView()
     let slider: Slider = Slider()
-    var numFrames: Int = 1
-
+    var numFrames: Int = 4
     var scope: PicScopeView!
     
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Zoom!"
@@ -61,20 +58,40 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
     
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let margin = 22.f
+        let scrollViewSideLength = self.view.width - margin
+        
+        self.imageView.size = CGSize(self.view.width, self.view.width)
+        self.imageView.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
+        self.imageView.moveToHorizontalCenterOfSuperview()
+        self.imageView.y = self.navigationController?.navigationBar.maxY ?? 0
+        
+        self.slider.sizeToFit()
+        self.slider.width = scrollViewSideLength
+        self.slider.moveBelow(siblingView: self.imageView, margin: Config.baseMargin * 2, alignment: .Center)
+        
+        self.scope.frame = self.imageView.frame
+        
+        if self.scope.innerRect == CGRect.zero {
+            let x = self.view.width / 2 - 100
+            self.scope.innerRect = CGRect(x, x, 100, 100)
+        }
+        
+        self.zoomingImageView.size = CGSize(self.view.width / 3.5, self.view.width / 3.5)
+        self.zoomingImageView.moveToHorizontalCenterOfSuperview()
+        self.zoomingImageView.alignBottom(Config.baseMargin * 2, toView: self.view)
+    }
+    
     func animateIn() {
         after(seconds: 0.1) { self.scope.animate() }
     }
-    
-    func sliderDidSlide(slider: UISlider) {
-        let roundedValue = round(slider.value)
-        slider.setValue(roundedValue, animated: false)
-        self.scope.numberOfSteps = Int(roundedValue)
-    }
-    
-    func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
-        return "\(Int(value)) frames"
-    }
-    
+}
+
+// Gif Making 
+extension ScopeViewController {
     private func snapshotImages() -> [UIImage]? {
         guard let image = self.imageView.image else { return nil }
         
@@ -91,34 +108,24 @@ class ScopeViewController: UIViewController, ImagePresenter, FlowViewController,
         }
         return nil
     }
+}
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let margin = 22.f
-        let scrollViewSideLength = self.view.width - margin
-        
-        self.imageView.size = CGSize(self.view.width, self.view.width)
-        self.imageView.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
-        self.imageView.moveToHorizontalCenterOfSuperview()
-        self.imageView.y = self.navigationController?.navigationBar.maxY ?? 0
-        
-        self.slider.sizeToFit()
-        self.slider.width = scrollViewSideLength
-        self.slider.moveBelow(siblingView: self.imageView, margin: Config.baseMargin * 2, alignment: .Center)
-
-        self.scope.frame = self.imageView.frame
-        
-        if self.scope.innerRect == CGRect.zero {
-            let x = self.view.width / 2 - 100
-            self.scope.innerRect = CGRect(x, x, 100, 100)
-        }
-        
-        self.zoomingImageView.size = CGSize(self.view.width / 3.5, self.view.width / 3.5)
-        self.zoomingImageView.moveToHorizontalCenterOfSuperview()
-        self.zoomingImageView.alignBottom(Config.baseMargin * 2, toView: self.view)
+// Slider 
+extension ScopeViewController {
+    func sliderDidSlide(slider: UISlider) {
+        let roundedValue = round(slider.value)
+        slider.setValue(roundedValue, animated: false)
+        self.scope.numberOfSteps = Int(roundedValue)
     }
     
+    func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
+        return "\(Int(value)) frames"
+    }
+}
+
+
+// Preview view
+extension ScopeViewController {
     func scopeWasMoved(toFrame frame: CGRect) {
         let origin = frame.origin * self.zoomingImageView.width / self.view.width
         let size = frame.size * self.zoomingImageView.width / self.view.width

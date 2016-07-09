@@ -27,6 +27,8 @@ class PublishingViewController : UIViewController, ImagePresenter {
     private let stripButton = SubtitledButton()
     private let instagramExplanationLabel = UILabel()
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Export and Share"
@@ -48,6 +50,30 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.view.addSubview(self.gifView)
         self.view.addSubview(self.instagramExplanationLabel)
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.gifView.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
+        self.gifView.moveToHorizontalCenterOfSuperview()
+        self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
+        
+        self.gifButton.sizeToFit()
+        self.stripButton.sizeToFit()
+        self.videoButton.sizeToFit()
+        
+        let buttonSpacing: CGFloat = 64
+        self.videoButton.moveBelow(siblingView: self.gifView, margin: buttonSpacing, alignment: .Center)
+        self.gifButton.moveLeft(siblingView: self.videoButton, margin: buttonSpacing, alignVertically: true)
+        self.stripButton.moveRight(siblingView: self.videoButton, margin: buttonSpacing, alignVertically: true)
+        
+        self.spinner.sizeToFit()
+        
+        self.instagramExplanationLabel.sizeToFit()
+        self.instagramExplanationLabel.width = self.view.width - 32
+        self.instagramExplanationLabel.moveToHorizontalCenterOfSuperview()
+        self.instagramExplanationLabel.alignBottom(8, toView: self.view)
     }
     
     private func setupButton(button: UIButton, title: String, imageName: String, selector: Selector) {
@@ -75,11 +101,20 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.navigationController?.popViewControllerAnimated(false)
     }
     
+    
+    // MARK: - Sharing
     func shareGif() {
         guard let data = (self.imageViewDataSource as? Gif)?.data else { return }
         Answers.logCustomEventWithName("Share began",
                                        customAttributes: ["withType": "gif"])
         self.share(data)
+    }
+    
+    func shareStrip() {
+        Answers.logCustomEventWithName("Share began",
+                                       customAttributes: ["withType": "strip"])
+        guard let gif = self.imageViewDataSource as? Gif, strip = gif.verticalStrip else { return }
+        self.share(strip)
     }
     
     private var cachedVideoURL: NSURL?
@@ -121,13 +156,6 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
-    func shareStrip() {
-        Answers.logCustomEventWithName("Share began",
-                                       customAttributes: ["withType": "strip"])
-        guard let gif = self.imageViewDataSource as? Gif, strip = gif.verticalStrip else { return }
-        self.share(strip)
-    }
-    
     func share(object: AnyObject) {
         let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [object], applicationActivities: nil)
         activityViewController.completionWithItemsHandler = { [weak self] (activityType: String?, _, _, _) -> Void in
@@ -145,27 +173,5 @@ class PublishingViewController : UIViewController, ImagePresenter {
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        self.gifView.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
-        self.gifView.moveToHorizontalCenterOfSuperview()
-        self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
-        
-        self.gifButton.sizeToFit()
-        self.stripButton.sizeToFit()
-        self.videoButton.sizeToFit()
-        
-        let buttonSpacing: CGFloat = 64
-        self.videoButton.moveBelow(siblingView: self.gifView, margin: buttonSpacing, alignment: .Center)
-        self.gifButton.moveLeft(siblingView: self.videoButton, margin: buttonSpacing, alignVertically: true)
-        self.stripButton.moveRight(siblingView: self.videoButton, margin: buttonSpacing, alignVertically: true)
-     
-        self.spinner.sizeToFit()
-        
-        self.instagramExplanationLabel.sizeToFit()
-        self.instagramExplanationLabel.width = self.view.width - 32
-        self.instagramExplanationLabel.moveToHorizontalCenterOfSuperview()
-        self.instagramExplanationLabel.alignBottom(8, toView: self.view)
-    }
 }
+
