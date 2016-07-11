@@ -216,6 +216,7 @@
 		1426C1A61C8CCFBC00308155 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1426C1A41C8CCF9900308155 /* UIKit+PictoGif */,
 				4869BBE91D0C940E006F68E5 /* VideoExporting */,
 				1437B7A91C7FDDDD004AF560 /* Gif.swift */,
 				48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */,
@@ -252,7 +253,6 @@
 				1426C1A61C8CCFBC00308155 /* Models */,
 				1426C19C1C8CC50F00308155 /* ViewControllers */,
 				1426C1A51C8CCFA500308155 /* Views */,
-				1426C1A41C8CCF9900308155 /* UIKit+PictoGif */,
 				1426C1A21C8CCAE900308155 /* Supporting Files */,
 			);
 			path = PictoGif;
