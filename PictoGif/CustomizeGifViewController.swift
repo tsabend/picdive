@@ -23,6 +23,12 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         get { return self.imageViewDataSource as? Gif }
         set { self.imageViewDataSource = newValue }
     }
+    
+    func setGif() {
+        guard let gif = self.gif else { return }
+        self.flash.flash()
+        self.gif = Gif(images: gif.images, easing: self.easing, totalTime: Double(self.translatedSliderValue))
+    }
 
     private let gifView = UIImageView()
     let easingsViewController = EasingViewController()
@@ -31,6 +37,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     var easing = TimingEasing.FinalFrame
     private let flash = UIView()
     
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
@@ -85,36 +92,6 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         }
     }
     
-    func sliderDidSlide(slider: UISlider) {
-        self.setGif()
-    }
-    
-    func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
-        return "\(self.translatedSliderValue.format(".2")) seconds"
-    }
-    
-    private var translatedSliderValue: Float {
-        return 12.0 - self.slider.value
-    }
-    
-    func setGif() {
-        guard let gif = self.gif else { return }
-        self.flash.flash()
-        self.gif = Gif(images: gif.images, easing: self.easing, totalTime: Double(self.translatedSliderValue))
-    }
-    
-    func removeWatermark() {
-        self.setGif()
-        self.watermarkButton.hidden = true
-    }
-    
-    func reportFailure(notification: NSNotification) {
-        let message = notification.object as? String ?? "The purchase failed. Check your connection or try again later."
-        let vc = UIAlertController(title: "Womp", message: message, preferredStyle: .Alert)
-        vc.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -136,11 +113,16 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
     }
     
+}
+
+// MARL: - Watermark Purchase
+
+extension CustomizeGifViewController {
     func buyRemoveWatermark() {
         let vc = UIAlertController(title: "Remove watermark", message: "Tired of seeing our logo on your PictoGifs? Pay once and remove it forever.", preferredStyle: .Alert)
         vc.addAction(UIAlertAction(title: "🙌 Yaaaaas 🙌", style: .Default) { (_) in
             PicDiveProducts.store.buyProduct(withIdentifier: PicDiveProducts.RemoveWatermark)
-        })
+            })
         
         vc.addAction(UIAlertAction(title: "Restore Previous Purchase", style: .Default) { (_) in
             PicDiveProducts.store.restorePurchases()
@@ -152,5 +134,31 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         Answers.logCustomEventWithName("Remove watermark button pressed", customAttributes: [:])
         self.presentViewController(vc, animated: true, completion: nil)
     }
+    
+    func removeWatermark() {
+        self.setGif()
+        self.watermarkButton.hidden = true
+    }
+    
+    func reportFailure(notification: NSNotification) {
+        let message = notification.object as? String ?? "The purchase failed. Check your connection or try again later."
+        let vc = UIAlertController(title: "Womp", message: message, preferredStyle: .Alert)
+        vc.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+}
 
+// MARK: - Slider
+extension CustomizeGifViewController {
+    func sliderDidSlide(slider: UISlider) {
+        self.setGif()
+    }
+    
+    func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
+        return "\(self.translatedSliderValue.format(".2")) seconds"
+    }
+    
+    private var translatedSliderValue: Float {
+        return 12.0 - self.slider.value
+    }
 }

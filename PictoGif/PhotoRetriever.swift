@@ -9,8 +9,7 @@
 import UIKit
 import Photos
 
-
-
+/// A thin wrapper around PHFetching
 struct PhotoRetriever {
 
     private var thumbOptions: PHImageRequestOptions

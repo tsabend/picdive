@@ -10,9 +10,10 @@
 import UIKit
 import Photos
 
-
+/// Initial View Controller. 
 class ImagePickerViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
+    // MARK: - Properties
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ImagePickerFlowLayout())
     private let cameraButton = UIButton()
     private let cameraRollButton = UIButton()
@@ -263,6 +264,7 @@ extension ImagePickerViewController: UIImagePickerControllerDelegate {
 
 }
 
+// MARK: - Photo Retrieving
 extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
         self.queryPhotos()
@@ -290,23 +292,3 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
         }
     }
 }
-
-class ImagePickerFlowLayout: UICollectionViewFlowLayout {
-    override init() {
-        super.init()
-        
-        let interItemSpacing: CGFloat = 1
-        self.minimumInteritemSpacing = interItemSpacing
-        self.minimumLineSpacing = interItemSpacing
-        let itemSideLength = (UIScreen.mainScreen().bounds.width / 4) - interItemSpacing
-        self.itemSize = CGSize(width: itemSideLength, height: itemSideLength)
-        self.sectionInset = UIEdgeInsets(top: 1, left: 0, bottom: itemSideLength * 2, right: 0)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-       fatalError("coder")
-    }
-    
-}
-

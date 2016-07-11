@@ -9,12 +9,16 @@
 import AVFoundation
 import UIKit
 
+/// Set options for your video writing
 struct RenderSettings {
-    
+    /// The dimensions of the video
     let size: CGSize
-    let avCodecKey = AVVideoCodecH264
-    let videoFilename = "pictogif"
-    let videoFilenameExt = "mp4"
+    /// The filename for the video
+    let videoFilename: String
+    /// The file extension for the video
+    let videoExtension: VideoExtension
+    
+    private let avCodecKey = AVVideoCodecH264
     
     private var cacheDirectoryURL: NSURL {
         // Use the CachesDirectory so the rendered video file sticks around as long as we need it to.
@@ -27,8 +31,27 @@ struct RenderSettings {
     var outputURL: NSURL {
         return self.cacheDirectoryURL
             .URLByAppendingPathComponent(self.videoFilename)
-            .URLByAppendingPathExtension(self.videoFilenameExt)
+            .URLByAppendingPathExtension(self.videoExtension.rawValue)
     }
     
+    var outputSettings: [String : AnyObject] {
+        return [
+            AVVideoCodecKey: self.avCodecKey,
+            AVVideoWidthKey: NSNumber(float: Float(self.size.width)),
+            AVVideoHeightKey: NSNumber(float: Float(self.size.height))
+        ]
+    }
     
+    var pixelAttributes : [String : AnyObject] {
+        return [
+            kCVPixelBufferPixelFormatTypeKey as String: NSNumber(unsignedInt: kCVPixelFormatType_32ARGB),
+            kCVPixelBufferWidthKey as String: NSNumber(float: Float(self.size.width)),
+            kCVPixelBufferHeightKey as String: NSNumber(float: Float(self.size.height))
+        ]
+    }
+}
+
+enum VideoExtension: String {
+    case MOV = "mov"
+    case MP4 = "mp4"
 }

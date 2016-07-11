@@ -1,20 +1,32 @@
 //
-//  CGRect+PicDiveSpec.swift
+//  CGRect+PictoGifSpec.swift
 //  picdive
 //
 //  Created by Thomas Abend on 5/1/16.
 //  Copyright © 2016 Sean. All rights reserved.
 //
 
-@testable
-import picdive
 import Quick
 import Nimble
 import CGRectExtensions
+@testable
+import PictoGif
 
 
-class CGRectPicDiveSpec: QuickSpec {
+class CGRectPictoGifSpec: QuickSpec {
     override func spec() {
+        describe("square") {
+            it("returns true if the width == height") {
+                let rect = CGRect(0, 0, 100, 100)
+                expect(rect.square) == true
+            }
+            
+            it("returns false if width != height") {
+                let rect = CGRect(0, 0, 100, 101)
+                expect(rect.square) == false
+            }
+        }
+        
         describe("squaresBetween") {
             let rect = CGRect(0, 0, 100, 100)
             let other = CGRect(12, 9, 25, 25)
