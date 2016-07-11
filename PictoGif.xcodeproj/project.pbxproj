@@ -46,11 +46,11 @@
 		48EDFF541CD05A2A00B879D3 /* PublishingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */; };
 		48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF551CD05ED700B879D3 /* NavigationController.swift */; };
 		48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */; };
-		48EDFF5A1CD63ED300B879D3 /* CGRect+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */; };
+		48EDFF5A1CD63ED300B879D3 /* CGRect+PictoGifSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF591CD63ED300B879D3 /* CGRect+PictoGifSpec.swift */; };
 		48EDFF5C1CD6411A00B879D3 /* CGRect+PictoGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDFF5B1CD6411A00B879D3 /* CGRect+PictoGif.swift */; };
 		48FFB2271C78B3E3002340D7 /* UIImage+PictoGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2261C78B3E3002340D7 /* UIImage+PictoGif.swift */; };
 		48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */; };
-		48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */; };
+		48FFB22C1C78B840002340D7 /* UIImage+PictoGifSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FFB22B1C78B840002340D7 /* UIImage+PictoGifSpec.swift */; };
 		72CF52D14CA6702ECD47F4D8 /* Pods_PictoGif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A13A15069899C7A123A2621 /* Pods_PictoGif.framework */; };
 		9F80487ADA52E8FD1C7EDEA3 /* Pods_PictoGifTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750CDBB47B2FB47624FEB46A /* Pods_PictoGifTests.framework */; };
 /* End PBXBuildFile section */
@@ -78,7 +78,7 @@
 		149D31E21C75480A00866522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149D31E51C75480B00866522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149D31E71C75480B00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		149D31EC1C75480D00866522 /* PictoGif.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PictoGif.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		149D31EC1C75480D00866522 /* PictoGifTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PictoGifTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		149D31F21C75480D00866522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		484BBF191D10378600C74482 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		484BBF2E1D12E62C00C74482 /* ZoomingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomingImageView.swift; sourceTree = "<group>"; };
@@ -110,12 +110,12 @@
 		48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishingViewController.swift; sourceTree = "<group>"; };
 		48EDFF551CD05ED700B879D3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		48EDFF571CD22DDA00B879D3 /* FlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewController.swift; sourceTree = "<group>"; };
-		48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+PicDiveSpec.swift"; sourceTree = "<group>"; };
+		48EDFF591CD63ED300B879D3 /* CGRect+PictoGifSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+PictoGifSpec.swift"; sourceTree = "<group>"; };
 		48EDFF5B1CD6411A00B879D3 /* CGRect+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+PictoGif.swift"; sourceTree = "<group>"; };
 		48FFB2261C78B3E3002340D7 /* UIImage+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PictoGif.swift"; sourceTree = "<group>"; };
 		48FFB2281C78B3F4002340D7 /* UIView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		48FFB22A1C78B83F002340D7 /* PictoGifTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PictoGifTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PicDiveSpec.swift"; sourceTree = "<group>"; };
+		48FFB22B1C78B840002340D7 /* UIImage+PictoGifSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+PictoGifSpec.swift"; sourceTree = "<group>"; };
 		750CDBB47B2FB47624FEB46A /* Pods_PictoGifTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PictoGifTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		761351558EDB0512EC83897A /* Pods-PictoGifTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictoGifTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests.release.xcconfig"; sourceTree = "<group>"; };
 		C3CF531742D2F17ED11CF656 /* Pods-PictoGifTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictoGifTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PictoGifTests/Pods-PictoGifTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				149D31D81C75480900866522 /* PictoGif.app */,
-				149D31EC1C75480D00866522 /* PictoGif.xctest */,
+				149D31EC1C75480D00866522 /* PictoGifTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -262,8 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				149D31F21C75480D00866522 /* Info.plist */,
-				48FFB22B1C78B840002340D7 /* UIImage+PicDiveSpec.swift */,
-				48EDFF591CD63ED300B879D3 /* CGRect+PicDiveSpec.swift */,
+				48FFB22B1C78B840002340D7 /* UIImage+PictoGifSpec.swift */,
+				48EDFF591CD63ED300B879D3 /* CGRect+PictoGifSpec.swift */,
 				48FFB22A1C78B83F002340D7 /* PictoGifTests-Bridging-Header.h */,
 			);
 			path = PictoGifTests;
@@ -351,7 +351,7 @@
 			);
 			name = PictoGifTests;
 			productName = picdiveTests;
-			productReference = 149D31EC1C75480D00866522 /* PictoGif.xctest */;
+			productReference = 149D31EC1C75480D00866522 /* PictoGifTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -558,6 +558,7 @@
 				48EDF58F1D3085AC00CA0D46 /* Dictionary+PictoGif.swift in Sources */,
 				4869BBE61D0C9362006F68E5 /* RenderSettings.swift in Sources */,
 				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,
+				48EDF59A1D33041200CA0D46 /* HKLCMTimeUtils.swift in Sources */,
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,
 				484BBF2F1D12E62C00C74482 /* ZoomingImageView.swift in Sources */,
 				48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */,
@@ -574,8 +575,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48FFB22C1C78B840002340D7 /* UIImage+PicDiveSpec.swift in Sources */,
-				48EDFF5A1CD63ED300B879D3 /* CGRect+PicDiveSpec.swift in Sources */,
+				48FFB22C1C78B840002340D7 /* UIImage+PictoGifSpec.swift in Sources */,
+				48EDFF5A1CD63ED300B879D3 /* CGRect+PictoGifSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,7 +727,7 @@
 				INFOPLIST_FILE = PictoGifTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
-				PRODUCT_NAME = PictoGif;
+				PRODUCT_NAME = PictoGifTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "PictoGifTests/PictoGifTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PictoGif.app/PictoGif";
@@ -742,7 +743,7 @@
 				INFOPLIST_FILE = PictoGifTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sean.picdiveTests;
-				PRODUCT_NAME = PictoGif;
+				PRODUCT_NAME = PictoGifTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "PictoGifTests/PictoGifTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PictoGif.app/PictoGif";
 			};

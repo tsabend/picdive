@@ -12,9 +12,9 @@ func >(lhs: CGSize, rhs: CGSize) -> Bool {
 }
 
 
-extension CGRect {
+public extension CGRect {
     
-    var square: Bool { return self.width == self.height }
+    public var square: Bool { return self.width == self.height }
 
     func squaresBetween(rect otherRect: CGRect, steps: Int) -> [CGRect] {
         guard self.size > otherRect.size else { return [] }
