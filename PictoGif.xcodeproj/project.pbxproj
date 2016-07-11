@@ -558,7 +558,6 @@
 				48EDF58F1D3085AC00CA0D46 /* Dictionary+PictoGif.swift in Sources */,
 				4869BBE61D0C9362006F68E5 /* RenderSettings.swift in Sources */,
 				1497E25E1CF5301D00A9E253 /* Slider.swift in Sources */,
-				48EDF59A1D33041200CA0D46 /* HKLCMTimeUtils.swift in Sources */,
 				48EDFF581CD22DDA00B879D3 /* FlowViewController.swift in Sources */,
 				484BBF2F1D12E62C00C74482 /* ZoomingImageView.swift in Sources */,
 				48EDFF561CD05ED700B879D3 /* NavigationController.swift in Sources */,

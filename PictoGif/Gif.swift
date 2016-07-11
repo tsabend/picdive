@@ -62,12 +62,14 @@ class Gif {
     /// This function returns a completion block with the 
     /// url of the video representation. 
     /// - parameter completion: callback from the video conversion. Result can throw.
-    func asVideo(completion: (Result<NSURL?>) -> Void) {
-        guard let first = self.images.first else { completion(Result { throw VideoWritingError.InvalidImages }); return }
-        let settings = RenderSettings(size: first.size)
-        
-        let imageTimes: [(image: UIImage, time: Double)] = Array(zip(self.orderedAndWatermarkedImages, self.times))
-        ImageAnimator(imageTimes: imageTimes, renderSettings: settings)?.render(completion)
+    func asVideo(completion: (Result<NSURL>) -> Void) {
+        let settings = RenderSettings(size: self.images.first?.size ?? CGSize.zero, videoFilename: "pictogif", videoExtension: .MP4)
+        let imageTimes: [ImageTime] = Array(zip(self.orderedAndWatermarkedImages, self.times))
+        do {
+            try ImageAnimator(imageTimes: imageTimes, renderSettings: settings).render(completion)
+        } catch let error {
+           completion(Result { throw error })
+        }
     }
     
     lazy var analyticsDictionary: [String : AnyObject] = {

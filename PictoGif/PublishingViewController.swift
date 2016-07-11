@@ -129,19 +129,19 @@ class PublishingViewController : UIViewController, ImagePresenter {
             self.spinner.center = self.videoButton.center
             self.videoButton.hidden = true
             self.spinner.startAnimating()
-            gif.asVideo { (result: Result<NSURL?>) -> Void in
+            gif.asVideo { (result: Result<NSURL>) -> Void in
                 immediately {
                     self.spinner.stopAnimating()
                     self.videoButton.hidden = false
                 }
                 
                 do {
-                    if let url = try result.unwrap() {
-                        
-                        self.cachedVideoURL = url
-                        self.share(url)
-                    }
-                } catch {
+                    let url = try result.unwrap()
+                    self.cachedVideoURL = url
+                    self.share(url)
+                } catch let error {
+                    Answers.logCustomEventWithName("Video writing errored",
+                        customAttributes: ["error" : String(error)])
                     immediately {
                         self.showError(message: "Looks like something went wrong under the hood...try that again.")
                     }
