@@ -27,7 +27,17 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         let bottomSize = self.bottomMemeTextField.font?.pointSize ?? 0
         
         if !topText.isEmpty || !bottomText.isEmpty {
-            let images = gif.images.map{ $0.meme(withTopText: topText, topSize: topSize, bottomText: bottomText, bottomSize: bottomSize) }
+            let meme: (UIImage -> UIImage) = { (image: UIImage) -> UIImage in
+                return image.meme(withTopText: topText, topSize: topSize, bottomText: bottomText, bottomSize: bottomSize)
+            }
+            var images = gif.images
+            if self.memeAccessoryView.overAll {
+                images = images.map(meme)
+                
+            } else {
+                let memed = meme(images.last!)
+                images = images.dropLast() + [memed]
+            }
             return Gif(images: images, easing: gif.easing, totalTime: gif.totalTime)
         }
         return gif
@@ -113,8 +123,12 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.memeButton.addTarget(self, action: #selector(CustomizeGifViewController.meme), forControlEvents: .TouchUpInside)
         
         self.memeButton.setTitle("MEME", forState: .Normal)
-        self.memeButton.titleLabel?.font = UIFont.PDFont(withSize: 22)
-        self.memeButton.setTitleColor(UIColor.PictoPink(), forState: .Normal)
+        self.memeButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
+        self.memeButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.memeButton.layer.borderColor = UIColor.PictoPink().CGColor
+        self.memeButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        self.memeButton.layer.borderWidth = 1
+        self.memeButton.layer.cornerRadius = 2
         
         self.view.backgroundColor = UIColor.PDDarkGray()
         
@@ -159,7 +173,8 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.watermarkButton.alignBottom(0, toView: self.view)
         
         self.memeButton.sizeToFit()
-        self.memeButton.moveAbove(siblingView: self.watermarkButton, margin: 8, alignment: .Center)
+        self.memeButton.moveAbove(siblingView: self.watermarkButton, margin: 8)
+        self.memeButton.alignRight(8, toView: self.view)
         
     }
     
@@ -266,8 +281,11 @@ extension CustomizeGifViewController : MemeAccessoryViewDelegate {
 }
 
 class MemeAccessoryView: UIView {
-    let button = UIButton()
-    let topBottomToggle = UISegmentedControl()
+    var overAll : Bool {
+        return self.allFinalToggle.selectedSegmentIndex == 0
+    }
+    private let allFinalToggle = UISegmentedControl()
+    private let topBottomToggle = UISegmentedControl()
     
     var delegate : MemeAccessoryViewDelegate?
     
@@ -276,14 +294,20 @@ class MemeAccessoryView: UIView {
         
         self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
         
-        self.topBottomToggle.insertSegmentWithTitle("TOP", atIndex: 0, animated: false)
-        self.topBottomToggle.insertSegmentWithTitle("BOTTOM", atIndex: 1, animated: false)
-        self.topBottomToggle.tintColor = UIColor.PictoPink()
+        self.topBottomToggle.insertSegmentWithTitle("Top", atIndex: 0, animated: false)
+        self.topBottomToggle.insertSegmentWithTitle("Bottom", atIndex: 1, animated: false)
+        self.topBottomToggle.tintColor = UIColor.PDBlue()
         self.topBottomToggle.selectedSegmentIndex = 0
+        
+        self.allFinalToggle.insertSegmentWithTitle("Over All", atIndex: 0, animated: false)
+        self.allFinalToggle.insertSegmentWithTitle("Over Last", atIndex: 1, animated: false)
+        self.allFinalToggle.tintColor = UIColor.PDBlue()
+        self.allFinalToggle.selectedSegmentIndex = 0
         
         self.topBottomToggle.addTarget(self, action: #selector(MemeAccessoryView.toggle), forControlEvents: .ValueChanged)
         
         self.addSubview(self.topBottomToggle)
+        self.addSubview(self.allFinalToggle)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -296,6 +320,10 @@ class MemeAccessoryView: UIView {
         self.topBottomToggle.sizeToFit()
         self.topBottomToggle.moveToVerticalCenterOfSuperview()
         self.topBottomToggle.x = 8
+        
+        self.allFinalToggle.sizeToFit()
+        self.allFinalToggle.moveToVerticalCenterOfSuperview()
+        self.allFinalToggle.alignRight(8, toView: self)
         
     }
     
