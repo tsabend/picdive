@@ -33,21 +33,43 @@ extension UIImage {
         }
     }
     
-    func meme(withText text: NSString, bottom: Bool = false) -> UIImage {
+    func meme(withTopText topText: NSString, topSize: CGFloat, bottomText: NSString, bottomSize: CGFloat) -> UIImage {
+        let horizontalPadding: CGFloat = 10
+        let verticalPadding: CGFloat = 8
         return UIImage.drawImage(size: self.size) { (size, context) in
             self.drawInRect(CGRect(origin: CGPoint.zero, size: size))
-            let size = text.sizeWithAttributes(self.memeAttributes)
-            let origin = CGPoint((self.size.width - size.width) / 2, 2)
-            text.drawInRect(CGRect(size, origin), withAttributes: self.memeAttributes)
+            let topAttrs = self.memeAttributes(withSize: topSize)
+            let maxTextSize = CGSize(self.size.width - horizontalPadding, CGFloat.max)
+            let size = topText.boundingRectWithSize(
+                maxTextSize,
+                options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+                attributes:topAttrs,
+                context: nil).size
+            let origin = CGPoint((self.size.width - size.width) / 2, verticalPadding)
+            topText.drawInRect(CGRect(origin, size), withAttributes: topAttrs)
+         
+            let bottomAttrs = self.memeAttributes(withSize: bottomSize)
+            let bottomSize = bottomText.boundingRectWithSize(
+                maxTextSize,
+                options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+                attributes:bottomAttrs,
+                context: nil).size
+            let bottomOrigin = CGPoint((self.size.width - bottomSize.width) / 2, self.size.height - bottomSize.height - verticalPadding)
+            bottomText.drawInRect(CGRect(bottomOrigin, bottomSize), withAttributes: bottomAttrs)
+            
         }
     }
     
-    private var memeAttributes: [String : AnyObject] {
-        let textColor: UIColor = UIColor.whiteColor()
-        let textFont: UIFont = UIFont(name: "Helvetica Bold", size: 20)!
+    private func memeAttributes(withSize size: CGFloat) -> [String : AnyObject] {
+        let textFont: UIFont = UIFont.MemeFont(withSize: size)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .Center
         return [
             NSFontAttributeName: textFont,
-            NSForegroundColorAttributeName: textColor,
+            NSStrokeColorAttributeName: UIColor.blackColor(),
+            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSStrokeWidthAttributeName: -3.0,
+            NSParagraphStyleAttributeName: paragraphStyle
             ]
     }
    

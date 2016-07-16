@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import ASValueTrackingSlider
 import Crashlytics
 
-class CustomizeGifViewController: UIViewController, FlowViewController, ImagePresenter, ASValueTrackingSliderDataSource {
+class CustomizeGifViewController: UIViewController, FlowViewController, ImagePresenter {
     typealias Next = PublishingViewController
     var imageViewDataSource: ImageViewDataSource? {
         didSet {
@@ -19,6 +18,27 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
             }
         }
     }
+    
+    var nextImageViewDataSource: ImageViewDataSource? {
+        guard let gif = self.gif else { return nil }
+        let topText = self.topMemeTextField.text
+        let bottomText = self.bottomMemeTextField.text
+        let topSize = self.topMemeTextField.font?.pointSize ?? 0
+        let bottomSize = self.bottomMemeTextField.font?.pointSize ?? 0
+        
+        if !topText.isEmpty || !bottomText.isEmpty {
+            let images = gif.images.map{ $0.meme(withTopText: topText, topSize: topSize, bottomText: bottomText, bottomSize: bottomSize) }
+            return Gif(images: images, easing: gif.easing, totalTime: gif.totalTime)
+        }
+        return gif
+    }
+
+    let memeTextAttributes = [
+        NSStrokeColorAttributeName: UIColor.blackColor(),
+        NSForegroundColorAttributeName: UIColor.whiteColor(),
+        NSStrokeWidthAttributeName: -3.0,
+        ]
+    
     var gif: Gif? {
         get { return self.imageViewDataSource as? Gif }
         set { self.imageViewDataSource = newValue }
@@ -27,16 +47,21 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     func setGif() {
         guard let gif = self.gif else { return }
         self.flash.flash()
-        self.gif = Gif(images: gif.images, easing: self.easing, totalTime: Double(self.translatedSliderValue))
+        self.gif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue))
     }
 
     private let gifView = UIImageView()
-    let easingsViewController = EasingViewController()
-    let slider = Slider()
+    let timingViewController = TimingViewController()
+
     private let watermarkButton = UIButton()
-    var easing = TimingEasing.FinalFrame
     private let flash = UIView()
     private let memeButton = UIButton()
+    
+    private let topMemeTextField = UITextView()
+    private let bottomMemeTextField = UITextView()
+    private lazy var memeAccessoryView: MemeAccessoryView = MemeAccessoryView(frame: CGRect(CGPoint.zero, CGSize(self.view.width, 44)))
+    
+    
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,30 +70,39 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.title = "Customize your Gif"
         self.setupNavigationBar()
         
-        self.slider.addTarget(self, action: #selector(CustomizeGifViewController.sliderDidSlide(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.slider.continuous = false
-        self.slider.minimumTrackTintColor = UIColor.PictoPink()
-        
-        self.slider.setupValues(min: 2, max: 10, initial: 8)
-        self.slider.setupImages(min: UIImage(named: "time_turtle"), max: UIImage(named: "time_fast"))
-        self.slider.dataSource = self
-        
-        self.easingsViewController.easings = [TimingEasing.FinalFrame,  TimingEasing.Linear, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
-        
-        self.addChildViewController(self.easingsViewController)
-        self.view.addSubview(self.easingsViewController.view)
-        self.easingsViewController.didMoveToParentViewController(self)
-       
-        self.easingsViewController.onClick = { [weak self] easing in
-            if let easing = easing as? TimingEasing {
-                self?.easing = easing
-            }
-            self?.setGif()
-        }
-        
+        self.timingViewController.setGif = self.setGif
+             
         self.flash.backgroundColor = UIColor.whiteColor()
         self.flash.alpha = 0
         
+        self.topMemeTextField.typingAttributes = self.memeTextAttributes
+        self.topMemeTextField.font = UIFont.MemeFont(withSize: 48)
+        self.topMemeTextField.textAlignment = .Center
+        self.topMemeTextField.textColor = UIColor.whiteColor()
+        self.topMemeTextField.backgroundColor = UIColor.clearColor()
+        self.topMemeTextField.delegate = self
+        self.topMemeTextField.inputAccessoryView = self.memeAccessoryView
+        self.topMemeTextField.scrollEnabled = false
+        self.topMemeTextField.autocorrectionType = .No
+        self.topMemeTextField.returnKeyType = .Done
+        
+        self.bottomMemeTextField.typingAttributes = self.memeTextAttributes
+        self.bottomMemeTextField.font = UIFont.MemeFont(withSize: 48)
+        self.bottomMemeTextField.textAlignment = .Center
+        self.bottomMemeTextField.textColor = UIColor.whiteColor()
+        self.bottomMemeTextField.backgroundColor = UIColor.clearColor()
+        self.bottomMemeTextField.delegate = self
+        self.bottomMemeTextField.inputAccessoryView = self.memeAccessoryView
+        self.bottomMemeTextField.scrollEnabled = false
+        self.bottomMemeTextField.autocorrectionType = .No
+        self.bottomMemeTextField.returnKeyType = .Done
+        
+        self.memeAccessoryView.delegate = self
+
+        
+        self.addChildViewController(self.timingViewController)
+        self.view.addSubview(self.timingViewController.view)
+        self.timingViewController.didMoveToParentViewController(self)
         self.watermarkButton.addTarget(self, action: #selector(CustomizeGifViewController.buyRemoveWatermark), forControlEvents: .TouchUpInside)
         self.watermarkButton.setTitle("REMOVE WATERMARK", forState: .Normal)
         self.watermarkButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
@@ -77,13 +111,17 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         
         
         self.memeButton.addTarget(self, action: #selector(CustomizeGifViewController.meme), forControlEvents: .TouchUpInside)
+        
         self.memeButton.setTitle("MEME", forState: .Normal)
-        self.memeButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
+        self.memeButton.titleLabel?.font = UIFont.PDFont(withSize: 22)
+        self.memeButton.setTitleColor(UIColor.PictoPink(), forState: .Normal)
         
         self.view.backgroundColor = UIColor.PDDarkGray()
+        
         self.view.addSubview(self.gifView)
-        self.view.addSubview(self.slider)
         self.gifView.addSubview(self.flash)
+        self.gifView.addSubview(self.topMemeTextField)
+        self.gifView.addSubview(self.bottomMemeTextField)
         self.view.addSubview(self.watermarkButton)
         self.view.addSubview(self.memeButton)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomizeGifViewController.removeWatermark), name: IAPHelper.IAPHelperPurchaseNotification, object: nil)
@@ -92,27 +130,30 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     }
     
     func animateIn() {
-        self.easingsViewController.view.alpha = 0
-        UIView.animateWithDuration(0.2) {
-            self.easingsViewController.view.alpha = 1
-        }
+        self.timingViewController.animateIn()
     }
+    
+    let maxTextViewHeight: CGFloat = 116
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.gifView.size = CGSize(Config.imageViewWidth, Config.imageViewWidth)
         self.gifView.moveToHorizontalCenterOfSuperview()
-        
         self.gifView.y = self.navigationController?.navigationBar.maxY ?? 0
+        
         self.flash.frame = self.gifView.bounds
         
-        self.slider.sizeToFit()
-        self.slider.width = self.view.width - 22
-        self.slider.moveBelow(siblingView: self.gifView, margin: Config.baseMargin * 2, alignment: .Center)
-
-        self.easingsViewController.view.size = CGSize(width: self.gifView.width, height: 100)
-        self.easingsViewController.view.moveBelow(siblingView: self.slider, margin: Config.baseMargin, alignment: .Center)
+        self.topMemeTextField.sizeToFit()
+        self.topMemeTextField.width = self.gifView.width
+        self.bottomMemeTextField.sizeToFit()
+        self.bottomMemeTextField.width = self.gifView.width
+        
+        self.bottomMemeTextField.alignBottom(0, toView: self.gifView)
+        
+        self.timingViewController.view.width = self.view.width
+        self.timingViewController.view.height = self.view.height - self.gifView.maxY
+        self.timingViewController.view.y = self.gifView.maxY
         
         self.watermarkButton.size = CGSize(self.view.width, 32)
         self.watermarkButton.alignBottom(0, toView: self.view)
@@ -123,23 +164,56 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     }
     
     func meme() {
-        guard let gif = self.gif else { return }
-        let vc = MemeViewController()
-        vc.gif = gif
-        vc.completion = { gif in
-            self.gif = gif
-            self.dismissViewControllerAnimated(true, completion: nil)
+        if self.memeAccessoryView.topBottomToggle.selectedSegmentIndex == 0 {
+            self.topMemeTextField.becomeFirstResponder()
+        } else {
+            self.bottomMemeTextField.becomeFirstResponder()
         }
-        let navigationController = NavigationController(rootViewController: vc)
-        navigationController.modalTransitionStyle = .CoverVertical
-        
-        self.presentViewController(navigationController, animated: true, completion: nil)
     }
     
 }
 
-// MARK: - Watermark Purchase
+// MARK: - Meming
+extension CustomizeGifViewController: UITextViewDelegate {
+    
 
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" { textView.resignFirstResponder(); return false }
+        let oldString = textView.text ?? ""
+        let startIndex = oldString.startIndex.advancedBy(range.location)
+        let endIndex = startIndex.advancedBy(range.length)
+        let newString = oldString.stringByReplacingCharactersInRange(startIndex ..< endIndex, withString: text)
+        
+        let minSize: CGFloat = 30
+        var fontSize: CGFloat = 48
+        let sample = UITextView()
+        sample.font = textView.font?.fontWithSize(fontSize)
+        sample.text = newString
+        while fontSize > minSize
+            && sample.sizeThatFits(CGSize(textView.width, CGFloat.max)).height >= self.maxTextViewHeight {
+            fontSize -= 1.0
+            sample.font = textView.font?.fontWithSize(fontSize)
+        }
+        textView.font = sample.font
+        
+        let padding = textView.textContainer.lineFragmentPadding  * 2
+        let newSize = textView.font?.sizeOf(string: newString, constrainedToWidth: textView.width - padding) ?? CGSize.zero
+        self.view.setNeedsLayout()
+        
+        return newSize.height < self.maxTextViewHeight
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        textView.backgroundColor = UIColor.PDLightGray().colorWithAlphaComponent(0.33)
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        textView.backgroundColor = UIColor.clearColor()
+    }
+    
+    
+}
+// MARK: - Watermark Purchase
 extension CustomizeGifViewController {
     func buyRemoveWatermark() {
         let vc = UIAlertController(title: "Remove watermark", message: "Tired of seeing our logo on your PictoGifs? Pay once and remove it forever.", preferredStyle: .Alert)
@@ -171,17 +245,67 @@ extension CustomizeGifViewController {
     }
 }
 
-// MARK: - Slider
-extension CustomizeGifViewController {
-    func sliderDidSlide(slider: UISlider) {
-        self.setGif()
+@objc protocol MemeAccessoryViewDelegate: class {
+    func textFieldDidSwitch(toPosition positon: MemePosition)
+}
+
+extension CustomizeGifViewController : MemeAccessoryViewDelegate {
+    func textFieldDidSwitch(toPosition positon: MemePosition) {
+        if positon == .Top {
+            self.bottomMemeTextField.resignFirstResponder()
+            self.topMemeTextField.becomeFirstResponder()
+        } else {
+            self.topMemeTextField.resignFirstResponder()
+            self.bottomMemeTextField.becomeFirstResponder()
+        }
+    }
+}
+
+@objc enum MemePosition: Int {
+    case Top, Bottom
+}
+
+class MemeAccessoryView: UIView {
+    let button = UIButton()
+    let topBottomToggle = UISegmentedControl()
+    
+    var delegate : MemeAccessoryViewDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
+        
+        self.topBottomToggle.insertSegmentWithTitle("TOP", atIndex: 0, animated: false)
+        self.topBottomToggle.insertSegmentWithTitle("BOTTOM", atIndex: 1, animated: false)
+        self.topBottomToggle.tintColor = UIColor.PictoPink()
+        self.topBottomToggle.selectedSegmentIndex = 0
+        
+        self.topBottomToggle.addTarget(self, action: #selector(MemeAccessoryView.toggle), forControlEvents: .ValueChanged)
+        
+        self.addSubview(self.topBottomToggle)
     }
     
-    func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
-        return "\(self.translatedSliderValue.format(".2")) seconds"
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.topBottomToggle.sizeToFit()
+        self.topBottomToggle.moveToVerticalCenterOfSuperview()
+        self.topBottomToggle.x = 8
+        
     }
     
-    private var translatedSliderValue: Float {
-        return 12.0 - self.slider.value
+    func toggle() {
+        if self.topBottomToggle.selectedSegmentIndex == 0 {
+            self.delegate?.textFieldDidSwitch(toPosition: .Top)
+        } else {
+            self.delegate?.textFieldDidSwitch(toPosition: .Bottom)
+        }
     }
+    
+    
 }
