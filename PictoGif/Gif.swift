@@ -20,6 +20,10 @@ class Gif {
     private let reversed: Bool
     private let memeInfo: MemeInfo?
     
+    var lastImage: UIImage {
+        return self.processedImages.last!
+    }
+    
     init(images: [UIImage], easing: TimingEasing, totalTime: Double, memeInfo: MemeInfo? = nil) {
         self.memeInfo = memeInfo
         self.images = images

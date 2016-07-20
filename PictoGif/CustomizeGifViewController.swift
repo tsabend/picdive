@@ -39,7 +39,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     private let gifView = UIImageView()
     let timingViewController = TimingViewController()
 
-    private let watermarkButton = UIButton()
+    let watermarkButton = UIButton()
     private let flash = UIView()
     private var memeButton = UIButton()
     private let topMemeTextField = UITextView()
@@ -185,14 +185,12 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     func beginMeming() {
         guard let gif = self.gif else { return }
         self.gif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue), memeInfo: nil)
+        self.setImageForMeming()
         self.topMemeTextField.hidden = false
         self.bottomMemeTextField.hidden = false
         self.gifView.userInteractionEnabled = true
-        if self.memeAccessoryView.topBottomToggle.selectedSegmentIndex == 0 {
-            self.topMemeTextField.becomeFirstResponder()
-        } else {
-            self.bottomMemeTextField.becomeFirstResponder()
-        }
+        self.topMemeTextField.becomeFirstResponder()
+
     }
     
     func endMeming() {
@@ -208,7 +206,6 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
 // MARK: - Meming
 extension CustomizeGifViewController: UITextViewDelegate {
     
-
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" { textView.resignFirstResponder(); self.endMeming(); return false }
         let oldString = textView.text ?? ""
@@ -234,52 +231,6 @@ extension CustomizeGifViewController: UITextViewDelegate {
         
         return newSize.height < self.maxTextViewHeight
     }
-    
-    func textViewDidBeginEditing(textView: UITextView) {
-//        textView.backgroundColor = UIColor.PDLightGray().colorWithAlphaComponent(0.33)
-    }
-    
-    func textViewDidEndEditing(textView: UITextView) {
-//        textView.backgroundColor = UIColor.clearColor()
-    }
-    
-    
-}
-// MARK: - Watermark Purchase
-extension CustomizeGifViewController {
-    func buyRemoveWatermark() {
-        let vc = UIAlertController(title: "Remove watermark", message: "Tired of seeing our logo on your PictoGifs? Pay once and remove it forever.", preferredStyle: .Alert)
-        vc.addAction(UIAlertAction(title: "🙌 Yaaaaas 🙌", style: .Default) { (_) in
-            PicDiveProducts.store.buyProduct(withIdentifier: PicDiveProducts.RemoveWatermark)
-            })
-        
-        vc.addAction(UIAlertAction(title: "Restore Previous Purchase", style: .Default) { (_) in
-            PicDiveProducts.store.restorePurchases()
-            })
-        
-        vc.addAction(UIAlertAction(title: "Not now", style: .Cancel, handler: { _ in NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasPaid")
-            self.setGif()
-        }))
-        Answers.logCustomEventWithName("Remove watermark button pressed", customAttributes: [:])
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func removeWatermark() {
-        self.setGif()
-        self.watermarkButton.hidden = true
-    }
-    
-    func reportFailure(notification: NSNotification) {
-        let message = notification.object as? String ?? "The purchase failed. Check your connection or try again later."
-        let vc = UIAlertController(title: "Womp", message: message, preferredStyle: .Alert)
-        vc.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-}
-
-@objc protocol MemeAccessoryViewDelegate: class {
-    func textFieldDidSwitch(toPosition positon: MemePosition)
-    func allFinalWasToggled()
 }
 
 extension CustomizeGifViewController : MemeAccessoryViewDelegate {
@@ -294,105 +245,15 @@ extension CustomizeGifViewController : MemeAccessoryViewDelegate {
     }
     
     func allFinalWasToggled() {
-//        self.endMeming()
-    }
-}
-
-@objc enum MemePosition: Int {
-    case Top, Bottom
-}
-
-class MemeAccessoryView: UIView {
-    var overAll : Bool {
-        return self.allFinalToggle.selectedSegmentIndex == 0
-    }
-    private let allFinalToggle = UISegmentedControl()
-    private let topBottomToggle = UISegmentedControl()
-    
-    var delegate : MemeAccessoryViewDelegate?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
-        
-        self.topBottomToggle.insertSegmentWithTitle("Top", atIndex: 0, animated: false)
-        self.topBottomToggle.insertSegmentWithTitle("Bottom", atIndex: 1, animated: false)
-        self.topBottomToggle.tintColor = UIColor.PDBlue()
-        self.topBottomToggle.selectedSegmentIndex = 0
-        
-        self.allFinalToggle.insertSegmentWithTitle("Over All", atIndex: 0, animated: false)
-        self.allFinalToggle.insertSegmentWithTitle("Over Last", atIndex: 1, animated: false)
-        self.allFinalToggle.tintColor = UIColor.PDBlue()
-        self.allFinalToggle.selectedSegmentIndex = 0
-        
-        self.topBottomToggle.addTarget(self, action: #selector(MemeAccessoryView.toggle), forControlEvents: .ValueChanged)
-        
-        self.allFinalToggle.addTarget(self, action: #selector(MemeAccessoryView.allFinalWasToggled), forControlEvents: .ValueChanged)
-        
-//        self.addSubview(self.topBottomToggle)
-        self.addSubview(self.allFinalToggle)
+        self.setImageForMeming()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        self.topBottomToggle.sizeToFit()
-        self.topBottomToggle.moveToVerticalCenterOfSuperview()
-        self.topBottomToggle.x = 8
-        
-        self.allFinalToggle.sizeToFit()
-        self.allFinalToggle.moveToVerticalCenterOfSuperview()
-        self.allFinalToggle.alignRight(8, toView: self)
-        
-    }
-    
-    func allFinalWasToggled() {
-        self.delegate?.allFinalWasToggled()
-    }
-    
-    func toggle() {
-        if self.topBottomToggle.selectedSegmentIndex == 0 {
-            self.delegate?.textFieldDidSwitch(toPosition: .Top)
+    func setImageForMeming() {
+        if self.memeAccessoryView.overAll  {
+            self.gifView.image = self.gif?.image
         } else {
-            self.delegate?.textFieldDidSwitch(toPosition: .Bottom)
+            self.gifView.image = self.gif?.lastImage
         }
     }
-    
-    
 }
 
-struct MemeInfo {
-    let topText: NSString
-    let topFontSize: CGFloat
-    let bottomText: NSString
-    let bottomFontSize: CGFloat
-    let overAll: Bool
-    
-    var topAttributes: [String : AnyObject] {
-        return self.memeAttributes(withSize: self.topFontSize)
-    }
-    
-    var bottomAttributes: [String : AnyObject] {
-        return self.memeAttributes(withSize: self.bottomFontSize)
-    }
-
-    private func memeAttributes(withSize size: CGFloat) -> [String : AnyObject] {
-        let textFont: UIFont = UIFont.MemeFont(withSize: size)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .Center
-        return [
-            NSFontAttributeName: textFont,
-            NSStrokeColorAttributeName: UIColor.blackColor(),
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSStrokeWidthAttributeName: -3.0,
-            NSParagraphStyleAttributeName: paragraphStyle
-        ]
-    }
-    
-
-}

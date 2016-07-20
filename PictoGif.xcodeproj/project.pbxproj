@@ -37,6 +37,9 @@
 		48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */; };
 		48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */; };
 		48A7C2311CCBEF7B0011D669 /* ImagePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */; };
+		48BCE2381D3F979E00352A7D /* MemeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BCE2371D3F979E00352A7D /* MemeInfo.swift */; };
+		48BCE23A1D3F97DA00352A7D /* MemeAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BCE2391D3F97DA00352A7D /* MemeAccessoryView.swift */; };
+		48BCE23C1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BCE23B1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift */; };
 		48D123231D032E3E00622647 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D123221D032E3E00622647 /* Async.swift */; };
 		48D1B2F61D2FC2EA00CFA7F3 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */; };
 		48EDF58F1D3085AC00CA0D46 /* Dictionary+PictoGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */; };
@@ -102,6 +105,9 @@
 		48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
 		48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRetriever.swift; sourceTree = "<group>"; };
 		48A7C2301CCBEF7B0011D669 /* ImagePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCell.swift; sourceTree = "<group>"; };
+		48BCE2371D3F979E00352A7D /* MemeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeInfo.swift; sourceTree = "<group>"; };
+		48BCE2391D3F97DA00352A7D /* MemeAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeAccessoryView.swift; sourceTree = "<group>"; };
+		48BCE23B1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomizeGifViewController+IAP.swift"; sourceTree = "<group>"; };
 		48D123221D032E3E00622647 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+PictoGif.swift"; sourceTree = "<group>"; };
@@ -165,6 +171,7 @@
 				149D31DD1C75480900866522 /* ScopeViewController.swift */,
 				1425C7C81C7A2A9F0034B370 /* PicScopeView.swift */,
 				48EDFF511CD0593C00B879D3 /* CustomizeGifViewController.swift */,
+				48BCE23B1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift */,
 				4884DEFB1D399F5B00C1E9E0 /* TimingViewController.swift */,
 				48EDF5971D309D3100CA0D46 /* EasingViewController */,
 				48EDFF531CD05A2A00B879D3 /* PublishingViewController.swift */,
@@ -209,6 +216,7 @@
 			children = (
 				48A7C22C1CCBEF1F0011D669 /* ImageCropper.swift */,
 				484BBF2E1D12E62C00C74482 /* ZoomingImageView.swift */,
+				48BCE2391D3F97DA00352A7D /* MemeAccessoryView.swift */,
 				489277221D059DFB00DEB9B3 /* SubtitledButton.swift */,
 				48EDF5921D3088DB00CA0D46 /* BarButtonItem.swift */,
 				1497E25D1CF5301D00A9E253 /* Slider.swift */,
@@ -223,6 +231,7 @@
 				4869BBE91D0C940E006F68E5 /* VideoExporting */,
 				1437B7A91C7FDDDD004AF560 /* Gif.swift */,
 				48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */,
+				48BCE2371D3F979E00352A7D /* MemeInfo.swift */,
 				48A0C7DA1CFC8B3000ACD5A7 /* Easings.swift */,
 				48A7C22E1CCBEF5A0011D669 /* PhotoRetriever.swift */,
 				484BBF191D10378600C74482 /* Configuration.swift */,
@@ -543,12 +552,14 @@
 				48FFB2271C78B3E3002340D7 /* UIImage+PictoGif.swift in Sources */,
 				48EDFF521CD0593C00B879D3 /* CustomizeGifViewController.swift in Sources */,
 				48A0C7DD1CFC8B4600ACD5A7 /* EasingCell.swift in Sources */,
+				48BCE23A1D3F97DA00352A7D /* MemeAccessoryView.swift in Sources */,
 				1426C1A01C8CC94600308155 /* UIFont+PictoGif.swift in Sources */,
 				48D123231D032E3E00622647 /* Async.swift in Sources */,
 				149D31DE1C75480900866522 /* ScopeViewController.swift in Sources */,
 				48FFB2291C78B3F4002340D7 /* UIView+Helpers.swift in Sources */,
 				48D1B2F61D2FC2EA00CFA7F3 /* Result.swift in Sources */,
 				48EDF5951D30977000CA0D46 /* EasingFlowLayout.swift in Sources */,
+				48BCE2381D3F979E00352A7D /* MemeInfo.swift in Sources */,
 				149D31DC1C75480900866522 /* AppDelegate.swift in Sources */,
 				4869BBE41D0BBFB9006F68E5 /* ImageAnimator.swift in Sources */,
 				48EDF5911D3087CD00CA0D46 /* ImagePickerFlowLayout.swift in Sources */,
@@ -568,6 +579,7 @@
 				48A0C7DF1CFD006500ACD5A7 /* NumberConversions+PictoGif.swift in Sources */,
 				48EDFF5C1CD6411A00B879D3 /* CGRect+PictoGif.swift in Sources */,
 				4884DEFC1D399F5B00C1E9E0 /* TimingViewController.swift in Sources */,
+				48BCE23C1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift in Sources */,
 				48A7C22D1CCBEF1F0011D669 /* ImageCropper.swift in Sources */,
 				140D45CB1C8CBB640022A7F0 /* UIColor+PictoGif.swift in Sources */,
 				4877D2C81CB73A7F007FBB07 /* ImagePickerViewController.swift in Sources */,

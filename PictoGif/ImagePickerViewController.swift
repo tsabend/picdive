@@ -158,12 +158,15 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
         case .Began:
             // Collapsed must begin in cropper and vice-versa
             guard hitInCropper == self.isCollapsed else { return }
+            print("hitInCropper \(hitInCropper)")
             self.beginningY = currentPoint.y
         case .Changed:
             guard self.beginningY != nil else { return }
             // The gesture had a valid beginning
             let delta = pan.translationInView(self.view).y
+            print("delta: \(delta)")
             if hitInCropper || self.isCollapsed || delta > 0 {
+                print("I am moving: inCropped=\(hitInCropper) collapsed=\(self.isCollapsed) delta>0=\(delta > 0)")
             // Bail if you're dragging the cropper too far down
                 if self.imageCropper.y + delta > self.cropperYOrigin { return }
                 // Darken/Lighten the image
