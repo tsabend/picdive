@@ -234,21 +234,12 @@ extension CustomizeGifViewController: UITextViewDelegate {
 }
 
 extension CustomizeGifViewController : MemeAccessoryViewDelegate {
-    func textFieldDidSwitch(toPosition positon: MemePosition) {
-        if positon == .Top {
-            self.bottomMemeTextField.resignFirstResponder()
-            self.topMemeTextField.becomeFirstResponder()
-        } else {
-            self.topMemeTextField.resignFirstResponder()
-            self.bottomMemeTextField.becomeFirstResponder()
-        }
-    }
-    
+   
     func allFinalWasToggled() {
         self.setImageForMeming()
     }
     
-    func setImageForMeming() {
+    private func setImageForMeming() {
         if self.memeAccessoryView.overAll  {
             self.gifView.image = self.gif?.image
         } else {
