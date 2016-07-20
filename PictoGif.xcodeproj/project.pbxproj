@@ -40,6 +40,7 @@
 		48BCE2381D3F979E00352A7D /* MemeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BCE2371D3F979E00352A7D /* MemeInfo.swift */; };
 		48BCE23A1D3F97DA00352A7D /* MemeAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BCE2391D3F97DA00352A7D /* MemeAccessoryView.swift */; };
 		48BCE23C1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BCE23B1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift */; };
+		48BCE23E1D3F9BDE00352A7D /* String+PictoGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BCE23D1D3F9BDE00352A7D /* String+PictoGif.swift */; };
 		48D123231D032E3E00622647 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D123221D032E3E00622647 /* Async.swift */; };
 		48D1B2F61D2FC2EA00CFA7F3 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */; };
 		48EDF58F1D3085AC00CA0D46 /* Dictionary+PictoGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */; };
@@ -108,6 +109,7 @@
 		48BCE2371D3F979E00352A7D /* MemeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeInfo.swift; sourceTree = "<group>"; };
 		48BCE2391D3F97DA00352A7D /* MemeAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeAccessoryView.swift; sourceTree = "<group>"; };
 		48BCE23B1D3F981E00352A7D /* CustomizeGifViewController+IAP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomizeGifViewController+IAP.swift"; sourceTree = "<group>"; };
+		48BCE23D1D3F9BDE00352A7D /* String+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+PictoGif.swift"; sourceTree = "<group>"; };
 		48D123221D032E3E00622647 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		48D1B2F51D2FC2EA00CFA7F3 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+PictoGif.swift"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				48A0C7DE1CFD006500ACD5A7 /* NumberConversions+PictoGif.swift */,
 				48EDFF5B1CD6411A00B879D3 /* CGRect+PictoGif.swift */,
 				140D45CA1C8CBB640022A7F0 /* UIColor+PictoGif.swift */,
+				48BCE23D1D3F9BDE00352A7D /* String+PictoGif.swift */,
 				1426C19F1C8CC94600308155 /* UIFont+PictoGif.swift */,
 				48A0C7D61CEC904300ACD5A7 /* Array+PictoGif.swift */,
 				48EDF58E1D3085AC00CA0D46 /* Dictionary+PictoGif.swift */,
@@ -546,6 +549,7 @@
 				4869BBE81D0C9382006F68E5 /* VideoWriter.swift in Sources */,
 				48EDF5931D3088DB00CA0D46 /* BarButtonItem.swift in Sources */,
 				48EDFF541CD05A2A00B879D3 /* PublishingViewController.swift in Sources */,
+				48BCE23E1D3F9BDE00352A7D /* String+PictoGif.swift in Sources */,
 				48A7C22F1CCBEF5A0011D669 /* PhotoRetriever.swift in Sources */,
 				4892771D1D039C0000DEB9B3 /* PicDiveProducts.swift in Sources */,
 				484BBF1A1D10378600C74482 /* Configuration.swift in Sources */,

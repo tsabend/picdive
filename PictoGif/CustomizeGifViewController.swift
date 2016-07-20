@@ -207,11 +207,10 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
 extension CustomizeGifViewController: UITextViewDelegate {
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        guard let range = textView.text.rangeFromNSRange(range) else { return false }
         if text == "\n" { textView.resignFirstResponder(); self.endMeming(); return false }
-        let oldString = textView.text ?? ""
-        let startIndex = oldString.startIndex.advancedBy(range.location)
-        let endIndex = startIndex.advancedBy(range.length)
-        let newString = oldString.stringByReplacingCharactersInRange(startIndex ..< endIndex, withString: text)
+
+        let newString = textView.text.stringByReplacingCharactersInRange(range, withString: text)
         
         let minSize: CGFloat = 30
         var fontSize: CGFloat = 54
