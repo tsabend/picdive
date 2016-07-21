@@ -64,7 +64,6 @@ class Gif {
     private lazy var processedImages: [UIImage] = {
         var images = self.reversed ? self.images.reverse() : self.images
         
-        images = PicDiveProducts.hasPurchasedWatermark ? images : images.map { $0.watermark() }
         if let memeInfo = self.memeInfo {
             if memeInfo.overAll {
                 images = images.map(self.meme)
@@ -73,6 +72,7 @@ class Gif {
                 images = images.dropLast() + [memed]
             }
         }
+        images = PicDiveProducts.hasPurchasedWatermark ? images : images.map { $0.watermark() }
         return images
     }()
     
