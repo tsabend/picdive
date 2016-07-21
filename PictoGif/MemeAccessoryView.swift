@@ -45,7 +45,7 @@ class MemeAccessoryView: UIView {
         
         self.allFinalToggle.sizeToFit()
         self.allFinalToggle.moveToVerticalCenterOfSuperview()
-        self.allFinalToggle.x = 8
+        self.allFinalToggle.alignRight(8, toView: self)
     }
     
     func allFinalWasToggled() {
