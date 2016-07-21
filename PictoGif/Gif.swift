@@ -14,18 +14,28 @@ import MobileCoreServices
 class Gif {
     /// The images that make up the gif in the original order
     let images: [UIImage]
+    let totalTime: Double
+    let easing: TimingEasing
     private let times: [Double]
     private let reversed: Bool
-
-    init(images: [UIImage], easing: TimingEasing, totalTime: Double) {
+    private let memeInfo: MemeInfo?
+    
+    var lastImage: UIImage {
+        return self.processedImages.last!
+    }
+    
+    init(images: [UIImage], easing: TimingEasing, totalTime: Double, memeInfo: MemeInfo? = nil) {
+        self.memeInfo = memeInfo
         self.images = images
+        self.easing = easing
+        self.totalTime = totalTime
         self.times = easing.times(framesCount: images.count, totalTime: totalTime)
         self.reversed = easing.reversed
     }
     
     /// The data representation of the gif
     lazy var data: NSData? = {
-        let cgImages = self.orderedAndWatermarkedImages.map { $0.CGImage! }
+        let cgImages = self.processedImages.map { $0.CGImage! }
         
         guard let destination = CGImageDestinationCreateWithURL(self.url, kUTTypeGIF, cgImages.count, nil) else { return nil }
         let props = zip(cgImages, self.times)
@@ -51,20 +61,37 @@ class Gif {
     }()
 
     /// The images ordered based on the easing and watermarked if needed
-    private lazy var orderedAndWatermarkedImages: [UIImage] = {
-        let images = PicDiveProducts.hasPurchasedWatermark ? self.images : self.images.map { $0.watermark() }
-        return self.reversed ? images.reverse() : images
+    private lazy var processedImages: [UIImage] = {
+        var images = self.reversed ? self.images.reverse() : self.images
+        
+        if let memeInfo = self.memeInfo {
+            if memeInfo.overAll {
+                images = images.map(self.meme)
+            } else {
+                let memed = self.meme(images.last!)
+                images = images.dropLast() + [memed]
+            }
+        }
+        images = PicDiveProducts.hasPurchasedWatermark ? images : images.map { $0.watermark() }
+        return images
     }()
     
+    private func meme(image: UIImage) -> UIImage {
+        guard let info = self.memeInfo else { return image }
+        return image.meme(withInfo: info)
+    }
+    
+    
+    
     /// The gif as a vertical strip of images
-    lazy var verticalStrip: UIImage? = UIImage.stitchImagesVertical(self.orderedAndWatermarkedImages)
+    lazy var verticalStrip: UIImage? = UIImage.stitchImagesVertical(self.processedImages)
 
     /// This function returns a completion block with the 
     /// url of the video representation. 
     /// - parameter completion: callback from the video conversion. Result can throw.
     func asVideo(completion: (Result<NSURL>) -> Void) {
         let settings = RenderSettings(size: self.images.first?.size ?? CGSize.zero, videoFilename: "pictogif", videoExtension: .MP4)
-        let imageTimes: [ImageTime] = Array(zip(self.orderedAndWatermarkedImages, self.times))
+        let imageTimes: [ImageTime] = Array(zip(self.processedImages, self.times))
         do {
             try ImageAnimator(imageTimes: imageTimes, renderSettings: settings).render(completion)
         } catch let error {

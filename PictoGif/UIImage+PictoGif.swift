@@ -32,8 +32,32 @@ extension UIImage {
             image?.drawInRect(imageRect)
         }
     }
+    
+    func meme(withInfo info: MemeInfo) -> UIImage {
+        let horizontalPadding: CGFloat = 10
+        let verticalPadding: CGFloat = 8
+        return UIImage.drawImage(size: self.size) { (size, context) in
+            self.drawInRect(CGRect(origin: CGPoint.zero, size: size))
+            let maxTextSize = CGSize(self.size.width - horizontalPadding, CGFloat.max)
+            let size = info.topText.boundingRectWithSize(
+                maxTextSize,
+                options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+                attributes:info.topAttributes,
+                context: nil).size
+            let origin = CGPoint((self.size.width - size.width) / 2, verticalPadding)
+            info.topText.drawInRect(CGRect(origin, size), withAttributes: info.topAttributes)
+            let bottomSize = info.bottomText.boundingRectWithSize(
+                maxTextSize,
+                options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+                attributes:info.bottomAttributes,
+                context: nil).size
+            let bottomOrigin = CGPoint((self.size.width - bottomSize.width) / 2, self.size.height - bottomSize.height - verticalPadding)
+            info.bottomText.drawInRect(CGRect(bottomOrigin, bottomSize), withAttributes: info.bottomAttributes)
+            
+        }
+    }
+    
    
-
     static func drawImage(size size: CGSize!, closure: (size: CGSize, context: CGContext) -> Void) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.mainScreen().scale)
         closure(size: size, context: UIGraphicsGetCurrentContext()!)

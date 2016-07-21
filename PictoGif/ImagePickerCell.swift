@@ -26,4 +26,16 @@ class ImageCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is terrible")
     }
+    
+    override var selected: Bool {
+        didSet {
+            if self.selected {
+                self.layer.borderColor = UIColor.redColor().CGColor
+                self.layer.borderWidth = 3
+            } else {
+                self.layer.borderColor = nil
+                self.layer.borderWidth = 0
+            }
+        }
+    }
 }

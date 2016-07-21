@@ -11,14 +11,10 @@ import UIKit
 extension UIView {
     
     func flash() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.alpha = 0.95
-            }, completion: { (_) in
-                UIView.animateWithDuration(0.2, animations: {
-                    self.alpha = 0
-                })
-        })
-
+        self.alpha = 1
+        UIView.animateWithDuration(0.5) {
+            self.alpha = 0
+        }
     }
     
 }
