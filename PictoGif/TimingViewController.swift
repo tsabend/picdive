@@ -15,6 +15,9 @@ class TimingViewController: UIViewController, ASValueTrackingSliderDataSource {
     var easing = TimingEasing.FinalFrame
 
     var setGif: (Void -> Void)?
+    
+    private let sliderMax: Float = 10.0
+    private let sliderMin: Float = 0.5
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,7 +25,7 @@ class TimingViewController: UIViewController, ASValueTrackingSliderDataSource {
         self.slider.continuous = false
         self.slider.minimumTrackTintColor = UIColor.PictoPink()
         
-        self.slider.setupValues(min: 2, max: 10, initial: 8)
+        self.slider.setupValues(min: self.sliderMin, max: self.sliderMax, initial: 8)
         self.slider.setupImages(min: UIImage(named: "time_turtle"), max: UIImage(named: "time_fast"))
         self.slider.dataSource = self
         
@@ -80,6 +83,6 @@ extension TimingViewController {
     }
     
     var translatedSliderValue: Float {
-        return 12.0 - self.slider.value
+        return (self.sliderMax + self.sliderMin) - self.slider.value
     }
 }
