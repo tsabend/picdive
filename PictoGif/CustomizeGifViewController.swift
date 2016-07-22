@@ -97,7 +97,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.watermarkButton.setTitle("REMOVE WATERMARK", forState: .Normal)
         self.watermarkButton.titleLabel?.font = UIFont.PDFont(withSize: 14)
         self.watermarkButton.backgroundColor = UIColor.PictoPink()
-        self.watermarkButton.hidden = false //PicDiveProducts.hasPurchasedWatermark
+        self.watermarkButton.hidden = PicDiveProducts.hasPurchasedWatermark
         
         self.memeButton.addTarget(self, action: #selector(CustomizeGifViewController.beginMeming), forControlEvents: .TouchUpInside)
         self.memeButton.setTitle("ADD MEME TEXT", forState: .Normal)

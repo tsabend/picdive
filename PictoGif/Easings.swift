@@ -15,7 +15,7 @@ protocol EasingType {
 
 /// The easing type for setting the duration of images within a gif.
 enum TimingEasing: EasingType {
-    case Linear, FinalFrame, Reverse, ReverseFinalFrame
+    case Linear, FinalFrame, Reverse, ReverseFinalFrame, ExtraFinalFrame, InOut, ReverseFirstFrame
     var text: String {
         switch self {
         case .Linear:
@@ -25,7 +25,13 @@ enum TimingEasing: EasingType {
         case .Reverse:
             return "Reverse"
         case .ReverseFinalFrame:
-            return "Reverse Freeze"
+            return "Reverse and Freeze"
+        case .ExtraFinalFrame:
+            return "Extra Long Freeze"
+        case .InOut:
+            return "In and Out"
+        case .ReverseFirstFrame:
+            return "Freeze and Reverse"
         }
     }
     
@@ -44,12 +50,14 @@ enum TimingEasing: EasingType {
             return "final_frame_reverse"
         case .Reverse:
             return "linear_reverse"
+        default:
+            return "linear" // FIXME: Add new assets for new easings
         }
     }
     
     var reversed: Bool {
         switch self {
-        case .Reverse, .ReverseFinalFrame:
+        case .Reverse, .ReverseFinalFrame, .ReverseFirstFrame:
             return true
         default:
             return false
@@ -60,14 +68,26 @@ enum TimingEasing: EasingType {
         switch self {
         case .Linear, .Reverse:
             return (0..<count).map {_ in duration/count.d}
+        case .InOut:
+            return (0..<count * 2).map {_ in duration/count.d}
         case .FinalFrame, .ReverseFinalFrame:
             let finalFrameTax = 0.2
-            let normalFrameDuration = duration/count.d * (1.0 - finalFrameTax)
-            let finalFrameDuration = duration/count.d + ((duration/count.d) * finalFrameTax * (count.d - 1.0))
-            var norms = (0..<count - 1).map { _ in normalFrameDuration }
-            norms.append(finalFrameDuration)
-            return norms
+            return self.timingForFinalFrame(withTax: finalFrameTax, count: count, duration: duration)
+        case .ReverseFirstFrame:
+            let finalFrameTax = 0.2
+            return self.timingForFinalFrame(withTax: finalFrameTax, count: count, duration: duration).reverse()
+        case .ExtraFinalFrame:
+            let finalFrameTax = 0.5
+            return self.timingForFinalFrame(withTax: finalFrameTax, count: count, duration: duration)
         }
+    }
+    
+    private func timingForFinalFrame(withTax finalFrameTax: Double, count: Int, duration: Double) -> [Double] {
+        let normalFrameDuration = duration/count.d * (1.0 - finalFrameTax)
+        let finalFrameDuration = duration/count.d + ((duration/count.d) * finalFrameTax * (count.d - 1.0))
+        var norms = (0..<count - 1).map { _ in normalFrameDuration }
+        norms.append(finalFrameDuration)
+        return norms
     }
     
 }

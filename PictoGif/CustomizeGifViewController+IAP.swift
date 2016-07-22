@@ -31,6 +31,7 @@ extension CustomizeGifViewController {
     func removeWatermark() {
         self.setGif()
         self.watermarkButton.hidden = true
+        self.view.setNeedsLayout()
     }
     
     func reportFailure(notification: NSNotification) {

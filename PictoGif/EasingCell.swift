@@ -16,6 +16,7 @@ class EasingCell: UICollectionViewCell {
     var text : String? {
         didSet {
             self.label.text = text?.uppercaseString
+            self.setNeedsLayout()
         }
     }
     
@@ -34,6 +35,7 @@ class EasingCell: UICollectionViewCell {
         super.init(frame: frame)
         self.label.textColor = UIColor.whiteColor()
         self.label.font = UIFont.PDFont(withSize: 14)
+        self.label.textAlignment = .Center
         self.container.layer.cornerRadius = 4
         self.imageView.layer.cornerRadius = 4
         self.container.backgroundColor = UIColor.PDGray()
@@ -47,8 +49,6 @@ class EasingCell: UICollectionViewCell {
     
     override var selected: Bool {
         didSet {
-//            self.label.textColor = self.selected ? UIColor.PDBlue() : UIColor.whiteColor()
-//            self.container.backgroundColor = selected ? UIColor.PDDarkGray().colorWithAlphaComponent(0.66) : UIColor.PDGray()
             self.imageView.tintColor = selected ? UIColor.PictoPink() : UIColor.whiteColor()
         }
     }
@@ -60,6 +60,7 @@ class EasingCell: UICollectionViewCell {
         self.imageView.size = CGSize(100, 40)
         self.imageView.moveToCenterOfSuperview()
         
+        self.label.width = self.container.width
         self.label.sizeToFit()
         self.label.moveBelow(siblingView: self.container, margin: 8, alignment: .Center)
     }

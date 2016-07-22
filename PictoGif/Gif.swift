@@ -17,7 +17,6 @@ class Gif {
     let totalTime: Double
     let easing: TimingEasing
     private let times: [Double]
-    private let reversed: Bool
     private let memeInfo: MemeInfo?
     
     var lastImage: UIImage {
@@ -30,7 +29,6 @@ class Gif {
         self.easing = easing
         self.totalTime = totalTime
         self.times = easing.times(framesCount: images.count, totalTime: totalTime)
-        self.reversed = easing.reversed
     }
     
     /// The data representation of the gif
@@ -62,7 +60,15 @@ class Gif {
 
     /// The images ordered based on the easing and watermarked if needed
     private lazy var processedImages: [UIImage] = {
-        var images = self.reversed ? self.images.reverse() : self.images
+        var images: [UIImage]
+        switch self.easing {
+        case .Reverse, .ReverseFinalFrame, .ReverseFirstFrame:
+            images = self.images.reverse()
+        case .InOut:
+            images = self.images + self.images.reverse()
+        default:
+            images = self.images
+        }
         
         if let memeInfo = self.memeInfo {
             if memeInfo.overAll {
@@ -113,7 +119,7 @@ class Gif {
         return [
             "number of frames" : self.images.count,
             "total time" : self.times.reduce(0, combine: +),
-            "reversed" : self.reversed ? "yes" : "no"
+            "reversed" : self.easing.reversed ? "yes" : "no"
         ]
     }()
 }

@@ -29,7 +29,7 @@ class TimingViewController: UIViewController, ASValueTrackingSliderDataSource {
         self.slider.setupImages(min: UIImage(named: "time_turtle"), max: UIImage(named: "time_fast"))
         self.slider.dataSource = self
         
-        self.easingsViewController.easings = [TimingEasing.FinalFrame,  TimingEasing.Linear, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame]
+        self.easingsViewController.easings = [TimingEasing.FinalFrame,  TimingEasing.Linear, TimingEasing.Reverse, TimingEasing.ReverseFinalFrame, TimingEasing.InOut, TimingEasing.ExtraFinalFrame, TimingEasing.ReverseFirstFrame]
         
         self.addChildViewController(self.easingsViewController)
         self.view.addSubview(self.easingsViewController.view)
