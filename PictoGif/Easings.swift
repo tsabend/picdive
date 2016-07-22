@@ -25,13 +25,13 @@ enum TimingEasing: EasingType {
         case .Reverse:
             return "Reverse"
         case .ReverseFinalFrame:
-            return "Reverse Freeze"
+            return "Reverse and Freeze"
         case .ExtraFinalFrame:
-            return "Extra Freeze"
+            return "Extra Long Freeze"
         case .InOut:
             return "In and Out"
         case .ReverseFirstFrame:
-            return "Reverse Freeze First"
+            return "Freeze and Reverse"
         }
     }
     
