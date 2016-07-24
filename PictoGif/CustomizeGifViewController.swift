@@ -33,7 +33,7 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     func setGif() {
         guard let gif = self.gif else { return }
         self.flash.flash()
-        self.gif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue), memeInfo: self.memeInfo)
+        self.gif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue), memeInfo: self.memeInfo, watermarkedImages: gif.watermarkedImages)
     }
 
     private let gifView = UIImageView()

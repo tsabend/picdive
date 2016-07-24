@@ -14,6 +14,7 @@ import MobileCoreServices
 class Gif {
     /// The images that make up the gif in the original order
     let images: [UIImage]
+    var watermarkedImages: [UIImage]?
     let totalTime: Double
     let easing: TimingEasing
     private let times: [Double]
@@ -23,11 +24,12 @@ class Gif {
         return self.processedImages.last!
     }
     
-    init(images: [UIImage], easing: TimingEasing, totalTime: Double, memeInfo: MemeInfo? = nil) {
+    init(images: [UIImage], easing: TimingEasing, totalTime: Double, memeInfo: MemeInfo? = nil, watermarkedImages: [UIImage]? = nil) {
         self.memeInfo = memeInfo
         self.images = images
         self.easing = easing
         self.totalTime = totalTime
+        self.watermarkedImages = watermarkedImages
         self.times = easing.times(framesCount: images.count, totalTime: totalTime)
     }
     
@@ -36,13 +38,14 @@ class Gif {
         let cgImages = self.processedImages.map { $0.CGImage! }
         
         guard let destination = CGImageDestinationCreateWithURL(self.url, kUTTypeGIF, cgImages.count, nil) else { return nil }
+        let fileProps = [kCGImagePropertyGIFDictionary.s: [kCGImagePropertyGIFLoopCount.s: 0]]
+        CGImageDestinationSetProperties(destination, fileProps)
+        
         let props = zip(cgImages, self.times)
         props.forEach { (image: CGImage, delay: Double) -> () in
             let timingProperties = [kCGImagePropertyGIFDictionary.s: [kCGImagePropertyGIFDelayTime.s: delay]]
             CGImageDestinationAddImage(destination, image, timingProperties)
         }
-        let fileProps = [kCGImagePropertyGIFDictionary.s: [kCGImagePropertyGIFLoopCount.s: 0]]
-        CGImageDestinationSetProperties(destination, fileProps)
         guard CGImageDestinationFinalize(destination) else { return nil }
         return NSData(contentsOfURL: self.url)
     }()
@@ -57,17 +60,28 @@ class Gif {
         let documentsDirectory = NSTemporaryDirectory()
         return NSURL(fileURLWithPath: documentsDirectory).URLByAppendingPathComponent("temp.gif")
     }()
+    
+    lazy var imagesWithWatermarkIfNecessary: [UIImage] = {
+        if PicDiveProducts.hasPurchasedWatermark { return self.images }
+        
+        if let images = self.watermarkedImages {
+            return images
+        }
+        let images = self.images.map { $0.watermark() }
+        self.watermarkedImages = images
+        return images
+    }()
 
     /// The images ordered based on the easing and watermarked if needed
     private lazy var processedImages: [UIImage] = {
-        var images: [UIImage]
+        var images = self.imagesWithWatermarkIfNecessary
         switch self.easing {
         case .Reverse, .ReverseFinalFrame, .ReverseFirstFrame:
-            images = self.images.reverse()
+            images = images.reverse()
         case .InOut:
-            images = self.images + self.images.reverse()
+            images = images + images.reverse()
         default:
-            images = self.images
+            break
         }
         
         if let memeInfo = self.memeInfo {
@@ -78,7 +92,6 @@ class Gif {
                 images = images.dropLast() + [memed]
             }
         }
-        images = PicDiveProducts.hasPurchasedWatermark ? images : images.map { $0.watermark() }
         return images
     }()
     
