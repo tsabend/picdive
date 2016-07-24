@@ -23,3 +23,12 @@ public func immediately(exec: ()->Void) {
     dispatch_async(dispatch_get_main_queue(), exec)
 }
 
+public func background(exec: () -> Void, then: () -> Void) {
+    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+    dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        exec()
+        dispatch_async(dispatch_get_main_queue()) {
+            then()
+        }
+    }
+}

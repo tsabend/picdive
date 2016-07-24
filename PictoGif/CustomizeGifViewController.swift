@@ -32,15 +32,25 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
     
     func setGif() {
         guard let gif = self.gif else { return }
-        self.flash.flash()
-        self.gif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue), memeInfo: self.memeInfo, watermarkedImages: gif.watermarkedImages)
+        immediately {
+            self.flash.startAnimating()
+            self.gifView.image = gif.lastImage
+        }
+        var newGif: Gif!
+
+        newGif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue), memeInfo: self.memeInfo, watermarkedImages: gif.watermarkedImages)
+    
+        immediately {
+            self.gif = newGif
+            self.flash.stopAnimating()
+        }
     }
 
     private let gifView = UIImageView()
     let timingViewController = TimingViewController()
 
     let watermarkButton = UIButton()
-    private let flash = UIView()
+    private let flash = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
     private var memeButton = UIButton()
     private let topMemeTextField = UITextView()
     private let bottomMemeTextField = UITextView()
@@ -56,9 +66,8 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         self.setupNavigationBar()
         
         self.timingViewController.setGif = self.setGif
-             
-        self.flash.backgroundColor = UIColor.whiteColor()
-        self.flash.alpha = 0
+        
+        self.flash.hidesWhenStopped = true
         
         self.topMemeTextField.typingAttributes = self.memeTextAttributes
         self.topMemeTextField.font = UIFont.MemeFont(withSize: 54)
@@ -246,4 +255,3 @@ extension CustomizeGifViewController : MemeAccessoryViewDelegate {
         }
     }
 }
-

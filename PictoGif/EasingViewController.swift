@@ -48,7 +48,16 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.onClick?(self.easings[safe: indexPath.row])
+        self.collectionView.userInteractionEnabled = false
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! EasingCell
+        cell.startAnimating()
+        background({
+            self.onClick?(self.easings[safe: indexPath.row])
+        }) {
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! EasingCell
+            cell.stopAnimating()
+            self.collectionView.userInteractionEnabled = true
+        }
     }
     
     

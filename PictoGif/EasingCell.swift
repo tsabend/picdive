@@ -30,6 +30,7 @@ class EasingCell: UICollectionViewCell {
     
     private let imageView = UIImageView()
     private let label = UILabel()
+    private let spinner = UIActivityIndicatorView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,15 +43,32 @@ class EasingCell: UICollectionViewCell {
         self.container.clipsToBounds = true
         self.imageView.clipsToBounds = true
         self.imageView.tintColor = UIColor.whiteColor()
+        
+        self.spinner.hidesWhenStopped = true
+        
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.container)
         self.container.addSubview(self.imageView)
+        self.container.addSubview(self.spinner)
     }
     
     override var selected: Bool {
         didSet {
             self.imageView.tintColor = selected ? UIColor.PictoPink() : UIColor.whiteColor()
+            if !selected {
+                self.stopAnimating()
+            }
         }
+    }
+    
+    func startAnimating() {
+        self.imageView.hidden = true
+        self.spinner.startAnimating()
+    }
+    
+    func stopAnimating() {
+        self.imageView.hidden = false
+        self.spinner.stopAnimating()
     }
     
     override func layoutSubviews() {
@@ -59,6 +77,7 @@ class EasingCell: UICollectionViewCell {
         self.container.size = CGSize(self.width, self.height - 32)
         self.imageView.size = CGSize(100, 40)
         self.imageView.moveToCenterOfSuperview()
+        self.spinner.moveToCenterOfSuperview()
         
         self.label.width = self.container.width
         self.label.sizeToFit()
