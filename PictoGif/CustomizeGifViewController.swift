@@ -30,19 +30,23 @@ class CustomizeGifViewController: UIViewController, FlowViewController, ImagePre
         set { self.imageViewDataSource = newValue }
     }
     
-    func setGif() {
+    /// Sets the gif, but creates the new one on a background thread to allow UI changes to happen immediately
+    func setGif(withCompletion completion: (Void -> Void)? = nil) {
         guard let gif = self.gif else { return }
-        immediately {
-            self.flash.startAnimating()
-            self.gifView.image = gif.lastImage
+        var gifIsSet = false
+        after(seconds: 0.33) { 
+            if !gifIsSet {
+                self.flash.startAnimating()
+            }
         }
         var newGif: Gif!
-
-        newGif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue), memeInfo: self.memeInfo, watermarkedImages: gif.watermarkedImages)
-    
-        immediately {
-            self.gif = newGif
-            self.flash.stopAnimating()
+        background({
+            newGif = Gif(images: gif.images, easing: self.timingViewController.easing, totalTime: Double(self.timingViewController.translatedSliderValue), memeInfo: self.memeInfo, watermarkedImages: gif.watermarkedImages)
+            gifIsSet = true
+            }) {
+                self.gif = newGif
+                self.flash.stopAnimating()
+                completion?()
         }
     }
 

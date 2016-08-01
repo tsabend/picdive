@@ -12,7 +12,7 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     var collectionView: UICollectionView!
     var easings: [EasingType] = []
-    var onClick: (EasingType? -> Void)?
+    var onClick: ((EasingType?, (Void -> Void)?) -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,9 +51,8 @@ class EasingViewController: UIViewController, UICollectionViewDelegateFlowLayout
         self.collectionView.userInteractionEnabled = false
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! EasingCell
         cell.startAnimating()
-        background({
-            self.onClick?(self.easings[safe: indexPath.row])
-        }) {
+        
+        self.onClick?(self.easings[safe: indexPath.row]) {
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! EasingCell
             cell.stopAnimating()
             self.collectionView.userInteractionEnabled = true

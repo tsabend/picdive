@@ -14,7 +14,7 @@ class TimingViewController: UIViewController, ASValueTrackingSliderDataSource {
     let slider = Slider()
     var easing = TimingEasing.FinalFrame
 
-    var setGif: (Void -> Void)?
+    var setGif: ((Void -> Void)? -> Void)?
     
     private let sliderMax: Float = 10.0
     private let sliderMin: Float = 0.5
@@ -35,11 +35,11 @@ class TimingViewController: UIViewController, ASValueTrackingSliderDataSource {
         self.view.addSubview(self.easingsViewController.view)
         self.easingsViewController.didMoveToParentViewController(self)
         
-        self.easingsViewController.onClick = { [weak self] easing in
+        self.easingsViewController.onClick = { [weak self] easing, completion in
             if let easing = easing as? TimingEasing {
                 self?.easing = easing
             }
-            self?.setGif?()
+            self?.setGif?(completion)
         }
         
         self.view.backgroundColor = UIColor.PDDarkGray()
@@ -75,7 +75,7 @@ class TimingViewController: UIViewController, ASValueTrackingSliderDataSource {
 // MARK: - Slider
 extension TimingViewController {
     func sliderDidSlide(slider: UISlider) {
-        self.setGif?()
+        self.setGif?(nil)
     }
     
     func slider(slider: ASValueTrackingSlider!, stringForValue value: Float) -> String! {
