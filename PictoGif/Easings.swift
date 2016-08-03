@@ -43,15 +43,19 @@ enum TimingEasing: EasingType {
     private var imageName: String {
         switch self {
         case .Linear:
-            return "linear"
-        case .FinalFrame:
-            return "final_frame"
-        case .ReverseFinalFrame:
-            return "final_frame_reverse"
+            return "easing-linear"
         case .Reverse:
-            return "linear_reverse"
-        default:
-            return "linear" // FIXME: Add new assets for new easings
+            return "easing-linear-reverse"
+        case .FinalFrame:
+            return "easing-final-frame"
+        case .ReverseFinalFrame:
+            return "easing-final-first"
+        case .ExtraFinalFrame:
+            return "easing-final-extra"
+        case .ReverseFirstFrame:
+            return "easing-final-frame-reverse"
+        case .InOut:
+            return "easing-in-out"
         }
     }
     

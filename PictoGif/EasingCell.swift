@@ -71,6 +71,11 @@ class EasingCell: UICollectionViewCell {
         self.spinner.stopAnimating()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.image = nil
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.container.origin = CGPoint.zero
