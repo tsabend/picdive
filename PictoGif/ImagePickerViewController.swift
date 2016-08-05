@@ -148,43 +148,61 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
     
     var isCollapsed: Bool = false
     var beginningY: CGFloat?
+    var panBeganInCollection: Bool = false
     /// Manages transitions of the view between collapsed and expanded states
     func viewWasPanned(pan: UIPanGestureRecognizer) {
         let currentPoint = pan.locationInView(self.view)
-        let hitInCropper = self.view.hitTest(currentPoint, withEvent: nil)?.closest(ImageCropper.self) != nil
+        let hitInsideCollection = self.view.hitTest(currentPoint, withEvent: nil)?.closest(UICollectionView.self) != nil
         let sign: CGFloat = self.isCollapsed ? -1 : 1
         
         switch pan.state {
         case .Began:
-            // Collapsed must begin in cropper and vice-versa
-            guard hitInCropper == self.isCollapsed else { return }
-            print("hitInCropper \(hitInCropper)")
+            // Expanded must begin in the collection
+            if !self.isCollapsed && !hitInsideCollection { return }
+            self.panBeganInCollection = hitInsideCollection
             self.beginningY = currentPoint.y
         case .Changed:
-            guard self.beginningY != nil else { return }
             // The gesture had a valid beginning
+            guard self.beginningY != nil else { return }
             let delta = pan.translationInView(self.view).y
-            print("delta: \(delta)")
-            if hitInCropper || self.isCollapsed || delta > 0 {
-                print("I am moving: inCropped=\(hitInCropper) collapsed=\(self.isCollapsed) delta>0=\(delta > 0)")
-            // Bail if you're dragging the cropper too far down
+            let scrollingDown = delta > 0
+            
+            // You are currently scrolling up outside the collectionView
+            let shouldScrollUp = !hitInsideCollection && !scrollingDown
+            // In the expanded state, you are scrolling down
+            let scrollDownExpanded = !self.isCollapsed && scrollingDown
+            // In the collapsed state, you started outside the collection and are now scrolling down
+            let shouldScrollDownOutsideCollection = self.isCollapsed && !self.panBeganInCollection && scrollingDown
+            // In the collapsed state, you are scrolling in the collectionView and the collectionView is at its top.
+            let shouldScrollDownInsideCollection = self.isCollapsed &&
+                hitInsideCollection && scrollingDown && self.collectionView.contentOffset.y <= 0
+            
+            
+            if shouldScrollUp || shouldScrollDownInsideCollection || shouldScrollDownOutsideCollection || scrollDownExpanded {
+                // Bail if you're dragging the cropper too far
                 if self.imageCropper.y + delta > self.cropperYOrigin { return }
-                // Darken/Lighten the image
-                self.imageCropper.darkness -= delta/400
                 // Move the views up
                 let animatingViews = [self.imageCropper, self.noImagePlaceholder, self.collectionView]
                 animatingViews.forEach({$0.y += delta})
+                self.imageCropper.darkness -= delta/400
             }
             
             pan.setTranslation(CGPoint.zero, inView: self.view)
             
         case .Ended, .Cancelled, .Failed:
+            // You are just scrolling through your photos
+            let collectionScrolling = (self.isCollapsed && self.panBeganInCollection && self.collectionView.contentOffset.y > 0) || self.imageCropper.y == self.cropperYOrigin
+            
             // Toggle collapsed
-            let totalDelta = ((self.beginningY ?? currentPoint.y) - currentPoint.y)
-            let threshhold = 0.3 * UIScreen.mainScreen().bounds.width
-            if totalDelta * sign > (threshhold) {
-                self.isCollapsed = !self.isCollapsed
+            if !collectionScrolling {
+                
+                let totalDelta = ((self.beginningY ?? currentPoint.y) - currentPoint.y)
+                let threshhold = 0.3 * UIScreen.mainScreen().bounds.width
+                if totalDelta * sign > (threshhold) {
+                    self.isCollapsed = !self.isCollapsed
+                }
             }
+            
             // Animate the view
             UIView.animateWithDuration(0.25) {
                 self.view.setNeedsLayout()
@@ -192,6 +210,7 @@ class ImagePickerViewController: UIViewController, UINavigationControllerDelegat
             }
             // Clear the state
             self.beginningY = nil
+            self.panBeganInCollection = false
         default:
             break
         }
