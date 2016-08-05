@@ -132,7 +132,8 @@ class Gif {
         return [
             "number of frames" : self.images.count,
             "total time" : self.times.reduce(0, combine: +),
-            "reversed" : self.easing.reversed ? "yes" : "no"
+            "reversed" : self.easing.reversed ? "yes" : "no",
+            "easing" : self.easing.text
         ]
     }()
 }
